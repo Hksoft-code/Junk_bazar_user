@@ -25,28 +25,29 @@ const RequestPickup = () => {
 
     const handleConfirm = async () => {
         try {
-            // const response = await client.post(
-            //     "/pickup-request/create",
-            //     {
-            //         fullName: formData.fullName,
-            //         phoneNumber: formData.phoneNumber,
-            //         pincode: formData.pincode,
-            //         address: formData.address,
-            //         landmark: formData.landmark,
-            //         city: formData.city,
-            //         scrapItem: formData.scrapItem,
-            //         price: formData.price,
-            //         quantity: formData.quantity,
-            //     },
+            const response = await client.post(
+                "/addPickUpAddress",
+                {
+                    fullName: formData.fullName,
+                    phoneNumber: formData.phoneNumber,
+                    pincode: formData.pincode,
+                    address: formData.address,
+                    landmark: formData.landmark,
+                    city: formData.city,
+                    scrapItem: formData.scrapItem,
+                    price: formData.price,
+                    quantity: formData.quantity,
+                },
 
-            //     {
-            //         headers: {
-            //             "Access-Control-Allow-Origin": "*",
-            //             Authorization: `Bearer ${token}`,
-            //         },
-            //     }
-            // );
-            // console.log(response, ">>>");
+                {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        Authorization: `Bearer ${token}`,
+                        'platform':'web'
+                    },
+                }
+            );
+            console.log(response, ">>>");
         } catch (error) {
             console.error(error);
         }

@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import client from "../../api-config/clients";
 import { useNavigate } from "react-router-dom";
 
-const Customer = () => {
+const SignIn = () => {
 
     const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ const Customer = () => {
         };
 
         await axios
-            .post(`${baseUrl}/register`, data, { headers: headers })
+            .post(`${baseUrl}/login`, data, { headers: headers })
             .then((res) => {
                 console.log(res);
                 // Swal.fire({
@@ -64,14 +64,14 @@ const Customer = () => {
         <div class="bg-white py-24 sm:py-32">
             <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
                 <div class="w-full text-center">
-                    {/* <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
                     <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
                     <img class="h-full w-full rounded-full" src={customer} alt=" " />
                 </div>
                 <div class="w-full">
                     <div className="shadow-md p-8">
-                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
+                        {/* <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
+                        <p class="mt-6 text-lg leading-8 text-gray-600">Sign into your account.</p>
                         <p class="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
                         <p class="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
@@ -107,7 +107,7 @@ const Customer = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{` `}</span>
-                            <span onClick={() => navigate("login-user")} className="[text-decoration:underline]">{`Log in  `}</span>
+                            <span onClick={() => navigate("Sign-Up")} className="[text-decoration:underline]">{`Sign Up  `}</span>
                         </div>
 
                     </div>
@@ -120,4 +120,4 @@ const Customer = () => {
     );
 };
 
-export default Customer;
+export default SignIn;

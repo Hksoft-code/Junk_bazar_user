@@ -6,30 +6,26 @@ import LabeledInput from "../../Components/auth/LabeledInput";
 import Button from '../../Components/auth/Button'
 import Swal from "sweetalert2";
 import client from "../../api-config/clients";
-import { useNavigate } from "react-router-dom";
 
-const Customer = () => {
-
-    const navigate = useNavigate()
-
+const OtpVerify = () => {
     const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
     const [checked, setChecked] = React.useState(true);
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const [otp, setOtp] = useState("");
 
-    
-    const SignUp = async () => {
+
+    const verifyOtp = async () => {
 
         const data = {
-            "dialCode":"+91",
-            "phoneNumber":phoneNumber
+            "otp": otp,
+            "phoneNumber": "7488325096"
         }
 
         const headers = {
-            "platform": "web",   
+            "platform": "web",
         };
 
         await axios
-            .post(`${baseUrl}/register`, data, { headers: headers })
+            .post(`${baseUrl}/otpVerify`, data, { headers: headers })
             .then((res) => {
                 console.log(res);
                 // Swal.fire({
@@ -41,23 +37,16 @@ const Customer = () => {
                 // });
             })
 
-            .catch(error => { 
-                if (error.response) { 
-                    // If server responded with a status code for a request 
-                    console.log("Data", error.response.data); 
-                    console.log("Status", error.response.status); 
-                    console.log("Headers", error.response.headers); 
-                } else if (error.request) { 
-                    // Client made a request but response is not received 
-                    console.log("<<<<<<<Response Not Received>>>>>>>>"); 
-                    console.log(error.request); 
-                } else { 
-                    // Other case 
-                    console.log("Error", error.message); 
-                } 
-                // Error handling here 
-                
-            }); 
+            .catch((error) => { // error is handled in catch block
+                if (error.response) { // status code out of the range of 2xx
+                  console.log("Data :" , error.response.data);
+                  console.log("Status :" + error.response.status);
+                } else if (error.request) { // The request was made but no response was received
+                  console.log(error.request);
+                } else {// Error on setting up the request
+                  console.log('Error', error.message);
+                }
+              });
     };
 
     return (
@@ -72,16 +61,23 @@ const Customer = () => {
                     <div className="shadow-md p-8">
                         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
                         <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
+                        <p class="mt-6 text-lg leading-8 text-gray-600">Enter OTP</p>
 
-                        <p class="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
+                        <p class="mt-6 text-sm leading-8 text-gray-600">Enter OTP</p>
                         <LabeledInput
-                         handleChange={(e) => {
-                            setPhoneNumber(e.target.value);
-                          }}
+                            handleChange={(e) => {
+                                setOtp(e.target.value);
+                            }}
                         />
 
-
+                        <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+                            <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
+                            We’ve sent a one Time password (OTP to +9134543256783). 
+                            Please enter it to complete verification.
+                             Didn’t receive code? RESEND CODE
+                               
+                            </p>
+                        </div>
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                             <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                 <Input
@@ -98,7 +94,7 @@ const Customer = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                           handleClick={SignUp}
+                            handleClick={verifyOtp}
 
 
                         />
@@ -107,7 +103,7 @@ const Customer = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{` `}</span>
-                            <span onClick={() => navigate("login-user")} className="[text-decoration:underline]">{`Log in  `}</span>
+                            <span className="[text-decoration:underline]">{`Log in  `}</span>
                         </div>
 
                     </div>
@@ -120,4 +116,4 @@ const Customer = () => {
     );
 };
 
-export default Customer;
+export default OtpVerify;
