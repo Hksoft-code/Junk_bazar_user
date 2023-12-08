@@ -4,11 +4,11 @@ import customer from '../../assets/PNG/customer.png'
 import Input from "../../Components/auth/Input";
 import LabeledInput from "../../Components/auth/LabeledInput";
 import Button from '../../Components/auth/Button'
-import Swal from "sweetalert2";
-import client from "../../api-config/clients";
+// import Swal from "sweetalert2";
+import {serverUrl} from "../../api-config/config";
 
 const OtpVerify = () => {
-    const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
+    // const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
     const [checked, setChecked] = React.useState(true);
     const [otp, setOtp] = useState("");
 
@@ -25,7 +25,7 @@ const OtpVerify = () => {
         };
 
         await axios
-            .post(`${baseUrl}/otpVerify`, data, { headers: headers })
+            .post(`${serverUrl}/otpVerify`, data, { headers: headers })
             .then((res) => {
                 console.log(res);
                 // Swal.fire({

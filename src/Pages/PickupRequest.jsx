@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import phone_guy from "../assets/PNG/about-img.png";
-// import client from "../../api/client";
-import Nav from "../Common/Navbar/Nav";
-import Footer from "../Common/Footer/Footer";
+import {serverUrl} from "../api-config/config.js";
+// import Nav from "../Common/Navbar/Nav";
+// import Footer from "../Common/Footer/Footer";
+import axios from "axios";
 
 const RequestPickup = () => {
     const [formData, setFormData] = useState({
@@ -24,20 +25,20 @@ const RequestPickup = () => {
     };
 
     const handleConfirm = async () => {
+        const dataPayload = {
+            fullName: formData.fullName,
+            phoneNumber: formData.phoneNumber,
+            pincode: formData.pincode,
+            address: formData.address,
+            landmark: formData.landmark,
+            city: formData.city,
+            scrapItem: formData.scrapItem,
+            price: formData.price,
+            quantity: formData.quantity,
+        }
         try {
-            const response = await client.post(
-                "/addPickUpAddress",
-                {
-                    fullName: formData.fullName,
-                    phoneNumber: formData.phoneNumber,
-                    pincode: formData.pincode,
-                    address: formData.address,
-                    landmark: formData.landmark,
-                    city: formData.city,
-                    scrapItem: formData.scrapItem,
-                    price: formData.price,
-                    quantity: formData.quantity,
-                },
+            const response = await axios.post(`${serverUrl}/addPickUpAddress`,
+                dataPayload,
 
                 {
                     headers: {

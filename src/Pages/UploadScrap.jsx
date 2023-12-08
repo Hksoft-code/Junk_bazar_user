@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import phone_guy from "../assets/PNG/about-img.png";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {serverUrl} from "../api-config/config";
+
 const UploadScrap = () => {
-  const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [preview, setPreview] = useState("");
@@ -48,7 +49,7 @@ const UploadScrap = () => {
     };
 
     await axios
-      .post(`${baseUrl}/addScrap`, formData, { headers: headers })
+      .post(`${serverUrl}/addScrap`, formData, { headers: headers })
       .then((res) => {
         console.log(res);
         Swal.fire({

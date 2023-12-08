@@ -5,14 +5,13 @@ import Input from "../../Components/auth/Input";
 import LabeledInput from "../../Components/auth/LabeledInput";
 import Button from '../../Components/auth/Button'
 import Swal from "sweetalert2";
-import client from "../../api-config/clients";
+import {serverUrl} from "../../api-config/config";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
 
     const navigate = useNavigate()
 
-    const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
     const [checked, setChecked] = React.useState(true);
     const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -27,12 +26,13 @@ const SignIn = () => {
         const headers = {
             "platform": "web",   
         };
-
+        
         await axios
-            .post(`${baseUrl}/login`, data, { headers: headers })
-            .then((res) => {
-                console.log(res);
-                // Swal.fire({
+        .post(`${serverUrl}/login`, data, { headers: headers })
+        .then((res) => {
+            console.log('api called',res);
+            console.log('api called',res.data);
+            // Swal.fire({
                 //     position: "center",
                 //     icon: "success",
                 //     title: "Product Uploaded successfully ",
@@ -40,13 +40,23 @@ const SignIn = () => {
                 //     timer: 2500,
                 // });
             })
-
+            
             .catch(error => { 
                 if (error.response) { 
                     // If server responded with a status code for a request 
-                    console.log("Data", error.response.data); 
-                    console.log("Status", error.response.status); 
-                    console.log("Headers", error.response.headers); 
+                    console.log("Data eretre", error.response.data); 
+                    // console.log("Data eretre", error.response.data.error.statusCode);
+                    // console.log("Data eretre", error.response.data.error.errorCode);
+                    // console.log("Data", error.response.data.error._message); 
+                    // console.log("Status", error.response.status); 
+                    // console.log("Headers", error.response.headers); 
+                    Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: error.response.data.error._message,
+                    showConfirmButton: false,
+                    timer: 2500,
+                });
                 } else if (error.request) { 
                     // Client made a request but response is not received 
                     console.log("<<<<<<<Response Not Received>>>>>>>>"); 
@@ -61,20 +71,20 @@ const SignIn = () => {
     };
 
     return (
-        <div class="bg-white py-24 sm:py-32">
-            <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
-                <div class="w-full text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                    <img class="h-full w-full rounded-full" src={customer} alt=" " />
+        <div className="bg-white py-24 sm:py-32">
+            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
+                <div className="w-full text-center">
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
+                    <img className="h-full w-full rounded-full" src={customer} alt=" " />
                 </div>
-                <div class="w-full">
+                <div className="w-full">
                     <div className="shadow-md p-8">
-                        {/* <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Sign into your account.</p>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
+                        {/* <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
+                        <p className="mt-6 text-lg leading-8 text-gray-600">Sign into your account.</p>
+                        <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
-                        <p class="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
+                        <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
                         <LabeledInput
                          handleChange={(e) => {
                             setPhoneNumber(e.target.value);
