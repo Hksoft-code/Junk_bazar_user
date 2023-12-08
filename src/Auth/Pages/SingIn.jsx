@@ -30,26 +30,20 @@ const SignIn = () => {
         await axios
         .post(`${serverUrl}/login`, data, { headers: headers })
         .then((res) => {
-            console.log('api called',res);
-            console.log('api called',res.data);
-            // Swal.fire({
-                //     position: "center",
-                //     icon: "success",
-                //     title: "Product Uploaded successfully ",
-                //     showConfirmButton: false,
-                //     timer: 2500,
-                // });
+            // console.log('api called',res);
+            // console.log('api called',res.data);
+            Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 2500,
+                });
             })
             
             .catch(error => { 
                 if (error.response) { 
-                    // If server responded with a status code for a request 
-                    console.log("Data eretre", error.response.data); 
-                    // console.log("Data eretre", error.response.data.error.statusCode);
-                    // console.log("Data eretre", error.response.data.error.errorCode);
-                    // console.log("Data", error.response.data.error._message); 
-                    // console.log("Status", error.response.status); 
-                    // console.log("Headers", error.response.headers); 
+                    // If server responded with a status code for a request  
                     Swal.fire({
                     position: "center",
                     icon: "error",
