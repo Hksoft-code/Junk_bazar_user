@@ -5,58 +5,80 @@ import Input from "../../Components/auth/Input";
 import LabeledInput from "../../Components/auth/LabeledInput";
 import Button from '../../Components/auth/Button'
 // import Swal from "sweetalert2";
-import {serverUrl} from "../../api-config/config";
+import { serverUrl } from "../../api-config/config";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const Customer = () => {
+const SignUp = () => {
 
     const navigate = useNavigate()
-
+   
     const [checked, setChecked] = React.useState(true);
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    
-    const SignUp = async () => {
+
+    const Sign_Up = async () => {
 
         const data = {
-            "dialCode":"+91",
-            "phoneNumber":phoneNumber
+            "dialCode": "+91",
+            "phoneNumber": phoneNumber
         }
 
         const headers = {
-            "platform": "web",   
+            "platform": "web",
         };
 
         await axios
             .post(`${serverUrl}/register`, data, { headers: headers })
             .then((res) => {
+                const data = res.data;
+
+                if(data.statusCode == 200){
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: data.message,
+                        showConfirmButton: true,
+                        timer: 2500,
+                    });
+                    // return <Redirect to='/otp-verify' />
+                    
+                }
                 console.log(res);
-                // Swal.fire({
-                //     position: "center",
-                //     icon: "success",
-                //     title: "Product Uploaded successfully ",
-                //     showConfirmButton: false,
-                //     timer: 2500,
-                // });
+               
             })
 
-            .catch(error => { 
-                if (error.response) { 
+            .catch(error => {
+                if (error.response) {
                     // If server responded with a status code for a request 
-                    console.log("Data", error.response.data); 
-                    console.log("Status", error.response.status); 
-                    console.log("Headers", error.response.headers); 
-                } else if (error.request) { 
+                    console.log("Data", error.response.data);
+                    const data = error.response.data
+
+                    if (data.error.statusCode == 409) {
+                        const mess = data.error;
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: mess._message,
+                            showConfirmButton: false,
+                            timer: 2500,
+                        });
+                        
+                    }
+
+                    console.log("Status", error.response.status);
+                    console.log("Headers", error.response.headers);
+                } else if (error.request) {
                     // Client made a request but response is not received 
-                    console.log("<<<<<<<Response Not Received>>>>>>>>"); 
-                    console.log(error.request); 
-                } else { 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                } else {
                     // Other case 
-                    console.log("Error", error.message); 
-                } 
+                    console.log("Error", error.message);
+                }
                 // Error handling here 
-                
-            }); 
+
+            });
     };
 
     return (
@@ -75,9 +97,9 @@ const Customer = () => {
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
                         <LabeledInput
-                         handleChange={(e) => {
-                            setPhoneNumber(e.target.value);
-                          }}
+                            handleChange={(e) => {
+                                setPhoneNumber(e.target.value);
+                            }}
                         />
 
 
@@ -97,7 +119,7 @@ const Customer = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                           handleClick={SignUp}
+                            handleClick={Sign_Up}
 
 
                         />
@@ -106,7 +128,7 @@ const Customer = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{` `}</span>
-                            <span onClick={() => navigate("login-user")} className="[text-decoration:underline]">{`Log in  `}</span>
+                            <span onClick={() => navigate("sign-in")} className="[text-decoration:underline]">{`Log in  `}</span>
                         </div>
 
                     </div>
@@ -119,4 +141,4 @@ const Customer = () => {
     );
 };
 
-export default Customer;
+export default SignUp;

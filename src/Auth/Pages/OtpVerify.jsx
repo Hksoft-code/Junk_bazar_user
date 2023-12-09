@@ -5,7 +5,8 @@ import Input from "../../Components/auth/Input";
 import LabeledInput from "../../Components/auth/LabeledInput";
 import Button from '../../Components/auth/Button'
 // import Swal from "sweetalert2";
-import {serverUrl} from "../../api-config/config";
+import { serverUrl } from "../../api-config/config";
+import Swal from "sweetalert2";
 
 const OtpVerify = () => {
     // const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
@@ -28,25 +29,44 @@ const OtpVerify = () => {
             .post(`${serverUrl}/otpVerify`, data, { headers: headers })
             .then((res) => {
                 console.log(res);
-                // Swal.fire({
-                //     position: "center",
-                //     icon: "success",
-                //     title: "Product Uploaded successfully ",
-                //     showConfirmButton: false,
-                //     timer: 2500,
-                // });
+                const data = res.data;
+                if (data.statusCode == 200) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: data.message,
+                        showConfirmButton: false,
+                        timer: 2500,
+                    });
+                    const token = JSON.parse(data.data);
+                    console.log("token ",token)
+                    localStorage.setItem("token",token.token)
+                    console.log("token store ",localStorage.getItem("token"))
+                }
+
             })
 
             .catch((error) => { // error is handled in catch block
                 if (error.response) { // status code out of the range of 2xx
-                  console.log("Data :" , error.response.data);
-                  console.log("Status :" + error.response.status);
+                    console.log("Data :", error.response.data);
+                    const data = error.response.data;
+
+                    if(data.error.statusCode == 400){
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: data.error._message,
+                            showConfirmButton: false,
+                            timer: 2500,
+                        });
+                    }
+                    console.log("Status :" + error.response.status);
                 } else if (error.request) { // The request was made but no response was received
-                  console.log(error.request);
+                    console.log(error.request);
                 } else {// Error on setting up the request
-                  console.log('Error', error.message);
+                    console.log('Error', error.message);
                 }
-              });
+            });
     };
 
     return (
@@ -72,10 +92,10 @@ const OtpVerify = () => {
 
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                             <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
-                            We’ve sent a one Time password (OTP to +9134543256783). 
-                            Please enter it to complete verification.
-                             Didn’t receive code? RESEND CODE
-                               
+                                We’ve sent a one Time password (OTP to +9134543256783).
+                                Please enter it to complete verification.
+                                Didn’t receive code? RESEND CODE
+
                             </p>
                         </div>
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">

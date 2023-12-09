@@ -4,6 +4,7 @@ import {serverUrl} from "../api-config/config.js";
 // import Nav from "../Common/Navbar/Nav";
 // import Footer from "../Common/Footer/Footer";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const RequestPickup = () => {
     const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const RequestPickup = () => {
         quantity: 5,
     });
 
-    const token = localStorage.getItem("user_Token");
+    const token = localStorage.getItem("token");
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,22 +37,90 @@ const RequestPickup = () => {
             price: formData.price,
             quantity: formData.quantity,
         }
-        try {
-            const response = await axios.post(`${serverUrl}/addPickUpAddress`,
-                dataPayload,
 
-                {
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        Authorization: `Bearer ${token}`,
-                        'platform':'web'
-                    },
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            "platform": "web",
+        };
+
+        await axios
+        .post(`${serverUrl}/addPickUpAddress`, dataPayload, { headers: headers })
+        .then((res) => {
+            const data = res.data;
+
+            if(data.statusCode == 200){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: data.message,
+                    showConfirmButton: true,
+                    timer: 2500,
+                });
+                // return <Redirect to='/otp-verify' />
+                
+            }
+            console.log("ffdgfdfg",res);
+           
+        })
+
+        .catch((error) => {
+            console.log("Data", error.response.data);
+            if (error.response) {
+                // If server responded with a status code for a request 
+                console.log("Data", error.response.data);
+                const data = error.response.data
+
+                if (data.error.statusCode == 400) {
+                    const mess = data.error;
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: mess._message,
+                        showConfirmButton: false,
+                        timer: 2500,
+                    });
+                    
                 }
-            );
-            console.log(response, ">>>");
-        } catch (error) {
-            console.error(error);
-        }
+
+                console.log("Status", error.response.status);
+                console.log("Headers", error.response.headers);
+            } else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            } else {
+                // Other case 
+                console.log("Error", error.message);
+            }
+            // Error handling here 
+
+        });
+        // try {
+        //     const response = await axios.post(`${serverUrl}/addPickUpAddress`,
+        //         dataPayload,
+
+        //         {
+        //             headers: {
+        //                 "Access-Control-Allow-Origin": "*",
+        //                 Authorization: `Bearer ${token}`,
+        //                 'platform':'web'
+        //             },
+        //         }
+        //     );
+        //     console.log(response, ">>>");
+        // } catch (error) {
+        //     console.error(error);
+        //     const data = error.response.data;
+        //     if(data.error.statusCode == 400){
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: "error",
+        //             title: data.error._message,
+        //             showConfirmButton: false,
+        //             timer: 2500,
+        //         });
+        //     }
+        // }
     };
 
     useEffect(() => {

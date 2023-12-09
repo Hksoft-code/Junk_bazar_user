@@ -16,7 +16,7 @@ const SignIn = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
 
     
-    const SignUp = async () => {
+    const Sign_In = async () => {
 
         const data = {
             "dialCode":"+91",
@@ -66,7 +66,7 @@ const SignIn = () => {
 
     return (
         <div className="bg-white py-24 sm:py-32">
-            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
+            <div className="mx-auto grid max-w-7xl gap-x-20 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
                 <div className="w-full text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
                     <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
@@ -102,7 +102,7 @@ const SignIn = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                           handleClick={SignUp}
+                           handleClick={Sign_In}
 
 
                         />
@@ -111,7 +111,7 @@ const SignIn = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{` `}</span>
-                            <span onClick={() => navigate("Sign-Up")} className="[text-decoration:underline]">{`Sign Up  `}</span>
+                            <span onClick={() => navigate("sign-up")} className="[text-decoration:underline]">{`Sign Up  `}</span>
                         </div>
 
                     </div>

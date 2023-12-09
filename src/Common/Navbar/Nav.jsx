@@ -248,7 +248,7 @@ const Nav = ({ token }) => {
                   <div>
                     <div
                       className="w-3/4 rounded-full ml-2 px-3 py-2 bg-lime-500 flex items-center hover:bg-white cursor-pointer hover:border-lime-500 hover:border-2 duration-200 hover:text-lime-500"
-                      onClick={() => navigate("/Sign-Up")}
+                      onClick={() => navigate("/sign-in")}
                     >
                       <img
                         src={sign_up}
@@ -262,7 +262,7 @@ const Nav = ({ token }) => {
 
                     <div
                       className="w-3/4 rounded-full ml-2 px-3 py-2 my-2 border-2 border-zinc-400 flex items-center cursor-pointer hover:shadow-md hover:border-0"
-                      onClick={() => navigate("/Sign-Up")}
+                      onClick={() => navigate("/sign-in")}
                     >
                       <img
                         src={sign_in}
@@ -289,7 +289,7 @@ const Nav = ({ token }) => {
                   className=" ml-2 mt-4 mb-3  flex items-center cursor-pointer"
                   onClick={() => {
                     dispatch(logoutUser());
-                    navigate("/Sign-Up");
+                    navigate("/sign-in");
                   }}
                 >
                   <img

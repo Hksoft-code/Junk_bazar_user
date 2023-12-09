@@ -14,6 +14,7 @@ import CartList from './Pages/CardList';
 import UploadScrap from './Pages/UploadScrap';
 import OtpVerify from './Auth/Pages/OtpVerify';
 import SignIn from './Auth/Pages/SingIn';
+import SignUp from './Auth/Pages/SignUp';
 
 
 function App() {
@@ -24,8 +25,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactScreen />} />
-        <Route path="/Sign-Up" element={<Customer />} />
-        <Route path="/login-user" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/request_pickup" element={<RequestPickup />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/pricing" element={<Pricing />} />

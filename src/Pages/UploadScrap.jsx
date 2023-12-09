@@ -27,7 +27,7 @@ const UploadScrap = () => {
     console.log(preview);
   };
 
-  const varName = localStorage.getItem("user_Token");
+  const varName = localStorage.getItem("token");
   console.log(varName);
   const uploadData = async () => {
 
