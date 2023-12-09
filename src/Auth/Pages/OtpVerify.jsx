@@ -70,20 +70,20 @@ const OtpVerify = () => {
     };
 
     return (
-        <div class="bg-white py-24 sm:py-32">
-            <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
-                <div class="w-full text-center">
+        <div className="bg-white py-24 sm:py-32">
+            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
+                <div className="w-full text-center">
                     {/* <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                    <img class="h-full w-full rounded-full" src={customer} alt=" " />
+                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
+                    <img className="h-full w-full rounded-full" src={customer} alt=" " />
                 </div>
-                <div class="w-full">
+                <div className="w-full">
                     <div className="shadow-md p-8">
-                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                        <p class="mt-6 text-lg leading-8 text-gray-600">Enter OTP</p>
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
+                        <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
+                        <p className="mt-6 text-lg leading-8 text-gray-600">Enter OTP</p>
 
-                        <p class="mt-6 text-sm leading-8 text-gray-600">Enter OTP</p>
+                        <p className="mt-6 text-sm leading-8 text-gray-600">Enter OTP</p>
                         <LabeledInput
                             handleChange={(e) => {
                                 setOtp(e.target.value);
