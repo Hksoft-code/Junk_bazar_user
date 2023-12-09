@@ -9,8 +9,8 @@ import {
 } from "../api-config/config";
 
 const UploadScrap = () => {
-    const [ name,
-        setName ] = useState("");
+    const [ scrapName,
+        setScrapName ] = useState("");
     // const [image, setImage] = useState('');
     const [ preview,
         setPreview ] = useState("");
@@ -78,20 +78,28 @@ const UploadScrap = () => {
 
     // console.log(varName);
     const uploadData = async () => {
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        formData.append("scrapName", name);
-        // formData.append('scrapImage', image);
-        formData.append("quantityType", quantity);
-        formData.append("price", price);
-        formData.append("address", address);
-        formData.append("kilogram", kilogram);
-        formData.append("stateCode", kilogram);
-        formData.append("countryCode", "IN");
+        // formData.append("scrapName", scrapName);
+        // // formData.append('scrapImage', image);
+        // formData.append("quantityType", quantity);
+        // formData.append("price", price);
+        // formData.append("address", address);
+        // formData.append("kilogram", kilogram);
+        // formData.append("stateCode", kilogram);
+        // formData.append("countryCode", "IN");
         const dataPayload = {
-            imageKey: imageKey
+            address,
+            countryCode: "IN",
+            imageKey: imageKey,
+            kilogram,
+            price,
+            quantity,
+            scrapName,
+            stateCode: "JH"
         };
 
+        console.log("dataPayload", dataPayload);
         await axios
             .post(`${serverUrl}/addScrap`, dataPayload, {
                 headers: headers 
@@ -135,7 +143,7 @@ const UploadScrap = () => {
                             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                 <input
                                     onChange={(e) => {
-                                        setName(e.target.value);
+                                        setScrapName(e.target.value);
                                     }}
                                     placeholder="Enter Scrap Name"
                                     className="w-full p-1 ml-3 text-black outline-none bg-transparent"
