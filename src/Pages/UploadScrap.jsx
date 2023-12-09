@@ -1,36 +1,58 @@
-import {
-    useEffect, useState 
+import React, {
+    useEffect, useState
 } from "react";
 import phone_guy from "../assets/PNG/about-img.png";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { uploadType } from '../api-config/commonUploadType';
 import {
-    serverUrl 
+    serverUrl
 } from "../api-config/config";
 
 const UploadScrap = () => {
-    const [ scrapName,
-        setScrapName ] = useState("");
+
+    const options = [
+
+        { label: 'Kilogram', value: 'KG' },
+
+        { label: 'per/piece', value: 'per/piece' },
+
+
+
+    ];
+
+    const [value, setValue] = React.useState('fruit');
+    const handleChange = (event) => {
+
+        setValue(event.target.value);
+        setquantityType(event.target.value);
+        console.log("onchange ", event.target.value)
+
+    };
+    const [scrapName,
+        setScrapName] = useState("");
+    const [quantityType,
+        setquantityType] = useState("");
     // const [image, setImage] = useState('');
-    const [ preview,
-        setPreview ] = useState("");
-    const [ quantity,
-        setQuantity ] = useState("");
-    const [ price,
-        setPrice ] = useState("");
-    const [ address,
-        setAddress ] = useState("");
-    const [ kilogram,
-        setKilogram ] = useState("");
-    const [ imageKey,
-        setImageKey ] = useState("");
+    const [preview,
+        setPreview] = useState("");
+    const [quantity,
+        setQuantity] = useState("");
+    const [price,
+        setPrice] = useState("");
+    // const [address,
+    //     setAddress] = useState("");
+    // const [kilogram,
+    //     setKilogram] = useState("");
+    const [imageKey,
+        setImageKey] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
     const token = localStorage.getItem("token");
     const headers = {
-    // "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
         platform: "web"
     };
@@ -41,19 +63,20 @@ const UploadScrap = () => {
         setPreview(previewUrl);
         const payload = {
             ContentType: file.type,
-            fileName: file.name
+            fileName: file.name,
+            uploadType: "scrap"
         };
 
         try {
-            const signedUrl =   await axios.post(`${serverUrl}/getS3SignedUrl`, payload, {
-                headers: headers 
+            const signedUrl = await axios.post(`${serverUrl}/generateS3UploadSignedUrl`, payload, {
+                headers: headers
             });
             //  console.log('image signed url outside axios block', signedUrl);
-      
+
             const imageSignedObj = JSON.parse(signedUrl.data.data);
 
             setImageKey(imageSignedObj.key);
-        
+
             console.log("image signed url outside axios block", imageSignedObj.signedUrl, imageSignedObj.key);
 
             const uploadResponse = await fetch(imageSignedObj.signedUrl, {
@@ -74,7 +97,7 @@ const UploadScrap = () => {
     // useEffect to log imageKey when it changes
     useEffect(() => {
         console.log("imageKey updated:", imageKey);
-    }, [ imageKey ]);
+    }, [imageKey]);
 
     // console.log(varName);
     const uploadData = async () => {
@@ -89,20 +112,24 @@ const UploadScrap = () => {
         // formData.append("stateCode", kilogram);
         // formData.append("countryCode", "IN");
         const dataPayload = {
-            address,
-            countryCode: "IN",
+            // address,
+            // countryCode: "IN",
+            scrapName: scrapName,
+            price: parseInt(price),
+            quantityType: quantityType,
+            quantity: parseInt(quantity),
             imageKey: imageKey,
-            kilogram,
-            price,
-            quantity,
-            scrapName,
-            stateCode: "JH"
+            // kilogram,
+            // price,
+            // quantity,
+            // scrapName,
+            // stateCode: "JH"
         };
 
         console.log("dataPayload", dataPayload);
         await axios
             .post(`${serverUrl}/addScrap`, dataPayload, {
-                headers: headers 
+                headers: headers
             })
             .then((res) => {
                 console.log(res);
@@ -134,7 +161,7 @@ const UploadScrap = () => {
                 <div className="w-full md:w-[50%] mb-4 md:mb-0 shadow-lg p-[20px]">
                     <div className="w-[100%] p-[10px]">
                         <h1 className="text-[45px] font-bold text-black text-center">
-              Upload Scrap
+                            Upload Scrap
                         </h1>
                     </div>
                     <div className="col-span-6 sm:col-span-3">
@@ -151,10 +178,10 @@ const UploadScrap = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-span-6 sm:col-span-3">
+                    {/* <div className="col-span-6 sm:col-span-3">
                         <div>
                             <label className="block py-3 text-black">
-                Enter Your Location
+                                Enter Your Location
                             </label>
                             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                 <input
@@ -166,24 +193,51 @@ const UploadScrap = () => {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
-                        <div>
-                            <label className="block py-3 text-black">
-                Enter Available Quantity
-                            </label>
-                            <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
-                                <input
-                                    onChange={(e) => {
-                                        setQuantity(e.target.value);
-                                    }}
-                                    placeholder="Enter Available Quantity"
-                                    className="w-full pr-3 p-1 ml-3 text-black outline-none bg-transparent"
-                                />
+                    </div> */}
+                    <div className="col-span-6 sm:col-span-3 mt-5">
+                        <div className="grid grid-cols-4 gap-4">
+                            <div >
+                                <label className="block py-3 text-black">
+                                    Select quantity type
+                                </label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <div>
+
+
+
+                                        <select value={value} onChange={handleChange}>
+
+                                            {options.map((option) => (
+
+                                                <option value={option.value}>{option.label}</option>
+
+                                            ))}
+
+                                        </select>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-span-3">
+                                <label className="block py-3 text-black">
+                                    Enter Available Quantity
+                                </label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setQuantity(e.target.value);
+                                        }}
+                                        placeholder="Enter Available Quantity"
+                                        className="w-full pr-3 p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    <div className="col-span-6 sm:col-span-3">
+                    <div className="col-span-6 sm:col-span-3 mt-5">
                         <div>
                             <label className="block py-3 text-black">Enter Price</label>
                             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
@@ -197,7 +251,7 @@ const UploadScrap = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-span-6 sm:col-span-3">
+                    {/* <div className="col-span-6 sm:col-span-3">
                         <div>
                             <label className="block py-3 text-black">Kilogram</label>
                             <div className="flex items-center p-2 border rounded-md bg-[#80d7421c] mb-[20px]">
@@ -210,10 +264,10 @@ const UploadScrap = () => {
                                 />
                             </div>
                         </div>
-                    </div>
-                    <div className="col-span-6 sm:col-span-3">
+                    </div> */}
+                    <div className="col-span-6 sm:col-span-3 mt-5">
                         <label className="" htmlFor="">
-              Upload Scrap image
+                            Upload Scrap image
                         </label>
                         <div className="relative">
                             <label
@@ -227,7 +281,7 @@ const UploadScrap = () => {
                                         className="mx-auto h-32 object-cover rounded-md mb-4"
                                     />
                                 ) : (
-                                    <span className="text-gray-500 ">Upload Scrap Image</span>
+                                    <span className="text-gray-500 mb-4">Upload Scrap Image</span>
                                 )}
                             </label>
                             <input
@@ -241,12 +295,12 @@ const UploadScrap = () => {
                     <br />
 
                     <br />
-                    <div className="col-span-6 sm:col-span-3">
+                    <div className="col-span-6 sm:col-span-3 mt-5">
                         <button
                             onClick={uploadData}
                             className="w-full h-[50px] text-white font-extrabold bg-[#81D742] rounded-[30px]"
                         >
-              Confirm
+                            Confirm
                         </button>
                     </div>
 

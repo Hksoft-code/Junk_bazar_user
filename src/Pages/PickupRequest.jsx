@@ -1,100 +1,111 @@
-import { useEffect, useState } from "react";
+import {
+    useEffect, useState
+} from "react";
 import phone_guy from "../assets/PNG/about-img.png";
-import {serverUrl} from "../api-config/config.js";
+import {
+    serverUrl
+} from "../api-config/config.js";
 // import Nav from "../Common/Navbar/Nav";
 // import Footer from "../Common/Footer/Footer";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const RequestPickup = () => {
-    const [formData, setFormData] = useState({
-        fullName: "David",
-        phoneNumber: "+2349135914309",
-        pincode: "123456",
-        address: "gdh",
-        landmark: "gdh",
-        city: "Aj",
-        scrapItem: "65469caa8bd30784068e1bcc",
-        price: 1000,
-        quantity: 5,
-    });
+    const [formData,
+        setFormData] = useState({
+            address: "gdh",
+            city: "Aj",
+            fullName: "David",
+            landmark: "gdh",
+            phoneNumber: "+2349135914309",
+            pincode: "123456",
+            price: 1000,
+            quantity: 5,
+            scrapItem: "65469caa8bd30784068e1bcc"
+        });
 
     const token = localStorage.getItem("token");
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
     };
 
     const handleConfirm = async () => {
         const dataPayload = {
+            address: formData.address,
+            city: formData.city,
             fullName: formData.fullName,
+            landmark: formData.landmark,
             phoneNumber: formData.phoneNumber,
             pincode: formData.pincode,
-            address: formData.address,
-            landmark: formData.landmark,
-            city: formData.city,
-            scrapItem: formData.scrapItem,
             price: formData.price,
             quantity: formData.quantity,
-        }
+            scrapItem: formData.scrapItem
+        };
 
         const headers = {
             Authorization: `Bearer ${token}`,
-            "platform": "web",
+            platform: "web"
         };
 
         await axios
-        .post(`${serverUrl}/addPickUpAddress`, dataPayload, { headers: headers })
-        .then((res) => {
-            const data = res.data;
+            .post(`${serverUrl}/addPickUpAddress`, dataPayload, {
+                headers: headers
+            })
+            .then((res) => {
+                const data = res.data;
 
-            if(data.statusCode == 200){
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: data.message,
-                    showConfirmButton: true,
-                    timer: 2500,
-                });
-                // return <Redirect to='/otp-verify' />
-                
-            }
-            console.log("ffdgfdfg",res);
-           
-        })
-
-        .catch((error) => {
-            console.log("Data", error.response.data);
-            if (error.response) {
-                // If server responded with a status code for a request 
-                console.log("Data", error.response.data);
-                const data = error.response.data
-
-                if (data.error.statusCode == 400) {
-                    const mess = data.error;
+                if (data.statusCode === 200) {
                     Swal.fire({
+                        icon: "success",
                         position: "center",
-                        icon: "error",
-                        title: mess._message,
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         timer: 2500,
+                        title: data.message
                     });
-                    
+                    // return <Redirect to='/otp-verify' />
                 }
 
-                console.log("Status", error.response.status);
-                console.log("Headers", error.response.headers);
-            } else if (error.request) {
-                // Client made a request but response is not received 
-                console.log("<<<<<<<Response Not Received>>>>>>>>");
-                console.log(error.request);
-            } else {
-                // Other case 
-                console.log("Error", error.message);
-            }
-            // Error handling here 
+                console.log("ffdgfdfg", res);
+            })
 
-        });
+            .catch((error) => {
+                console.log("Data", error.response.data);
+
+                if (error.response) {
+                    // If server responded with a status code for a request 
+                    console.log("Data", error.response.data);
+                    const data = error.response.data;
+
+                    if (data.error.statusCode === 400) {
+                        const mess = data.error;
+
+                        Swal.fire({
+                            icon: "error",
+                            position: "center",
+                            showConfirmButton: false,
+                            timer: 2500,
+                            title: mess._message
+                        });
+                    }
+
+                    console.log("Status", error.response.status);
+                    console.log("Headers", error.response.headers);
+                }
+                else if (error.request) {
+                    // Client made a request but response is not received 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                }
+                else {
+                    // Other case 
+                    console.log("Error", error.message);
+                }
+                // Error handling here 
+            });
         // try {
         //     const response = await axios.post(`${serverUrl}/addPickUpAddress`,
         //         dataPayload,
@@ -129,72 +140,72 @@ const RequestPickup = () => {
 
     const inputs = [
         {
-            type: "text",
-            name: "fullName",
             label: "Full Name",
+            name: "fullName",
             placeholder: "full name",
-            value: formData.fullName,
+            type: "text",
+            value: formData.fullName
         },
         {
-            type: "number",
-            name: "phoneNumber",
             label: "Phone Number",
+            name: "phoneNumber",
             placeholder: "Phone Number",
-            value: formData.phoneNumber,
+            type: "number",
+            value: formData.phoneNumber
         },
         {
-            type: "number",
-            name: "pincode",
             label: "Pincode",
+            name: "pincode",
             placeholder: "Pincode",
-            value: formData.pincode,
+            type: "number",
+            value: formData.pincode
         },
         {
-            type: "text",
-            name: "address",
             label: "Address",
+            name: "address",
             placeholder: "Address",
-            value: formData.address,
+            type: "text",
+            value: formData.address
         },
         {
-            type: "text",
-            name: "landmark",
             label: "Land Mark",
+            name: "landmark",
             placeholder: "land mark",
+            type: "text"
         },
         {
-            type: "text",
-            name: "city",
             label: "City",
+            name: "city",
             placeholder: "City",
-            value: formData.city,
-        },
-        {
             type: "text",
-            name: "scrapItem",
+            value: formData.city
+        },
+        {
             label: "Scrap Item",
+            name: "scrapItem",
             placeholder: "item id",
-            value: formData.scrapItem,
+            type: "text",
+            value: formData.scrapItem
         },
         {
-            type: "number",
-            name: "price",
             label: "Price",
+            name: "price",
             placeholder: "price",
-            value: formData.price,
+            type: "number",
+            value: formData.price
         },
         {
-            type: "number",
-            name: "quantity",
             label: "Quantity",
+            name: "quantity",
             placeholder: "quantity",
-            value: formData.quantity,
-        },
+            type: "number",
+            value: formData.quantity
+        }
     ];
 
     return (
         <div>
-            
+
             <div className="w-full flex justify-center items-center p-4 md:mt-[150px] sm:mt-[20px] mt-14 ">
                 <div className="flex flex-col md:flex-row justify-between items-start w-full md:w-[80%] flex-wrap">
                     <div className="w-full md:w-[40%] h-[300px] md:h-auto">
@@ -245,7 +256,7 @@ const RequestPickup = () => {
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
     );
