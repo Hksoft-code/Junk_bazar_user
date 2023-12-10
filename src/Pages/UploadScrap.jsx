@@ -9,6 +9,7 @@ import {
     serverUrl
 } from "../api-config/config";
 import { useNavigate } from "react-router-dom";
+import api from '../api-config/axiosInstance';
 
 const UploadScrap = () => {
 
@@ -126,29 +127,65 @@ const UploadScrap = () => {
         };
 
         console.log("dataPayload", dataPayload);
-        await axios
-            .post(`${serverUrl}/addScrap`, dataPayload, {
-                headers: headers
-            })
-            .then((res) => {
-                console.log(res);
-                const data = res.data;
+        try {
+            const response = await api.post(`${serverUrl}/addScrap`, dataPayload);
+            const data = response.data;
+            if (data.statusCode === 200) {
                 Swal.fire({
                     icon: "success",
                     position: "center",
                     showConfirmButton: false,
                     timer: 2500,
-                    title: "Product Uploaded successfully "
+                    title: response.data.message
                 });
-                if (data.statusCode === 200) {
-                    navigate("/pricing", { replace: true })
-                }
-            })
+                navigate("/pricing", { replace: true })
+            }
 
-            .catch((error) => {
-                // Handle the error here
-                console.error("Axios Error:", error);
-            });
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            if (error.response) {
+                // If server responded with a status code for a request  
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: "Something Went Wrong"
+                });
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
+        }
+        // await axios
+        //     .post(`${serverUrl}/addScrap`, dataPayload, {
+        //         headers: headers
+        //     })
+        //     .then((res) => {
+        //         console.log(res);
+        //         const data = res.data;
+        //         Swal.fire({
+        //             icon: "success",
+        //             position: "center",
+        //             showConfirmButton: false,
+        //             timer: 2500,
+        //             title: "Product Uploaded successfully "
+        //         });
+        //         if (data.statusCode === 200) {
+        //             navigate("/pricing", { replace: true })
+        //         }
+        //     })
+
+        //     .catch((error) => {
+        //         // Handle the error here
+        //         console.error("Axios Error:", error);
+        //     });
     };
 
     return (

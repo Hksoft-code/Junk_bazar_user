@@ -15,6 +15,8 @@ import {
     useNavigate
 } from "react-router-dom";
 
+import api from '../../api-config/axiosInstance.js';
+
 const SignIn = ({ navigation }) => {
     const location = useLocation()
     const navigate = useNavigate();
@@ -25,59 +27,94 @@ const SignIn = ({ navigation }) => {
         setPhoneNumber] = useState("");
 
     const Sign_In = async () => {
-        const data = {
-            dialCode: "+91",
-            phoneNumber: phoneNumber
-        };
 
-        const headers = {
-            platform: "web"
-        };
 
-        await axios
-            .post(`${serverUrl}/login`, data, {
-                headers: headers
-            })
-            .then((res) => {
-                console.log('api called', res);
-                const data = res.data;
-                // console.log('api called',res.data);
+        try {
+            const payLoad = {
+                dialCode: "+91",
+                phoneNumber: phoneNumber
+            };
+
+            const response = await api.post(`${serverUrl}/login`, payLoad);
+            const data = response.data;
+            if (data.statusCode === 200) {
                 Swal.fire({
                     icon: "success",
                     position: "center",
                     showConfirmButton: false,
                     timer: 2500,
-                    title: res.data.message
+                    title: response.data.message
                 });
+                navigate("/otp-verify", { replace: true })
+            }
 
-                if (data.statusCode === 200) {
-                    navigate("/otp-verify", { replace: true })
-                }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            if (error.response) {
+                // If server responded with a status code for a request  
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: error.response.data.error._message
+                });
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
+        }
 
-            })
+        // await axios
+        //     .post(`${serverUrl}/login`, data, {
+        //         headers: headers
+        //     })
+        //     .then((res) => {
+        //         console.log('api called', res);
+        //         const data = res.data;
+        //         // console.log('api called',res.data);
+        //         Swal.fire({
+        //             icon: "success",
+        //             position: "center",
+        //             showConfirmButton: false,
+        //             timer: 2500,
+        //             title: res.data.message
+        //         });
 
-            .catch(error => {
-                if (error.response) {
-                    // If server responded with a status code for a request  
-                    Swal.fire({
-                        icon: "error",
-                        position: "center",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        title: error.response.data.error._message
-                    });
-                }
-                else if (error.request) {
-                    // Client made a request but response is not received 
-                    console.log("<<<<<<<Response Not Received>>>>>>>>");
-                    console.log(error.request);
-                }
-                else {
-                    // Other case 
-                    console.log("Error", error.message);
-                }
-                // Error handling here 
-            });
+        //         if (data.statusCode === 200) {
+        //             navigate("/otp-verify", { replace: true })
+        //         }
+
+        //     })
+
+        //     .catch(error => {
+        //         if (error.response) {
+        //             // If server responded with a status code for a request  
+        //             Swal.fire({
+        //                 icon: "error",
+        //                 position: "center",
+        //                 showConfirmButton: false,
+        //                 timer: 2500,
+        //                 title: error.response.data.error._message
+        //             });
+        //         }
+        //         else if (error.request) {
+        //             // Client made a request but response is not received 
+        //             console.log("<<<<<<<Response Not Received>>>>>>>>");
+        //             console.log(error.request);
+        //         }
+        //         else {
+        //             // Other case 
+        //             console.log("Error", error.message);
+        //         }
+        //         // Error handling here 
+        //     });
     };
 
     return (
