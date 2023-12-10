@@ -9,7 +9,7 @@ import ContactScreen from "./Pages/Contact.jsx";
 import RequestPickup from "./Pages/PickupRequest.jsx";
 // import Customer from './Auth/Pages/SignUp';
 import {
-    Route, Routes 
+    Route, Routes
 } from "react-router-dom";
 // import Contactus from './Components/Contact/contactUs';
 import CartList from "./Pages/CardList.jsx";

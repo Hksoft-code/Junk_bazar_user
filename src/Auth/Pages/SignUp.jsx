@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {
-    useState 
+    useState
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
@@ -8,20 +8,20 @@ import LabeledInput from "../../Components/auth/LabeledInput.jsx";
 import Button from "../../Components/auth/Button.jsx";
 // import Swal from "sweetalert2";
 import {
-    serverUrl 
+    serverUrl
 } from "../../api-config/config";
 import {
-    useNavigate 
+    useNavigate
 } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
     const navigate = useNavigate();
-   
-    const [ checked,
-        setChecked ] = React.useState(true);
-    const [ phoneNumber,
-        setPhoneNumber ] = useState("");
+
+    const [checked,
+        setChecked] = React.useState(true);
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
 
     const Sign_Up = async () => {
         const data = {
@@ -35,12 +35,12 @@ const SignUp = () => {
 
         await axios
             .post(`${serverUrl}/register`, data, {
-                headers: headers 
+                headers: headers
             })
             .then((res) => {
                 const data = res.data;
 
-                if (data.statusCode === 200){
+                if (data.statusCode === 200) {
                     Swal.fire({
                         icon: "success",
                         position: "center",
@@ -133,7 +133,7 @@ const SignUp = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{" "}</span>
-                            <span onClick={() => navigate("sign-in")} className="[text-decoration:underline]">{"Log in  "}</span>
+                            <span onClick={() => navigate("/sign-in", { replace: true })} className="[text-decoration:underline]">{"Log in  "}</span>
                         </div>
 
                     </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {
-    useState 
+    useState
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
@@ -11,17 +11,19 @@ import {
     serverUrl
 } from "../../api-config/config";
 import {
-    useNavigate 
+    useLocation,
+    useNavigate
 } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
+    const location = useLocation()
     const navigate = useNavigate();
 
-    const [ checked,
-        setChecked ] = React.useState(true);
-    const [ phoneNumber,
-        setPhoneNumber ] = useState("");
-    
+    const [checked,
+        setChecked] = React.useState(true);
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
+
     const Sign_In = async () => {
         const data = {
             dialCode: "+91",
@@ -29,16 +31,17 @@ const SignIn = () => {
         };
 
         const headers = {
-            platform: "web"   
+            platform: "web"
         };
-        
+
         await axios
             .post(`${serverUrl}/login`, data, {
-                headers: headers 
+                headers: headers
             })
             .then((res) => {
-            // console.log('api called',res);
-            // console.log('api called',res.data);
+                console.log('api called', res);
+                const data = res.data;
+                // console.log('api called',res.data);
                 Swal.fire({
                     icon: "success",
                     position: "center",
@@ -46,10 +49,15 @@ const SignIn = () => {
                     timer: 2500,
                     title: res.data.message
                 });
+
+                if (data.statusCode === 200) {
+                    navigate("/otp-verify", { replace: true })
+                }
+
             })
-            
-            .catch(error => { 
-                if (error.response) { 
+
+            .catch(error => {
+                if (error.response) {
                     // If server responded with a status code for a request  
                     Swal.fire({
                         icon: "error",
@@ -59,17 +67,17 @@ const SignIn = () => {
                         title: error.response.data.error._message
                     });
                 }
-                else if (error.request) { 
+                else if (error.request) {
                     // Client made a request but response is not received 
-                    console.log("<<<<<<<Response Not Received>>>>>>>>"); 
-                    console.log(error.request); 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
                 }
-                else { 
+                else {
                     // Other case 
-                    console.log("Error", error.message); 
-                } 
+                    console.log("Error", error.message);
+                }
                 // Error handling here 
-            }); 
+            });
     };
 
     return (
@@ -117,7 +125,7 @@ const SignIn = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{" "}</span>
-                            <span onClick={() => navigate("sign-up")} className="[text-decoration:underline]">{"Sign Up  "}</span>
+                            <span onClick={() => navigate("/sign-up")} className="[text-decoration:underline]">{"Sign Up  "}</span>
                         </div>
 
                     </div>

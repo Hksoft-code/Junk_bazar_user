@@ -7,12 +7,13 @@ import Button from '../../Components/auth/Button'
 // import Swal from "sweetalert2";
 import { serverUrl } from "../../api-config/config";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const OtpVerify = () => {
     // const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
     const [checked, setChecked] = React.useState(true);
     const [otp, setOtp] = useState("");
-
+    const navigate = useNavigate();
 
     const verifyOtp = async () => {
 
@@ -30,7 +31,7 @@ const OtpVerify = () => {
             .then((res) => {
                 console.log(res);
                 const data = res.data;
-                if (data.statusCode == 200) {
+                if (data.statusCode === 200) {
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -39,9 +40,12 @@ const OtpVerify = () => {
                         timer: 2500,
                     });
                     const token = JSON.parse(data.data);
-                    console.log("token ",token)
-                    localStorage.setItem("token",token.token)
-                    console.log("token store ",localStorage.getItem("token"))
+                    console.log("token ", token)
+                    localStorage.setItem("token", token.token)
+                    console.log("token store ", localStorage.getItem("token"))
+
+                    navigate("/pricing", { replace: true })
+
                 }
 
             })
@@ -51,7 +55,7 @@ const OtpVerify = () => {
                     console.log("Data :", error.response.data);
                     const data = error.response.data;
 
-                    if(data.error.statusCode == 400){
+                    if (data.error.statusCode === 400) {
                         Swal.fire({
                             position: "center",
                             icon: "error",
@@ -123,7 +127,7 @@ const OtpVerify = () => {
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{` `}</span>
-                            <span className="[text-decoration:underline]">{`Log in  `}</span>
+                            <span onClick={() => navigate("/sign-in", { replace: true })} className="[text-decoration:underline]">{`Log in  `}</span>
                         </div>
 
                     </div>

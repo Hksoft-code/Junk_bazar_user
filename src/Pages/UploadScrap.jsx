@@ -8,6 +8,7 @@ import { uploadType } from '../api-config/commonUploadType';
 import {
     serverUrl
 } from "../api-config/config";
+import { useNavigate } from "react-router-dom";
 
 const UploadScrap = () => {
 
@@ -18,7 +19,7 @@ const UploadScrap = () => {
         { label: 'per/piece', value: 'per/piece' },
 
     ];
-
+    const navigate = useNavigate();
     const [value, setValue] = React.useState('fruit');
     const handleChange = (event) => {
 
@@ -131,6 +132,7 @@ const UploadScrap = () => {
             })
             .then((res) => {
                 console.log(res);
+                const data = res.data;
                 Swal.fire({
                     icon: "success",
                     position: "center",
@@ -138,6 +140,9 @@ const UploadScrap = () => {
                     timer: 2500,
                     title: "Product Uploaded successfully "
                 });
+                if (data.statusCode === 200) {
+                    navigate("/pricing", { replace: true })
+                }
             })
 
             .catch((error) => {
