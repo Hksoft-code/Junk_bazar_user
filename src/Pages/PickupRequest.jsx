@@ -1,50 +1,100 @@
-import {
+import React, {
+    Fragment,
     useEffect, useState
 } from "react";
 import phone_guy from "../assets/PNG/about-img.png";
 import {
     serverUrl
 } from "../api-config/config.js";
-// import Nav from "../Common/Navbar/Nav";
-// import Footer from "../Common/Footer/Footer";
+
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const RequestPickup = () => {
-    const [formData,
-        setFormData] = useState({
-            address: "gdh",
-            city: "Aj",
-            fullName: "David",
-            landmark: "gdh",
-            phoneNumber: "+2349135914309",
-            pincode: "123456",
-            price: 1000,
-            quantity: 5,
-            scrapItem: "65469caa8bd30784068e1bcc"
-        });
+
+    const [artists, setArtists] = useState([]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        getData();
+    }, []);
+
+    const getData = () => {
+        axios({
+            url: `${serverUrl}/getCountries`,
+            method: 'get',
+            headers: {
+                platform: "web"
+            }
+        })
+            .then(response => {
+                console.log(response)
+                const data = JSON.parse(response.data.data);
+                console.log("Country Details", data);
+                setArtists(data.states);
+
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    const [value2, setValue] = React.useState('fruit');
+    const handleChange = (event) => {
+
+        setValue(event.target.value);
+        setCountryCode(event.target.value);
+        console.log("onchange ", event.target.value)
+
+    };
+
+
+
+    const [value1, setValue1] = React.useState('fruit');
+    const handleStateCode = (event) => {
+
+        setValue1(event.target.value);
+        setstateCode(event.target.value);
+        console.log("onchange ", event.target.value)
+
+    };
+
+
+    const [fullName,
+        setFullName] = useState("");
+    const [address,
+        setAddress] = useState("");
+    const [Pincode,
+        setPincode] = useState("");
+    const [scrapId,
+        setScrapId] = useState("");
+    const [stateCode,
+        setstateCode] = useState("");
+    const [countryCode,
+        setCountryCode] = useState("");
+    const [dialCode,
+        setDialCode] = useState("");
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
+    const [CityName,
+        setCityName] = useState("");
 
     const token = localStorage.getItem("token");
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
-
     const handleConfirm = async () => {
-        const dataPayload = {
-            address: formData.address,
-            city: formData.city,
-            fullName: formData.fullName,
-            landmark: formData.landmark,
-            phoneNumber: formData.phoneNumber,
-            pincode: formData.pincode,
-            price: formData.price,
-            quantity: formData.quantity,
-            scrapItem: formData.scrapItem
-        };
+        const payload = {
+            fullName: fullName,
+            city: CityName,
+            address: address,
+            pincode: JSON.parse(Pincode),
+            scrapId: "afghjf",
+            stateCode: stateCode,
+            countryCode: "IND",
+            dialCode: +91,
+            phoneNumber: phoneNumber
+        }
 
         const headers = {
             Authorization: `Bearer ${token}`,
@@ -52,7 +102,7 @@ const RequestPickup = () => {
         };
 
         await axios
-            .post(`${serverUrl}/addPickUpAddress`, dataPayload, {
+            .post(`${serverUrl}/addPickUpAddress`, payload, {
                 headers: headers
             })
             .then((res) => {
@@ -106,102 +156,12 @@ const RequestPickup = () => {
                 }
                 // Error handling here 
             });
-        // try {
-        //     const response = await axios.post(`${serverUrl}/addPickUpAddress`,
-        //         dataPayload,
 
-        //         {
-        //             headers: {
-        //                 "Access-Control-Allow-Origin": "*",
-        //                 Authorization: `Bearer ${token}`,
-        //                 'platform':'web'
-        //             },
-        //         }
-        //     );
-        //     console.log(response, ">>>");
-        // } catch (error) {
-        //     console.error(error);
-        //     const data = error.response.data;
-        //     if(data.error.statusCode == 400){
-        //         Swal.fire({
-        //             position: "center",
-        //             icon: "error",
-        //             title: data.error._message,
-        //             showConfirmButton: false,
-        //             timer: 2500,
-        //         });
-        //     }
-        // }
     };
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
 
-    const inputs = [
-        {
-            label: "Full Name",
-            name: "fullName",
-            placeholder: "full name",
-            type: "text",
-            value: formData.fullName
-        },
-        {
-            label: "Phone Number",
-            name: "phoneNumber",
-            placeholder: "Phone Number",
-            type: "number",
-            value: formData.phoneNumber
-        },
-        {
-            label: "Pincode",
-            name: "pincode",
-            placeholder: "Pincode",
-            type: "number",
-            value: formData.pincode
-        },
-        {
-            label: "Address",
-            name: "address",
-            placeholder: "Address",
-            type: "text",
-            value: formData.address
-        },
-        {
-            label: "Land Mark",
-            name: "landmark",
-            placeholder: "land mark",
-            type: "text"
-        },
-        {
-            label: "City",
-            name: "city",
-            placeholder: "City",
-            type: "text",
-            value: formData.city
-        },
-        {
-            label: "Scrap Item",
-            name: "scrapItem",
-            placeholder: "item id",
-            type: "text",
-            value: formData.scrapItem
-        },
-        {
-            label: "Price",
-            name: "price",
-            placeholder: "price",
-            type: "number",
-            value: formData.price
-        },
-        {
-            label: "Quantity",
-            name: "quantity",
-            placeholder: "quantity",
-            type: "number",
-            value: formData.quantity
-        }
-    ];
+
+
 
     return (
         <div>
@@ -221,23 +181,131 @@ const RequestPickup = () => {
                                 Request Pickup
                             </h1>
                         </div>
-                        {inputs.map((input) => (
-                            <div className="col-span-6 sm:col-span-3" key={input.name}>
-                                <div>
-                                    <label className="block py-3 text-black">{input.label}</label>
-                                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Enter Full Name</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setFullName(e.target.value);
+                                        }}
+                                        placeholder="Enter Full Name"
+                                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Enter Phone Number</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setPhoneNumber(e.target.value);
+                                        }}
+                                        placeholder="Enter Phone Number"
+                                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Enter Address</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setAddress(e.target.value);
+                                        }}
+                                        placeholder="Enter Address"
+                                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Enter City</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <div className="w-full">
+
                                         <input
-                                            type={input.type}
-                                            name={input.name}
-                                            placeholder={input.placeholder}
-                                            value={formData[input.name]}
-                                            onChange={handleChange}
-                                            className="w-full p-1 ml-3 text-black outline-none bg-transparent "
+                                            onChange={(e) => {
+                                                setCityName(e.target.value);
+                                            }}
+                                            placeholder="Enter City"
+                                            className="w-full p-1 ml-3 text-black outline-none bg-transparent"
                                         />
+
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Enter Pincode</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setPincode(e.target.value);
+                                        }}
+                                        placeholder="Enter Scrap Name"
+                                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Select State</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+
+                                    <div className="w-full">
+                                        <select value={value1} onChange={handleStateCode}>
+                                            <option >Select State</option>
+                                            {artists.map((option) => (
+                                                <option value={option.state_code}>{option.name}</option>
+                                            ))}
+
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Select Country</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+
+                                    <div className="w-full">
+                                        <select value="IND" onChange={handleChange}>
+                                            <option >Select Country</option>
+                                            <option value="IND">INDIA</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-6 sm:col-span-3">
+                            <div>
+                                <label className="block py-3 text-black">Select DialCode</label>
+                                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                                    <input
+                                        onChange={(e) => {
+                                            setDialCode(e.target.value);
+                                        }}
+                                        placeholder="Select DialCode"
+                                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
                         <br />
                         <div className="w-[100%]">
                             <p className="text-right text-red-400 cursor-pointer">

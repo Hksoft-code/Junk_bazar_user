@@ -17,8 +17,6 @@ const UploadScrap = () => {
 
         { label: 'per/piece', value: 'per/piece' },
 
-
-
     ];
 
     const [value, setValue] = React.useState('fruit');
@@ -201,22 +199,13 @@ const UploadScrap = () => {
                                     Select quantity type
                                 </label>
                                 <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
-                                    <div>
-
-
-
+                                    <div className="w-full">
                                         <select value={value} onChange={handleChange}>
-
                                             {options.map((option) => (
-
                                                 <option value={option.value}>{option.label}</option>
-
                                             ))}
 
                                         </select>
-
-
-
                                     </div>
                                 </div>
                             </div>
