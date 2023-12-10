@@ -4,7 +4,7 @@ import { serverUrl } from "../api-config/config.js";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const Testing = () => {
+const RequestPickup = () => {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [selectedState, setSelectedState] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
@@ -318,4 +318,4 @@ const Testing = () => {
     );
 };
 
-export default Testing;
+export default RequestPickup;
