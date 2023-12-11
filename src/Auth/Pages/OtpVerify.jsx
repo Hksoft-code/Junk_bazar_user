@@ -7,13 +7,20 @@ import Button from '../../Components/auth/Button'
 // import Swal from "sweetalert2";
 import { serverUrl } from "../../api-config/config";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OtpVerify = () => {
     // const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
     const [checked, setChecked] = React.useState(true);
     const [otp, setOtp] = useState("");
+    // const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
+
+
+    const location = useLocation();
+    console.log("Scrap Id", location.state.id)
+
+
 
     const verifyOtp = async () => {
 
@@ -39,7 +46,7 @@ const OtpVerify = () => {
                         showConfirmButton: false,
                         timer: 2500,
                     });
-                    const token = JSON.parse(data.data);
+                    const token = data.data;
                     console.log("token ", token)
                     localStorage.setItem("token", token.token)
                     console.log("token store ", localStorage.getItem("token"))
@@ -89,6 +96,8 @@ const OtpVerify = () => {
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Enter OTP</p>
                         <LabeledInput
+                            type='number' inputMode='numeric' pattern="[0-9]*"
+                            maxlength="6"
                             handleChange={(e) => {
                                 setOtp(e.target.value);
                             }}
@@ -96,7 +105,7 @@ const OtpVerify = () => {
 
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                             <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
-                                We’ve sent a one Time password (OTP to +9134543256783).
+                                We’ve sent a one Time password (OTP to +91{location.state.id}).
                                 Please enter it to complete verification.
                                 Didn’t receive code? RESEND CODE
 

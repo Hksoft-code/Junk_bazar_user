@@ -20,6 +20,14 @@ const UploadScrap = () => {
         { label: 'per/piece', value: 'per/piece' },
 
     ];
+
+    const checkAuthority = () => {
+        const token = localStorage.getItem("token");
+
+        if (token === '' || token === undefined || token == null) {
+            navigate("/sign-in");
+        }
+    }
     const navigate = useNavigate();
     const [value, setValue] = React.useState('fruit');
     const handleChange = (event) => {
@@ -49,6 +57,7 @@ const UploadScrap = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        checkAuthority();
     }, []);
     const token = localStorage.getItem("token");
     const headers = {
@@ -73,7 +82,7 @@ const UploadScrap = () => {
             });
             //  console.log('image signed url outside axios block', signedUrl);
 
-            const imageSignedObj = JSON.parse(signedUrl.data.data);
+            const imageSignedObj = signedUrl.data.data;
 
             setImageKey(imageSignedObj.key);
 
@@ -90,7 +99,30 @@ const UploadScrap = () => {
             console.log("uploadResponse", uploadResponse);
         }
         catch (error) {
-            console.error("Axios Error:", error);
+            console.error("Error fetching data:", error);
+
+            if (error.response.status === 401) {
+                const data = error.response;
+                console.log("error more", data)
+                // If server responded with a status code for a request  
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: data.data.error
+                });
+                navigate("/sign-in");
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
         }
     };
 
@@ -140,8 +172,10 @@ const UploadScrap = () => {
                 });
                 navigate("/pricing", { replace: true })
             }
-
+            console.log("response", response)
+            return data;
         } catch (error) {
+
             console.error("Error fetching data:", error);
             if (error.response) {
                 // If server responded with a status code for a request  
@@ -235,7 +269,7 @@ const UploadScrap = () => {
                         </div>
                     </div> */}
                     <div className="col-span-6 sm:col-span-3 mt-5">
-                        <div className="grid grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 gap-4">
                             <div >
                                 <label className="block py-3 text-black">
                                     Select quantity type
@@ -243,6 +277,7 @@ const UploadScrap = () => {
                                 <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                     <div className="w-full">
                                         <select value={value} onChange={handleChange}>
+                                            <option value="">Select Quantity Type</option>
                                             {options.map((option) => (
                                                 <option value={option.value}>{option.label}</option>
                                             ))}
@@ -251,7 +286,7 @@ const UploadScrap = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-span-3">
+                            <div >
                                 <label className="block py-3 text-black">
                                     Enter Available Quantity
                                 </label>

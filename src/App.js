@@ -17,6 +17,9 @@ import UploadScrap from "./Pages/UploadScrap.jsx";
 import OtpVerify from "./Auth/Pages/OtpVerify.jsx";
 import SignIn from "./Auth/Pages/SingIn.jsx";
 import SignUp from "./Auth/Pages/SignUp.jsx";
+import OrderSuccessful from "./Pages/OrderSuccessfull.jsx";
+import Faqs from "./Pages/Faqs.jsx";
+import CardPage from "./Pages/CardPage.jsx";
 
 function App() {
     return (
@@ -29,10 +32,12 @@ function App() {
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/request_pickup" element={<RequestPickup />} />
-                <Route path="/cart" element={<CartList />} />
+                <Route path="/cart" element={<CardPage />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/upload-scrap" element={<UploadScrap />} />
                 <Route path="/otp-verify" element={<OtpVerify />} />
+                <Route path="/Success-page" element={<OrderSuccessful />} />
+                <Route path="/faqs" element={<Faqs />} />
             </Routes>
             <Footer />
         </div>

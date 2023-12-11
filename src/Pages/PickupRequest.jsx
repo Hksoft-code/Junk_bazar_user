@@ -3,6 +3,7 @@ import phone_guy from "../assets/PNG/about-img.png";
 import { serverUrl } from "../api-config/config.js";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const RequestPickup = () => {
     const [selectedCountry, setSelectedCountry] = useState("");
@@ -15,6 +16,12 @@ const RequestPickup = () => {
     const [pincode, setPincode] = useState("");
     const [scrapId, setScrapId] = useState("");
     const [countriesAndStates, setcountriesAndStates] = useState([]);
+
+
+    const { state } = useLocation(); const { id } = state;
+    console.log("Scrap Id", id)
+
+    const navigate = useNavigate();
 
     const token = localStorage.getItem("token");
 
@@ -29,7 +36,7 @@ const RequestPickup = () => {
                 headers: { platform: "web" },
             });
 
-            const countriesAndStatesData = JSON.parse(response.data.data);
+            const countriesAndStatesData = response.data.data;
 
             console.log("countriesAndStatesData", countriesAndStatesData);
 
@@ -83,7 +90,7 @@ const RequestPickup = () => {
             city: selectedCity,
             address: address,
             pincode: JSON.parse(pincode),
-            scrapId: "afghjf",
+            scrapId: id,
             stateCode: selectedState,
             countryCode: selectedCountry,
             dialCode: selectedDialCode,
@@ -110,6 +117,7 @@ const RequestPickup = () => {
                         timer: 2500,
                         title: data.message
                     });
+                    navigate("/Success-page", { replace: true })
                     // return <Redirect to='/otp-verify' />
                 }
 

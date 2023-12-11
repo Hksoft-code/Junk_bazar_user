@@ -5,8 +5,10 @@ import team from "../../assets/PNG/TEAM 1.png";
 import phone from "../../assets/PNG/APP 1.png";
 import phone_2 from "../../assets/PNG/APP 2.png";
 import Tutorial from "../Home/Tutorial.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Treasure = () => {
+    const navigate = useNavigate();
     return (
         <div>
             <main className="lg:pt-20 lg:px-8 flex justify-center items-center">
@@ -20,14 +22,14 @@ const Treasure = () => {
                     <div className="lg:px-10 py-5 order-2 lg:order-1 mt-4">
                         <div className="text-black">
                             <h1 className="text-3xl lg:text-4xl font-bold font-['Gilroy-Bold'] leading-tight">
-                Shop for Treasures at Junk Bazar: Where Customers Turn Junk Into
-                Gems
+                                Shop for Treasures at Junk Bazar: Where Customers Turn Junk Into
+                                Gems
                             </h1>
                         </div>
                         <div>
                             <p className="lg:max-w-[450px] mt-4">
-                Join JunkBazar community and join countless others who have
-                turned their clutter into profit
+                                Join JunkBazar community and join countless others who have
+                                turned their clutter into profit
                             </p>
                         </div>
 
@@ -37,10 +39,10 @@ const Treasure = () => {
                                     <img src={sellerIcon} alt="icon" className="w-7" />
                                 </div>
                                 <h4 className="font-bold text-black max-w-[130px]">
-                  Get Paid as Sellers
+                                    Get Paid as Sellers
                                 </h4>
                                 <p className="max-w-[120px]">
-                  Register as seller and get paid for your scraps
+                                    Register as seller and get paid for your scraps
                                 </p>
                             </aside>
 
@@ -49,20 +51,20 @@ const Treasure = () => {
                                     <img src={buyerIcon} alt="icon" className="w-7" />
                                 </div>
                                 <h4 className="font-bold text-black max-w-[130px]">
-                  Get Scraps as Buyers
+                                    Get Scraps as Buyers
                                 </h4>
                                 <p className="max-w-[120px]">
-                  Register as buyer and scrap without hassel
+                                    Register as buyer and scrap without hassel
                                 </p>
                             </aside>
                         </section>
 
                         <div className="flex justify-start items-center">
-                            <button className="text-center text-white text-base font-semibold tracking-tight bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.65rem] button">
-                Join Now
+                            <button onClick={() => navigate("/sign-up")} className="text-center text-white text-base font-semibold tracking-tight bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.65rem] button">
+                                Join Now
                             </button>
-                            <button className="hidden text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-400 hover:text-white hover:border-0 duration-200 lg:flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.45rem]">
-                Learn More
+                            <button onClick={() => navigate("/faqs")} className="hidden text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-400 hover:text-white hover:border-0 duration-200 lg:flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.45rem]">
+                                Learn More
                             </button>
                         </div>
                     </div>
@@ -78,19 +80,19 @@ const Treasure = () => {
                         </div>
                         <div className="">
                             <h1 className="text-3xl lg:text-4xl font-bold font-['Gilroy-Regular'] leading-tight py-1 pb-5 lg:max-w-[400px]">
-                Join JunkBazar as a vendor
+                                Join JunkBazar as a vendor
                             </h1>
                         </div>
                         <div>
                             <p className="lg:max-w-[450px]">
-                Want to take your JunkBazar experience to the next level? Look
-                no further! Download our user-friendly app for a seamless and
-                convenient way to buy
+                                Want to take your JunkBazar experience to the next level? Look
+                                no further! Download our user-friendly app for a seamless and
+                                convenient way to buy
                             </p>
                         </div>
                         <div className="flex items-center mt-4">
                             <button className="text-center text-white text-base font-semibold tracking-tight bg-transparent border-white border-2 hover:bg-white hover:text-lime-500  duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-4 py-[.40rem]">
-                Click here to download
+                                Click here to download
                             </button>
                         </div>
                     </div>

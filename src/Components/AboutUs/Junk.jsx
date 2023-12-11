@@ -1,10 +1,11 @@
 // import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import junk_bg from "../../assets/PNG/junk-bg.png";
 
 import Treasure from "./Treasure.jsx";
 
 const Junk = () => {
-//   const navigate = useNavigate()
+    const navigate = useNavigate()
     return (
         <div>
             <main className="lg:pt-10 lg:px-8 flex justify-center items-center">
@@ -16,27 +17,27 @@ const Junk = () => {
                         </div>
                         <div>
                             <p className="lg:max-w-[450px] ">
-                At Junk Bazar, we are experts at gathering a variety of metal
-                and plastic debris. We can assist you whether you have outdated
-                books, magazines, computers, office furniture, old batteries,
-                waste iron scrap, aluminum, copper, brass, steel, non-ferrous
-                and ferrous scrap metals, old plastics, or outdated office
-                equipment. We offer competitive market pricing for your junk
-                materials and serve both business and residential customers.
+                                At Junk Bazar, we are experts at gathering a variety of metal
+                                and plastic debris. We can assist you whether you have outdated
+                                books, magazines, computers, office furniture, old batteries,
+                                waste iron scrap, aluminum, copper, brass, steel, non-ferrous
+                                and ferrous scrap metals, old plastics, or outdated office
+                                equipment. We offer competitive market pricing for your junk
+                                materials and serve both business and residential customers.
                             </p>
                         </div>
                         <div className="hidden lg:flex justify-center lg:justify-start items-center">
                             <button
-                                // onClick={() => navigate("/faqs")}
+                                onClick={() => navigate("/faqs")}
                                 className="hidden text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-400 hover:text-white hover:border-0 duration-200 lg:flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.45rem]"
                             >
-                Learn More
+                                Learn More
                             </button>
                             <button
-                                // onClick={() => navigate("/login_signup")}
+                                onClick={() => navigate("/sign-up")}
                                 className="text-center text-white text-base font-semibold tracking-tight bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-4 py-[.65rem]"
                             >
-                Get Started
+                                Get Started
                             </button>
                         </div>
                     </div>

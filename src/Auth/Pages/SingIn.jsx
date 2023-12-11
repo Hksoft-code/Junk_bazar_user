@@ -20,7 +20,7 @@ import api from '../../api-config/axiosInstance.js';
 const SignIn = ({ navigation }) => {
     const location = useLocation()
     const navigate = useNavigate();
-
+    console.log("token", localStorage.getItem("token"))
     const [checked,
         setChecked] = React.useState(true);
     const [phoneNumber,
@@ -45,7 +45,7 @@ const SignIn = ({ navigation }) => {
                     timer: 2500,
                     title: response.data.message
                 });
-                navigate("/otp-verify", { replace: true })
+                navigate("/otp-verify", { state: { id: phoneNumber } });
             }
 
         } catch (error) {
@@ -133,6 +133,8 @@ const SignIn = ({ navigation }) => {
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
                         <LabeledInput
+                            type='number' inputMode='numeric' pattern="[0-9]*"
+                            maxlength="10"
                             handleChange={(e) => {
                                 setPhoneNumber(e.target.value);
                             }}

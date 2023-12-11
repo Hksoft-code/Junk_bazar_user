@@ -13,51 +13,55 @@ import sign_in from "../../assets/SVG/mobile-icon/sign-in.svg";
 import sign_up from "../../assets/SVG/mobile-icon/sign-up.svg";
 import logout from "../../assets/SVG/mobile-icon/logout.svg";
 import {
-    useState, useEffect 
+    useState, useEffect
 } from "react";
 import {
-    Link, useParams 
+    Link, useParams
 } from "react-router-dom";
 import {
-    useNavigate 
+    useNavigate
 } from "react-router-dom";
 import {
-    FaUserCircle 
+    FaUserCircle
 } from "react-icons/fa";
 import {
-    useDispatch, useSelector 
+    useDispatch, useSelector
 } from "react-redux";
 
 import {
-    TfiHeadphoneAlt 
+    TfiHeadphoneAlt
 } from "react-icons/tfi";
-import {
-    logoutUser 
-} from "../../redux/user/userSlice";
 
-const Nav = ({
-    token 
-}) => {
-    const [ mobileNav,
-        setMobileNav ] = useState(false);
-    const [ show,
-        handleShow ] = useState(false);
+
+const Nav = () => {
+
+    const token = localStorage.getItem("token")
+    const [mobileNav,
+        setMobileNav] = useState(false);
+    const [show,
+        handleShow] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 25) 
+            if (window.scrollY > 25)
                 handleShow(true);
-      
+
             else handleShow(false);
         });
 
         return () => {
-            window.removeEventListener("scroll", () => {});
+            window.removeEventListener("scroll", () => { });
         };
     }, []);
     useParams();
+
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate("/sign-in", { replace: true })
+
+    }
 
     const readCartQuantity = useSelector((state) => state.totalQuantity);
 
@@ -65,9 +69,8 @@ const Nav = ({
         <nav>
             <div>
                 <div
-                    className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${
-                        show ? "bg-lime-300 duration-700" : "transparent duration-700"
-                    }`}
+                    className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
+                        }`}
                 >
                     <div>
                         <img
@@ -123,21 +126,22 @@ const Nav = ({
                         </div>
                         <div className="hidden lg:flex ">
                             <div className="flex justify-between items-center">
-                                <Link to="/request_pickup">
+                                <Link to="/cart">
                                     <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white hover:border-0 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.45rem] mr-2">
-                    Request Pickup
+                                        Request Pickup
                                     </button>
                                 </Link>
 
-                                {token === "" || token === undefined ? (
+                                {token === "" || token === undefined || token === null ? (
                                     <button
                                         className="text-center text-white text-base font-semibold  tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.65rem]"
                                         onClick={() => navigate("/Sign-Up")}
                                     >
-                    Sign up/Sign in
+                                        Sign up/Sign in
                                     </button>
                                 ) : (
                                     <FaUserCircle
+                                        onClick={handleLogout}
                                         size={42}
                                         className="-mr-8 cursor-pointer"
                                         fill="#555"
@@ -187,7 +191,7 @@ const Nav = ({
                                                 className="mx-3 mr-3 w-6"
                                             />
                                             <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                        Homepage
+                                                Homepage
                                             </span>
                                         </li>
                                     </Link>
@@ -202,7 +206,7 @@ const Nav = ({
                                                 className="mx-3 mr-3 w-6"
                                             />
                                             <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                        About Us
+                                                About Us
                                             </span>
                                         </li>
                                     </Link>
@@ -213,7 +217,7 @@ const Nav = ({
                                         >
                                             <TfiHeadphoneAlt className="mx-3 mr-3 w-6 text-zinc-500" size={22} />
                                             <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                        Contact Us
+                                                Contact Us
                                             </span>
                                         </li>
                                     </Link>
@@ -227,7 +231,7 @@ const Nav = ({
                                             className="mx-3 mr-3 w-6"
                                         />
                                         <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                      Price List
+                                            Price List
                                         </span>
                                     </li>
                                     <Link to="/cart">
@@ -241,7 +245,7 @@ const Nav = ({
                                                 className="mx-3 mr-3 w-6"
                                             />
                                             <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                        Cart
+                                                Cart
                                             </span>
                                         </li>
                                     </Link>
@@ -255,21 +259,21 @@ const Nav = ({
                                     >
                                         <img src={faq} alt="faq-icon" className="mx-3 mr-3 w-6" />
                                         <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                      FAQs
+                                            FAQs
                                         </span>
                                     </li>
                                 </ul>
                                 <h1 className="font-semibold text-lg text-lime-600 mx-3">
-                  Become a <span className="font-bold"> VENDOR</span>
+                                    Become a <span className="font-bold"> VENDOR</span>
                                 </h1>
                             </div>
 
                             <div className="">
-                                {token === "" || token === undefined ? (
+                                {token === "" || token === undefined || token === null ? (
                                     <div>
                                         <div
                                             className="w-3/4 rounded-full ml-2 px-3 py-2 bg-lime-500 flex items-center hover:bg-white cursor-pointer hover:border-lime-500 hover:border-2 duration-200 hover:text-lime-500"
-                                            onClick={() => navigate("/sign-in")}
+                                            onClick={() => navigate("/sign-up")}
                                         >
                                             <img
                                                 src={sign_up}
@@ -277,7 +281,7 @@ const Nav = ({
                                                 className="mx-3 mr-3 w-6"
                                             />
                                             <h1 className="text-base font-bold text-white hover:text-lime-500 ">
-                        Sign Up
+                                                Sign Up
                                             </h1>
                                         </div>
 
@@ -301,17 +305,14 @@ const Nav = ({
                                             fill="#555"
                                         />
                                         <p className="mt-6 -ml-3 text-medium font-semibold">
-                      User xyz
+                                            User xyz
                                         </p>
                                     </div>
                                 )}
 
                                 <div
                                     className=" ml-2 mt-4 mb-3  flex items-center cursor-pointer"
-                                    onClick={() => {
-                                        dispatch(logoutUser());
-                                        navigate("/sign-in");
-                                    }}
+                                    onClick={handleLogout}
                                 >
                                     <img
                                         src={logout}
