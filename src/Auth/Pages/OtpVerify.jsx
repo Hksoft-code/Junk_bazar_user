@@ -46,7 +46,7 @@ const OtpVerify = () => {
                         showConfirmButton: false,
                         timer: 2500,
                     });
-                    const token = data.data;
+                    const token = JSON.parse(data.data);
                     console.log("token ", token)
                     localStorage.setItem("token", token.token)
                     console.log("token store ", localStorage.getItem("token"))

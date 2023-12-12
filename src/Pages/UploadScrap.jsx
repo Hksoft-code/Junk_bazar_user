@@ -82,7 +82,7 @@ const UploadScrap = () => {
             });
             //  console.log('image signed url outside axios block', signedUrl);
 
-            const imageSignedObj = signedUrl.data.data;
+            const imageSignedObj = JSON.parse(signedUrl.data.data);
 
             setImageKey(imageSignedObj.key);
 

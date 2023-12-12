@@ -18,7 +18,7 @@ const PriceCardComponent = () => {
             const response = await api.get(`${serverUrl}/getScrap`);
 
             console.log("Get Scrap ", response)
-            const scrapList = response.data.data;
+            const scrapList = JSON.parse(response.data.data);
             console.log("Get Scrap List", scrapList)
             const list = scrapList
             console.log("list", list)

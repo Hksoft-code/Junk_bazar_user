@@ -134,7 +134,7 @@ const SignIn = ({ navigation }) => {
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
                         <LabeledInput
                             type='number' inputMode='numeric' pattern="[0-9]*"
-                            maxlength="10"
+                            maxlength="10a"
                             handleChange={(e) => {
                                 setPhoneNumber(e.target.value);
                             }}
