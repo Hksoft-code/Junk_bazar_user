@@ -43,10 +43,10 @@ const PriceCardComponent = () => {
             }
             const response = await api.post(`${serverUrl}/addToCart`, AddScrapPayLoad);
 
-            console.log("Added Scrap ", response.data.data)
+            console.log("Added Scrap ", response)
 
 
-            const resGet = response.data.data;
+            const resGet = response.data;
             if (resGet.statusCode === 200) {
                 Swal.fire({
                     icon: "success",
@@ -62,6 +62,29 @@ const PriceCardComponent = () => {
 
         } catch (error) {
             console.error("Error fetching data:", error);
+
+            if (error.response.status === 401) {
+                const data = error.response;
+                console.log("error more", data)
+                // If server responded with a status code for a request  
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: data.data.error
+                });
+                navigate("/sign-in");
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
         }
     }
 

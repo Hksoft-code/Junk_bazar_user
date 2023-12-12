@@ -36,7 +36,7 @@ const RequestPickup = () => {
                 headers: { platform: "web" },
             });
 
-            const countriesAndStatesData = response.data.data;
+            const countriesAndStatesData = JSON.parse(response.data.data);
 
             console.log("countriesAndStatesData", countriesAndStatesData);
 
