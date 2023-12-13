@@ -45,7 +45,7 @@ const SignIn = ({ navigation }) => {
                     timer: 2500,
                     title: response.data.message
                 });
-                navigate("/otp-verify", { state: { id: phoneNumber } });
+                navigate("/otp-verify", { state: { phoneNumber } });
             }
 
         } catch (error) {
@@ -70,51 +70,6 @@ const SignIn = ({ navigation }) => {
                 console.log("Error", error.message);
             }
         }
-
-        // await axios
-        //     .post(`${serverUrl}/login`, data, {
-        //         headers: headers
-        //     })
-        //     .then((res) => {
-        //         console.log('api called', res);
-        //         const data = res.data;
-        //         // console.log('api called',res.data);
-        //         Swal.fire({
-        //             icon: "success",
-        //             position: "center",
-        //             showConfirmButton: false,
-        //             timer: 2500,
-        //             title: res.data.message
-        //         });
-
-        //         if (data.statusCode === 200) {
-        //             navigate("/otp-verify", { replace: true })
-        //         }
-
-        //     })
-
-        //     .catch(error => {
-        //         if (error.response) {
-        //             // If server responded with a status code for a request  
-        //             Swal.fire({
-        //                 icon: "error",
-        //                 position: "center",
-        //                 showConfirmButton: false,
-        //                 timer: 2500,
-        //                 title: error.response.data.error._message
-        //             });
-        //         }
-        //         else if (error.request) {
-        //             // Client made a request but response is not received 
-        //             console.log("<<<<<<<Response Not Received>>>>>>>>");
-        //             console.log(error.request);
-        //         }
-        //         else {
-        //             // Other case 
-        //             console.log("Error", error.message);
-        //         }
-        //         // Error handling here 
-        //     });
     };
 
     return (

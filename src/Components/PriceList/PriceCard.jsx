@@ -91,43 +91,43 @@ const PriceCardComponent = () => {
     const renderData = () => {
         return scrapList?.map((item) => (
 
-            <div class="rounded overflow-hidden shadow-lg flex flex-col">
+            <div className="rounded overflow-hidden shadow-lg flex flex-col">
 
-                <div class="relative">
-                    <img class="w-full"
+                <div className="relative">
+                    <img className="w-full"
                         src={item?.docUrl}
                         alt="" />
                     <div
-                        class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+                        className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
                     </div>
 
                 </div>
-                <div class="px-6 py-4 mb-auto">
+                <div className="px-6 py-4 mb-auto">
 
 
-                    <p class="text-gray-500 text-lg font-bold">
+                    <p className="text-gray-500 text-lg font-bold">
                         {item.scrapName}
                     </p>
 
                     <div className="flex flex-row gap-10">
-                        {/* <p class="text-gray-500 text-sm">
+                        {/* <p className="text-gray-500 text-sm">
                             {item.address}
                         </p> */}
-                        <p class="text-gray-500 text-sm">
+                        <p className="text-gray-500 text-sm">
                             {item.price} /-
                         </p>
                     </div>
                 </div>
-                <div class="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
-                    <span onClick={() => handleAddToCard(item.scrapId)} class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+                <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
+                    <span onClick={() => handleAddToCard(item.scrapId)} className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
 
-                        <span class="bg-lime-500 p-2 text-white rounded  border border-lime-800 ml-1">ADD TO CARD</span>
+                        <span className="bg-lime-500 p-2 text-white rounded  border border-lime-800 ml-1">ADD TO CARD</span>
 
                     </span>
 
-                    <span href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+                    <span href="#" className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
 
-                        <span class="ml-1"></span>
+                        <span className="ml-1"></span>
                     </span>
                 </div>
             </div>
@@ -135,7 +135,7 @@ const PriceCardComponent = () => {
         ));
     };
 
-    return <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
+    return <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">{renderData()}</div>;
     </div>
 
