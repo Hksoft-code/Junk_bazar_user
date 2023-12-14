@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { serverUrl } from "../api-config/config";
 import api from '../api-config/axiosInstance';
 import { useNavigate } from "react-router-dom";
+import card from '../assets/PNG/cart.png'
 
 const CartList = () => {
     const readCart = useSelector((state) => state.cart);
@@ -41,7 +42,31 @@ const CartList = () => {
         <div className="w-full mt-32 flex justify-center items-center lg:max-w-[1100px] mx-auto">
 
             <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">
-                {scrapList?.map((cart, index) => (
+
+
+                <div class="container mx-auto max-w-sm w-full  sm:w-1/2">
+                    <div class="card flex flex-col justify-center p-10 rounded-lg ">
+                        <div class="prod-img">
+                            <img src={card}
+                                class="w-full object-cover object-center" />
+                        </div>
+                        <div class="prod-info grid gap-10">
+                            <div>
+                                <p>You don’t have any scrap in your cart</p>
+                            </div>
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-5 text-gray-900">
+                                <button
+                                    class="px-2 py-2 transition ease-in duration-200 uppercase rounded-full   border-2 border-lime-500 focus:outline-none">
+                                    Browse Scraps</button>
+                                <button
+                                    class="px-2 py-2 transition ease-in duration-200 uppercase rounded-full bg-lime-500  border-2 border-lime-500 focus:outline-none">
+                                    Return To Home</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* {scrapList?.map((cart, index) => (
                     <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c] mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12">
                         <div className="flex justify-center items-center mb-4 md:mb-0">
                             <img
@@ -70,7 +95,9 @@ const CartList = () => {
                             </button>
                         </div>
                     </div>
-                ))}
+                ))} */}
+
+
             </div>
         </div>
     );

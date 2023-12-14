@@ -80,6 +80,16 @@ const PriceCardComponent = () => {
                 // Client made a request but response is not received 
                 console.log("<<<<<<<Response Not Received>>>>>>>>");
                 console.log(error.request);
+
+                if(error.request.status === 400){
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: "Scrap Already In Cart"
+                    }); 
+                }
             }
             else {
                 // Other case 
@@ -90,47 +100,72 @@ const PriceCardComponent = () => {
 
     const renderData = () => {
         return scrapList?.map((item) => (
+            <div class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
 
-            <div className="rounded overflow-hidden shadow-lg flex flex-col">
+                <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
+                    <img class="object-cover" src={item?.docUrl} alt="product image" />
+                    <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
+                </a>
+                <div class="mt-4 px-5 pb-5">
+                    <a onClick={() => navigate("/scrapDetails")}>
+                        <h5 class="text-xl tracking-tight text-slate-900"> {item.scrapName}</h5>
+                    </a>
+                    <div class="mt-2 mb-5 flex items-center justify-between">
+                        <p>
+                            <span class="text-3xl font-bold text-slate-900"> {item.price} /-</span>
 
-                <div className="relative">
-                    <img className="w-full"
-                        src={item?.docUrl}
-                        alt="" />
-                    <div
-                        className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
-                    </div>
-
-                </div>
-                <div className="px-6 py-4 mb-auto">
-
-
-                    <p className="text-gray-500 text-lg font-bold">
-                        {item.scrapName}
-                    </p>
-
-                    <div className="flex flex-row gap-10">
-                        {/* <p className="text-gray-500 text-sm">
-                            {item.address}
-                        </p> */}
-                        <p className="text-gray-500 text-sm">
-                            {item.price} /-
                         </p>
+
                     </div>
+                    <a  onClick={() => handleAddToCard(item.scrapId)} class="cursor-pointer flex items-center justify-center rounded-md bg-lime-400 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lime-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Add to cart</a>
                 </div>
-                <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
-                    <span onClick={() => handleAddToCard(item.scrapId)} className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
 
-                        <span className="bg-lime-500 p-2 text-white rounded  border border-lime-800 ml-1">ADD TO CARD</span>
-
-                    </span>
-
-                    <span href="#" className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-
-                        <span className="ml-1"></span>
-                    </span>
-                </div>
             </div>
+
+            // <div className="rounded overflow-hidden shadow-lg flex flex-col">
+
+            //     <div className="relative">
+            //         <img className="w-full"
+            //             src={item?.docUrl}
+            //             alt="" />
+            //         <div
+            //             className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25">
+            //         </div>
+
+            //     </div>
+            //     <div className="px-6 py-4 mb-auto">
+
+
+            //         <p className="text-gray-500 text-lg font-bold">
+            //             {item.scrapName}
+            //         </p>
+
+            //         <div className="flex flex-row gap-10">
+            //             {/* <p className="text-gray-500 text-sm">
+            //                 {item.address}
+            //             </p> */}
+            //             <p className="text-gray-500 text-sm">
+            //                 {item.price} /-
+            //             </p>
+            //         </div>
+            //     </div>
+            //     <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
+            //         <span onClick={() => handleAddToCard(item.scrapId)} className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+
+            //             <span className="bg-lime-500 p-2 text-white rounded  border border-lime-800 ml-1">ADD TO CARD</span>
+
+            //         </span>
+
+            //         <span href="#" className="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
+
+            //             <span className="ml-1"></span>
+            //         </span>
+            //     </div>
+            // </div>
 
         ));
     };

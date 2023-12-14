@@ -20,6 +20,7 @@ import SignUp from "./Auth/Pages/SignUp.jsx";
 import OrderSuccessful from "./Pages/OrderSuccessfull.jsx";
 import Faqs from "./Pages/Faqs.jsx";
 import CardPage from "./Pages/CardPage.jsx";
+import ScrapDetails from "./Pages/ScrapDetails.jsx";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/otp-verify" element={<OtpVerify />} />
                 <Route path="/Success-page" element={<OrderSuccessful />} />
                 <Route path="/faqs" element={<Faqs />} />
+                <Route path="/scrapDetails" element={<ScrapDetails />} />
             </Routes>
             <Footer />
         </div>
