@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {
-    useState
+    useState,useEffect
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
@@ -16,8 +16,12 @@ import {
 } from "react-router-dom";
 
 import api from '../../api-config/axiosInstance.js';
+import LoadingSpinner from "../../Common/Loader/Spinner.jsx";
+import Loading from "../../Common/Loader/Spinner.jsx";
 
 const SignIn = ({ navigation }) => {
+
+    const [isLoading, setIsLoading] = useState(false);
     const location = useLocation()
     const navigate = useNavigate();
     console.log("token", localStorage.getItem("token"))
@@ -27,7 +31,7 @@ const SignIn = ({ navigation }) => {
         setPhoneNumber] = useState("");
 
     const Sign_In = async () => {
-
+        setIsLoading(true);
 
         try {
             const payLoad = {
@@ -72,6 +76,12 @@ const SignIn = ({ navigation }) => {
         }
     };
 
+    
+
+   
+
+   
+
     return (
         <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto grid max-w-7xl gap-x-20 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
@@ -111,7 +121,7 @@ const SignIn = ({ navigation }) => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                            handleClick={Sign_In}
+                            
 
                         />
                         <div className="relative text-center mt-10">

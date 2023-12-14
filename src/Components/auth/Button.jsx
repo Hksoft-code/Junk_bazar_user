@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 // import React from "react";
 
+import Loader from "./Loader";
+
 const Button = ({
-    label, handleClick, classname, style, disabled 
+    label, handleClick, classname, style, disabled ,loading = false,
 }) => {
     return (
         <button
@@ -12,7 +14,7 @@ const Button = ({
             style={style}
             disabled={disabled}
         >
-            {label}
+             {!loading ? label : <Loader className="spinner" />}
         </button>
     );
 };
