@@ -54,6 +54,7 @@ const PriceCardComponent = () => {
                 scraps 
             } = JSON.parse(response.data.data);
 
+            console.log("pricing", scraps);
             setScrapList(scraps);
         }
         catch (error) {
@@ -103,7 +104,7 @@ const PriceCardComponent = () => {
                     </a>
                     <div className="mt-2 mb-5 flex items-center justify-between">
                         <p>
-                            <span className="text-3xl font-bold text-slate-900">{item.price} /-</span>
+                            <span className="text-1xl font-bold text-slate-900"> ₹ {item.price}-{item.quantityType}</span>
                         </p>
                     </div>
                     <a onClick={() => handleAddToCard(item.scrapId)} className="cursor-pointer flex items-center justify-center rounded-md bg-lime-400 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lime-500 focus:outline-none focus:ring-4 focus:ring-blue-300">

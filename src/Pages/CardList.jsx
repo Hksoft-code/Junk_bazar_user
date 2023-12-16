@@ -81,7 +81,7 @@ const CartList = () => {
                                         <p> {cart?.address}</p>
                                     </div> */}
                                     <p className="font-bold text-[10px] max-er:text-[10px] md:text-[14px] text-gray-700">
-                                        {cart?.scrapInfo.quantity} - {cart?.scrapInfo.quantityType}
+                                      ₹ {cart?.scrapInfo.price} - {cart?.scrapInfo.quantityType}
                                     </p>
                                 </div>
                             </div>

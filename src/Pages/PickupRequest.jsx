@@ -68,7 +68,7 @@ const RequestPickup = () => {
         setSelectedState("");
         for (let i = 0; countriesAndStates.length > i; i++) {
             console.log("dial Code", countriesAndStates[0].phone_code);
-            setDialCode(countriesAndStates[0].phone_code);
+            setDialCode(`${countriesAndStates[0].emoji} ${countriesAndStates[0].phone_code}`);
         }
     };
     // Get the list of states based on the selected country
