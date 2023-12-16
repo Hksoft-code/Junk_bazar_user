@@ -1,54 +1,63 @@
-import React, { useEffect, useState } from "react";
+import {
+    useEffect, useState
+} from "react";
 import phone_guy from "../assets/PNG/about-img.png";
-import { serverUrl } from "../api-config/config.js";
-import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import {
+    useNavigate, useLocation
+} from "react-router-dom";
+import axiosInstance from "../api-config/axiosInstance.js";
 const RequestPickup = () => {
-    const [selectedCountry, setSelectedCountry] = useState("");
-    const [selectedState, setSelectedState] = useState("");
-    const [selectedCity, setSelectedCity] = useState("");
-    const [selectedDialCode, setDialCode] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [fullName, setFullName] = useState("");
-    const [address, setAddress] = useState("");
-    const [pincode, setPincode] = useState("");
-    const [scrapId, setScrapId] = useState("");
-    const [countriesAndStates, setcountriesAndStates] = useState([]);
+    const [selectedCountry,
+        setSelectedCountry] = useState("");
+    const [selectedState,
+        setSelectedState] = useState("");
+    const [selectedCity,
+        setSelectedCity] = useState("");
+    const [selectedDialCode,
+        setDialCode] = useState("");
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
+    const [fullName,
+        setFullName] = useState("");
+    const [address,
+        setAddress] = useState("");
+    const [pincode,
+        setPincode] = useState("");
+    // const [ scrapId,
+    //     setScrapId ] = useState("");
+    const [countriesAndStates,
+        setcountriesAndStates] = useState([]);
 
+    const {
+        state
+    } = useLocation(); const {
+        id
+    } = state;
 
-    const { state } = useLocation(); const { id } = state;
-    console.log("Scrap Id", id)
+    console.log("Scrap Id", id);
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("token");
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        fetchData();
-    }, []);
-
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${serverUrl}/getCountries`, {
-                headers: { platform: "web" },
-            });
+            const response = await axiosInstance.get("/getCountries");
 
             const countriesAndStatesData = JSON.parse(response.data.data);
 
             console.log("countriesAndStatesData", countriesAndStatesData);
 
-
-
-
             setcountriesAndStates(countriesAndStatesData);
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        fetchData();
+    }, []);
     console.log("countriesAndStates", countriesAndStates);
 
     const handleCountryChange = (event) => {
@@ -59,7 +68,7 @@ const RequestPickup = () => {
         setSelectedState("");
         for (let i = 0; countriesAndStates.length > i; i++) {
             console.log("dial Code", countriesAndStates[0].phone_code);
-            setDialCode(countriesAndStates[0].phone_code)
+            setDialCode(`${countriesAndStates[0].emoji} ${countriesAndStates[0].phone_code}`);
         }
     };
     // Get the list of states based on the selected country
@@ -73,16 +82,15 @@ const RequestPickup = () => {
     // Get the list of cities based on the selected state
     const cities =
         states.filter((el) => {
-            if (el.state_code === selectedState) {
+            if (el.state_code === selectedState)
                 return el.cities;
-            }
         })[0]?.cities || [];
 
     const handleCityChange = (event) => {
         const citySelected = event.target.value;
+
         setSelectedCity(citySelected);
     };
-
 
     const handleConfirm = async () => {
         const payload = {
@@ -90,78 +98,66 @@ const RequestPickup = () => {
             city: selectedCity,
             address: address,
             pincode: JSON.parse(pincode),
-            scrapId: id,
+            scrapIds: id,
             stateCode: selectedState,
             countryCode: selectedCountry,
             dialCode: selectedDialCode,
             phoneNumber: phoneNumber
-        }
-
-        const headers = {
-            Authorization: `Bearer ${token}`,
-            platform: "web"
         };
 
-        await axios
-            .post(`${serverUrl}/addPickUpAddress`, payload, {
-                headers: headers
-            })
-            .then((res) => {
-                const data = res.data;
+        console.log("payload", payload);
+        try {
+            const resp = await axiosInstance.post("/addPickUpAddress", payload);
+            const dataObj = resp.data;
 
-                if (data.statusCode === 200) {
-                    Swal.fire({
-                        icon: "success",
-                        position: "center",
-                        showConfirmButton: true,
-                        timer: 2500,
-                        title: data.message
-                    });
-                    navigate("/Success-page", { replace: true })
-                    // return <Redirect to='/otp-verify' />
-                }
+            if (dataObj.statusCode === 200) {
+                Swal.fire({
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: true,
+                    timer: 2500,
+                    title: dataObj.message
+                });
+                navigate("/Success-page", {
+                    replace: true
+                });
+            }
+        }
+        catch (error) {
+            console.log("Data", error.response.data);
 
-                console.log("ffdgfdfg", res);
-            })
-
-            .catch((error) => {
+            if (error.response) {
+                // If server responded with a status code for a request 
                 console.log("Data", error.response.data);
+                const data = error.response.data;
 
-                if (error.response) {
-                    // If server responded with a status code for a request 
-                    console.log("Data", error.response.data);
-                    const data = error.response.data;
+                if (data.error.statusCode === 400) {
+                    const mess = data.error;
 
-                    if (data.error.statusCode === 400) {
-                        const mess = data.error;
-
-                        Swal.fire({
-                            icon: "error",
-                            position: "center",
-                            showConfirmButton: false,
-                            timer: 2500,
-                            title: mess._message
-                        });
-                    }
-
-                    console.log("Status", error.response.status);
-                    console.log("Headers", error.response.headers);
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: mess._message
+                    });
                 }
-                else if (error.request) {
-                    // Client made a request but response is not received 
-                    console.log("<<<<<<<Response Not Received>>>>>>>>");
-                    console.log(error.request);
-                }
-                else {
-                    // Other case 
-                    console.log("Error", error.message);
-                }
-                // Error handling here 
-            });
 
+                console.log("Status", error.response.status);
+                console.log("Headers", error.response.headers);
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
+            // Error handling here 
+        }
     };
-
-
 
     return (
         <div>
@@ -249,7 +245,6 @@ const RequestPickup = () => {
 
                             </div>
 
-
                         </div>
                         <div className="col-span-6 sm:col-span-3">
                             <div className="grid  grid-cols-3 gap-6">
@@ -299,7 +294,7 @@ const RequestPickup = () => {
                                             <select value={selectedCity} disabled={!selectedState} onChange={handleCityChange}>
                                                 <option value="">Select City</option>
                                                 {cities.map((cityObj) => (
-                                                    <option key={cityObj.id} value={cityObj.id}>
+                                                    <option key={cityObj.id} value={cityObj.name}>
                                                         {cityObj.name}
                                                     </option>
                                                 ))}

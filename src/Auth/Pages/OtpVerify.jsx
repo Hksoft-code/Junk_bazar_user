@@ -1,83 +1,86 @@
-import axios from "axios";
-import React, { useState } from "react";
-import customer from '../../assets/PNG/customer.png'
+import React, {
+    useState 
+} from "react";
+import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input";
 import LabeledInput from "../../Components/auth/LabeledInput";
-import Button from '../../Components/auth/Button'
-// import Swal from "sweetalert2";
-import { serverUrl } from "../../api-config/config";
+import Button from "../../Components/auth/Button";
+
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import {
+    useLocation, useNavigate 
+} from "react-router-dom";
+import axiosInstance from "../../api-config/axiosInstance.js";
 const OtpVerify = () => {
-    // const baseUrl = "https://serverpprod.hksoftware.in/api/v1/users";
-    const [checked, setChecked] = React.useState(true);
-    const [otp, setOtp] = useState("");
-    // const [phoneNumber, setPhoneNumber] = useState("");
+    const [ checked,
+        setChecked ] = React.useState(true);
+    const [ otp,
+        setOtp ] = useState("");
+    const [ isValidPhoneNumber,
+        setIsValidPhoneNumber ] = useState(false);
     const navigate = useNavigate();
-
-
+    
     const location = useLocation();
-    console.log("Scrap Id", location.state.id)
 
-
-
-    const verifyOtp = async () => {
-
-        const data = {
-            "otp": otp,
-            "phoneNumber": "7488325096"
-        }
-
-        const headers = {
-            "platform": "web",
+    console.log("phoneNumberObj", location.state.phoneNumber);
+    const handlePhoneNumberChange = (e) => {
+        const value = e.target.value;
+        const phoneRegex = /^\d{6}$/;
+        const isValid = phoneRegex.test(value);
+        
+        setOtp(value);
+        setIsValidPhoneNumber(isValid);
+    };
+    const otpVerifyService = async () => {
+        const payload = {
+            otp: otp,
+            phoneNumber: location.state.phoneNumber
         };
 
-        await axios
-            .post(`${serverUrl}/otpVerify`, data, { headers: headers })
-            .then((res) => {
-                console.log(res);
-                const data = res.data;
-                if (data.statusCode === 200) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 2500,
-                    });
-                    const token = JSON.parse(data.data);
-                    console.log("token ", token)
-                    localStorage.setItem("token", token.token)
-                    console.log("token store ", localStorage.getItem("token"))
+        try {
+            const resp = await axiosInstance.post("/otpVerify", payload);
+            const dataObject = resp.data;
+            const tokenParse = JSON.parse(dataObject.data);
 
-                    navigate("/pricing", { replace: true })
+            console.log("token", tokenParse.token);
+            localStorage.setItem("token", tokenParse.token);
 
-                }
+            if (dataObject.statusCode === 200) {
+                Swal.fire({
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: dataObject.message
+                });
+                console.log("token store ", localStorage.getItem("token"));
 
-            })
+                navigate("/pricing", {
+                    replace: true 
+                });
+            }
+        }
+        catch (error) {
+            console.error("Error", error);
 
-            .catch((error) => { // error is handled in catch block
-                if (error.response) { // status code out of the range of 2xx
-                    console.log("Data :", error.response.data);
-                    const data = error.response.data;
-
-                    if (data.error.statusCode === 400) {
-                        Swal.fire({
-                            position: "center",
-                            icon: "error",
-                            title: data.error._message,
-                            showConfirmButton: false,
-                            timer: 2500,
-                        });
-                    }
-                    console.log("Status :" + error.response.status);
-                } else if (error.request) { // The request was made but no response was received
-                    console.log(error.request);
-                } else {// Error on setting up the request
-                    console.log('Error', error.message);
-                }
-            });
+            if (error.response) { // status code out of the range of 2xx
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: error.response.data.error._message
+                });
+                    
+                console.log("Status :" + error.response.status);
+            }
+            else if (error.request) { // The request was made but no response was received
+                console.log(error.request);
+            }
+            else {// Error on setting up the request
+                console.log("Error", error.message);
+            }
+        }
     };
 
     return (
@@ -98,11 +101,11 @@ const OtpVerify = () => {
                         <LabeledInput
                             type='number' inputMode='numeric' pattern="[0-9]*"
                             maxlength="6"
-                            handleChange={(e) => {
-                                setOtp(e.target.value);
-                            }}
+                            handleChange={handlePhoneNumberChange}
                         />
-
+                        {!isValidPhoneNumber && (
+                            <p className="text-red-500 text-sm mt-1">Please enter a valid 6-digit Otp.</p>
+                        )}
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                             <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                 We’ve sent a one Time password (OTP to +91{location.state.id}).
@@ -127,25 +130,24 @@ const OtpVerify = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                            handleClick={verifyOtp}
-
+                            disabled={!isValidPhoneNumber}
+                            handleClick={otpVerifyService}
 
                         />
                         <div className="relative text-center mt-10">
                             <span className="text-darkslategray-200">
                                 Already have an account?
                             </span>
-                            <span className="text-dimgray-200">{` `}</span>
-                            <span onClick={() => navigate("/sign-in", { replace: true })} className="[text-decoration:underline]">{`Log in  `}</span>
+                            <span className="text-dimgray-200">{" "}</span>
+                            <span onClick={() => navigate("/sign-in", {
+                                replace: true 
+                            })} className="[text-decoration:underline]">{"Log in  "}</span>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     );
 };
 
