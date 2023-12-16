@@ -16,9 +16,13 @@ import {
 } from "react-router-dom";
 import card from "../assets/PNG/cart.png";
 import Swal from "sweetalert2";
+import { addToCart, removeFromCart } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 const CartList = () => {
     const readCart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+    const itemsInCart = useSelector((state) => state.cart);
     const [scrapList, setScrapList] = useState([]);
     const [quanty, setQuantity] = useState(0)
 
@@ -61,6 +65,7 @@ const CartList = () => {
 
 
     const removeFromCard = async (event) => {
+
         console.error("Error fetching data:", event);
         const payload = {
             addToCartId: event,
@@ -71,6 +76,7 @@ const CartList = () => {
             console.log("Scrap Delete ", response);
             const data = response.data;
             if (data.statusCode === 200) {
+                dispatch(removeFromCart(event));
                 Swal.fire({
                     icon: "success",
                     position: "center",
