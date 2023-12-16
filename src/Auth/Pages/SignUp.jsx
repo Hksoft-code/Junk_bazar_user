@@ -13,12 +13,12 @@ import axiosInstance from "../../api-config/axiosInstance.js";
 const SignUp = () => {
     const navigate = useNavigate();
 
-    const [ checked,
-        setChecked ] = React.useState(true);
-    const [ phoneNumber,
-        setPhoneNumber ] = useState("");
-    const [ isValidPhoneNumber,
-        setIsValidPhoneNumber ] = useState(false);
+    const [checked,
+        setChecked] = React.useState(true);
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
+    const [isValidPhoneNumber,
+        setIsValidPhoneNumber] = useState(false);
 
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
@@ -36,7 +36,7 @@ const SignUp = () => {
         };
 
         try {
-            const resp = await axiosInstance.post("/otpVerify", payload);
+            const resp = await axiosInstance.post("/register", payload);
             const dataObject = resp.data;
 
             if (dataObject.statusCode === 200) {
@@ -50,14 +50,14 @@ const SignUp = () => {
                 navigate("/otp-verify", {
                     state: {
                         phoneNumber
-                    } 
+                    }
                 });
             }
         }
         catch (error) {
             console.error("error", error);
 
-            if (error.response) { 
+            if (error.response) {
                 Swal.fire({
                     icon: "error",
                     position: "center",
@@ -95,8 +95,8 @@ const SignUp = () => {
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
                         <LabeledInput
-                            type='number' 
-                            inputMode='numeric' 
+                            type='number'
+                            inputMode='numeric'
                             pattern="[0-9]*"
                             maxlength="10"
                             handleChange={handlePhoneNumberChange}
@@ -130,7 +130,7 @@ const SignUp = () => {
                             </span>
                             <span className="text-dimgray-200">{" "}</span>
                             <span onClick={() => navigate("/sign-in", {
-                                replace: true 
+                                replace: true
                             })} className="[text-decoration:underline]">{"Log in  "}</span>
                         </div>
 
