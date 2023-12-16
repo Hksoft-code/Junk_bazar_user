@@ -25,23 +25,22 @@ import {
     FaUserCircle
 } from "react-icons/fa";
 import {
-    useDispatch, useSelector
+    // useDispatch,
+    useSelector
 } from "react-redux";
 
 import {
     TfiHeadphoneAlt
 } from "react-icons/tfi";
 
-
 const Nav = () => {
-
-    const token = localStorage.getItem("token")
-    const [mobileNav,
-        setMobileNav] = useState(false);
-    const [show,
-        handleShow] = useState(false);
+    const token = localStorage.getItem("token");
+    const [ mobileNav,
+        setMobileNav ] = useState(false);
+    const [ show,
+        handleShow ] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -59,9 +58,10 @@ const Nav = () => {
 
     const handleLogout = () => {
         localStorage.clear();
-        navigate("/sign-in", { replace: true })
-
-    }
+        navigate("/sign-in", {
+            replace: true 
+        });
+    };
 
     const readCartQuantity = useSelector((state) => state.totalQuantity);
 
@@ -70,7 +70,7 @@ const Nav = () => {
             <div>
                 <div
                     className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
-                        }`}
+                    }`}
                 >
                     <div>
                         <img

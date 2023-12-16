@@ -4,7 +4,7 @@
 import Loader from "./Loader";
 
 const Button = ({
-    label, handleClick, classname, style, disabled ,loading = false,
+    label, handleClick, classname, style, disabled, loading = false
 }) => {
     return (
         <button
@@ -14,7 +14,7 @@ const Button = ({
             style={style}
             disabled={disabled}
         >
-             {!loading ? label : <Loader className="spinner" />}
+            {!loading ? label : <Loader className="spinner" />}
         </button>
     );
 };
