@@ -27,15 +27,19 @@ const Homepage = () => {
 
     const readCart = useSelector((state) => state.cart);
     const dispatch = useDispatch(0);
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
-        try {
-            const response = await axiosInstance.get('/getAddToCart');
-            const scrapList = JSON.parse(response.data.data);
-            console.log('scrapList', scrapList);
-            dispatch(addToCart(scrapList));
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (token === '' || undefined || null) {
+            try {
+                const response = await axiosInstance.get('/getAddToCart');
+                const scrapList = JSON.parse(response.data.data);
+                console.log('scrapList', scrapList);
+                dispatch(addToCart(scrapList));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
+
     };
     return (
         <div>

@@ -314,7 +314,7 @@ const Nav = () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="flex">
+                                    <div>
                                         <FaUserCircle
                                             onClick={handleLogout}
                                             size={30}

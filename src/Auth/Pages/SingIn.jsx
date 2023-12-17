@@ -12,7 +12,7 @@ import {
 import flag from '../../assets/PNG/fllag.png'
 import axiosInstance from "../../api-config/axiosInstance.js";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+
 
 const SignIn = () => {
     const navigate = useNavigate();
