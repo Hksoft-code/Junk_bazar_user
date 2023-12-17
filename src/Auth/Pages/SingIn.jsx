@@ -1,5 +1,5 @@
 import React, {
-    useState 
+    useState
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
@@ -9,24 +9,27 @@ import Swal from "sweetalert2";
 import {
     useNavigate
 } from "react-router-dom";
-
+import flag from '../../assets/PNG/fllag.png'
 import axiosInstance from "../../api-config/axiosInstance.js";
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 
 const SignIn = () => {
     const navigate = useNavigate();
 
-    const [ checked,
-        setChecked ] = React.useState(true);
-    const [ phoneNumber,
-        setPhoneNumber ] = useState("");
-    const [ isValidPhoneNumber,
-        setIsValidPhoneNumber ] = useState(false);
+    const [checked,
+        setChecked] = React.useState(true);
+    const [phoneNumber,
+        setPhoneNumber] = useState("");
+    const [isValidPhoneNumber,
+        setIsValidPhoneNumber] = useState(false);
+
 
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
         const phoneRegex = /^\d{10}$/;
         const isValid = phoneRegex.test(value);
-        
+
         setPhoneNumber(value);
         setIsValidPhoneNumber(isValid);
     };
@@ -54,8 +57,8 @@ const SignIn = () => {
                 });
                 navigate("/otp-verify", {
                     state: {
-                        phoneNumber 
-                    } 
+                        phoneNumber
+                    }
                 });
             }
         }
@@ -85,27 +88,41 @@ const SignIn = () => {
     };
 
     return (
-        <div className="bg-white py-24 sm:py-32">
-            <div className="mx-auto grid max-w-7xl gap-x-20 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
+        <div class="h-screen md:flex">
+            <div
+                class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
                 <div className="w-full text-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                    <img className="h-full w-full rounded-full" src={customer} alt=" " />
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign In to enjoy exclusive access!.</p>
+                    <img className="max-h-fit w-full rounded-full" src={customer} alt=" " />
                 </div>
-                <div className="w-full">
-                    <div className="shadow-md p-8">
-                        {/* <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
-                        <p className="mt-6 text-lg leading-8 text-gray-600">Sign into your account.</p>
+
+            </div>
+            <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
+                <div className="max-w-2xl max-h-screen">
+                    <div className="shadow-lg p-20 w-full">
+
+                        <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign In</p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
-                        <LabeledInput
+                        {/* <div className="border-solid p-2 max-w-md rounded-lg border-2 border-gray-600 "> */}
+                        {/* <PhoneInput
+                                international
+                                defaultCountry="IN"
+                                value={phoneNumber}
+                                onChange={setPhoneNumber}
+
+                            /> */}
+                        <LabeledInput className="col-span-2"
                             type='number'
                             inputMode='numeric'
                             pattern="[0-9]*"
                             maxlength="10"
                             handleChange={handlePhoneNumberChange}
                         />
+                        {/* </div> */}
+
                         {!isValidPhoneNumber && (
                             <p className="text-red-500 text-sm mt-1">Please enter a valid 10-digit phone number.</p>
                         )}
@@ -140,7 +157,6 @@ const SignIn = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 

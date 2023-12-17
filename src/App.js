@@ -20,11 +20,12 @@ import SignUp from "./Auth/Pages/SignUp.jsx";
 import OrderSuccessful from "./Pages/OrderSuccessfull.jsx";
 import Faqs from "./Pages/Faqs.jsx";
 import CardPage from "./Pages/CardPage.jsx";
+import TrackOrder from "./Pages/TrackOrder.jsx";
 
 function App() {
     return (
         <div>
-            <Nav />
+
             <Routes>
                 <Route path="/" element={<Homepage />} />
                 <Route path="/about" element={<AboutUs />} />
@@ -38,8 +39,9 @@ function App() {
                 <Route path="/otp-verify" element={<OtpVerify />} />
                 <Route path="/Success-page" element={<OrderSuccessful />} />
                 <Route path="/faqs" element={<Faqs />} />
+                <Route path='/TrackOrder' element={<TrackOrder />} />
             </Routes>
-            <Footer />
+
         </div>
 
     );

@@ -58,10 +58,17 @@ const Nav = () => {
     useParams();
 
     const handleLogout = () => {
+        console.log("logout click")
         localStorage.clear();
         navigate("/sign-in", { replace: true })
 
     }
+
+
+    // const handleTrackOut = () => {
+    //     console.log("trackorder click")
+    //     navigate("/TrackOrder", { replace: true })
+    // }
 
     const readCartQuantity = useSelector((state) => state.totalQuantity);
 
@@ -140,12 +147,21 @@ const Nav = () => {
                                         Sign up/Sign in
                                     </button>
                                 ) : (
-                                    <FaUserCircle
-                                        onClick={handleLogout}
-                                        size={42}
-                                        className="-mr-8 cursor-pointer"
-                                        fill="#555"
-                                    />
+                                    <div>
+                                        <FaUserCircle
+                                            onClick={handleLogout}
+                                            size={30}
+                                            className="cursor-pointer m-5"
+                                            fill="#555"
+                                        />
+
+                                        {/* <select className="w-full bg-[#80d7421c] p-1" value='' >
+                                           
+                                            <option value="" onClick={handleTrackOut}>Track Order</option>
+                                            <option value="" onClick={handleLogout}>Log Out</option>
+                                        </select> */}
+                                    </div>
+
                                 )}
                             </div>
                         </div>
@@ -300,13 +316,18 @@ const Nav = () => {
                                 ) : (
                                     <div className="flex">
                                         <FaUserCircle
+                                            onClick={handleLogout}
                                             size={30}
                                             className="cursor-pointer m-5"
                                             fill="#555"
                                         />
-                                        <p className="mt-6 -ml-3 text-medium font-semibold">
+                                        {/* <select className="w-full bg-[#80d7421c] p-1" value='' >
+                                            <option value="">Track Order</option>
+                                            <option value="">Log Out</option>
+                                        </select> */}
+                                        {/* <p className="mt-6 -ml-3 text-medium font-semibold">
                                             User xyz
-                                        </p>
+                                        </p> */}
                                     </div>
                                 )}
 

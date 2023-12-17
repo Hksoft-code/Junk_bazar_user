@@ -7,27 +7,21 @@ import {
     useNavigate, useLocation
 } from "react-router-dom";
 import axiosInstance from "../api-config/axiosInstance.js";
+import Nav from "../Common/Navbar/Nav.jsx";
+import Footer from "../Common/Footer/Footer.jsx";
 const RequestPickup = () => {
-    const [selectedCountry,
-        setSelectedCountry] = useState("");
-    const [selectedState,
-        setSelectedState] = useState("");
-    const [selectedCity,
-        setSelectedCity] = useState("");
-    const [selectedDialCode,
-        setDialCode] = useState("");
-    const [phoneNumber,
-        setPhoneNumber] = useState("");
-    const [fullName,
-        setFullName] = useState("");
-    const [address,
-        setAddress] = useState("");
-    const [pincode,
-        setPincode] = useState("");
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
+    const [selectedDialCode, setDialCode] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [address, setAddress] = useState("");
+    const [pincode, setPincode] = useState("");
+    const [isFormValidate, setFormValidate] = useState(false);
     // const [ scrapId,
     //     setScrapId ] = useState("");
-    const [countriesAndStates,
-        setcountriesAndStates] = useState([]);
+    const [countriesAndStates, setcountriesAndStates] = useState([]);
 
     const {
         state
@@ -68,7 +62,7 @@ const RequestPickup = () => {
         setSelectedState("");
         for (let i = 0; countriesAndStates.length > i; i++) {
             console.log("dial Code", countriesAndStates[0].phone_code);
-            setDialCode(`${countriesAndStates[0].emoji} ${countriesAndStates[0].phone_code}`);
+            setDialCode(`${countriesAndStates[0].phone_code}`);
         }
     };
     // Get the list of states based on the selected country
@@ -93,74 +87,83 @@ const RequestPickup = () => {
     };
 
     const handleConfirm = async () => {
-        const payload = {
-            fullName: fullName,
-            city: selectedCity,
-            address: address,
-            pincode: JSON.parse(pincode),
-            scrapIds: id,
-            stateCode: selectedState,
-            countryCode: selectedCountry,
-            dialCode: selectedDialCode,
-            phoneNumber: phoneNumber
-        };
 
-        console.log("payload", payload);
-        try {
-            const resp = await axiosInstance.post("/addPickUpAddress", payload);
-            const dataObj = resp.data;
+        if (fullName !== '' || undefined && selectedCity !== '' || undefined && address !== '' || undefined && selectedState !== '' || undefined && selectedCountry !== '' || undefined && selectedDialCode !== '' || undefined && phoneNumber !== '' || undefined && pincode !== '' || undefined) {
+            setFormValidate(true)
+            const payload = {
+                fullName: fullName,
+                city: selectedCity,
+                address: address,
+                pincode: JSON.parse(pincode),
+                scrapIds: id,
+                stateCode: selectedState,
+                countryCode: selectedCountry,
+                dialCode: selectedDialCode,
+                phoneNumber: phoneNumber
+            };
+            console.log("validate", payload);
 
-            if (dataObj.statusCode === 200) {
-                Swal.fire({
-                    icon: "success",
-                    position: "center",
-                    showConfirmButton: true,
-                    timer: 2500,
-                    title: dataObj.message
-                });
-                navigate("/Success-page", {
-                    replace: true
-                });
-            }
-        }
-        catch (error) {
-            console.log("Data", error.response.data);
+            console.log("payload", payload);
+            try {
+                const resp = await axiosInstance.post("/addPickUpAddress", payload);
+                const dataObj = resp.data;
 
-            if (error.response) {
-                // If server responded with a status code for a request 
-                console.log("Data", error.response.data);
-                const data = error.response.data;
-
-                if (data.error.statusCode === 400) {
-                    const mess = data.error;
-
+                if (dataObj.statusCode === 200) {
                     Swal.fire({
-                        icon: "error",
+                        icon: "success",
                         position: "center",
-                        showConfirmButton: false,
+                        showConfirmButton: true,
                         timer: 2500,
-                        title: mess._message
+                        title: dataObj.message
+                    });
+                    navigate("/Success-page", {
+                        replace: true
                     });
                 }
+            }
+            catch (error) {
+                console.log("Data", error.response.data);
 
-                console.log("Status", error.response.status);
-                console.log("Headers", error.response.headers);
+                if (error.response) {
+                    // If server responded with a status code for a request 
+                    console.log("Data", error.response.data);
+                    const data = error.response.data;
+
+                    if (data.error.statusCode === 400) {
+                        const mess = data.error;
+
+                        Swal.fire({
+                            icon: "error",
+                            position: "center",
+                            showConfirmButton: false,
+                            timer: 2500,
+                            title: mess._message
+                        });
+                    }
+
+                    console.log("Status", error.response.status);
+                    console.log("Headers", error.response.headers);
+                }
+                else if (error.request) {
+                    // Client made a request but response is not received 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                }
+                else {
+                    // Other case 
+                    console.log("Error", error.message);
+                }
+                // Error handling here 
             }
-            else if (error.request) {
-                // Client made a request but response is not received 
-                console.log("<<<<<<<Response Not Received>>>>>>>>");
-                console.log(error.request);
-            }
-            else {
-                // Other case 
-                console.log("Error", error.message);
-            }
-            // Error handling here 
+        } else {
+            setFormValidate(false)
         }
+
     };
 
     return (
         <div>
+            <Nav />
             <div className="w-full flex justify-center items-center p-4 md:mt-[150px] sm:mt-[20px] mt-14 ">
                 <div className="flex flex-col md:flex-row justify-between items-start w-full md:w-[80%] flex-wrap">
                     <div className="w-full md:w-[40%] h-[300px] md:h-auto">
@@ -181,6 +184,7 @@ const RequestPickup = () => {
                                 <label className="block py-3 text-black">Enter Full Name</label>
                                 <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                     <input
+                                        required
                                         onChange={(e) => {
                                             setFullName(e.target.value);
                                         }}
@@ -195,6 +199,7 @@ const RequestPickup = () => {
                                 <label className="block py-3 text-black">Enter Address</label>
                                 <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                     <input
+                                        required
                                         onChange={(e) => {
                                             setAddress(e.target.value);
                                         }}
@@ -210,7 +215,7 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">Select Country</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <div className="w-full">
-                                            <select
+                                            <select className="w-full bg-[#80d7421c] p-1"
                                                 value={selectedCountry}
                                                 onChange={handleCountryChange}
                                             >
@@ -228,7 +233,7 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">Select State</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <div className="w-full">
-                                            <select value={selectedState} onChange={handleStateChange}>
+                                            <select className="w-full bg-[#80d7421c] p-1" value={selectedState} onChange={handleStateChange}>
                                                 <option value="">Select State</option>
                                                 {states.map((stateObj) => (
                                                     <option
@@ -252,6 +257,7 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">DialCode</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <input
+                                            required
                                             defaultValue={selectedDialCode}
                                             placeholder="Select DialCode"
                                             className="w-full p-1 ml-3 text-black outline-none bg-transparent"
@@ -262,6 +268,11 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">Enter Phone Number</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <input
+                                            type='number'
+                                            inputMode='numeric'
+                                            pattern="[0-9]*"
+                                            maxlength="10"
+                                            required
                                             onChange={(e) => {
                                                 setPhoneNumber(e.target.value);
                                             }}
@@ -279,6 +290,8 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">Enter Pincode</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <input
+                                            type="number"
+                                            required
                                             onChange={(e) => {
                                                 setPincode(e.target.value);
                                             }}
@@ -291,7 +304,7 @@ const RequestPickup = () => {
                                     <label className="block py-3 text-black">Select City</label>
                                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                                         <div className="w-full">
-                                            <select value={selectedCity} disabled={!selectedState} onChange={handleCityChange}>
+                                            <select className="w-full bg-[#80d7421c] p-1" value={selectedCity} disabled={!selectedState} onChange={handleCityChange}>
                                                 <option value="">Select City</option>
                                                 {cities.map((cityObj) => (
                                                     <option key={cityObj.id} value={cityObj.name}>
@@ -308,6 +321,7 @@ const RequestPickup = () => {
                         <br />
                         <div className="col-span-6 sm:col-span-3">
                             <button
+                                disabled={!isFormValidate}
                                 onClick={handleConfirm}
                                 className="w-full h-[50px] text-white font-extrabold bg-[#81D742] rounded-[30px]"
                             >
@@ -317,6 +331,7 @@ const RequestPickup = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

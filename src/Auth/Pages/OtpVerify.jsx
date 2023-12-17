@@ -1,5 +1,5 @@
 import React, {
-    useState 
+    useState
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input";
@@ -8,18 +8,18 @@ import Button from "../../Components/auth/Button";
 
 import Swal from "sweetalert2";
 import {
-    useLocation, useNavigate 
+    useLocation, useNavigate
 } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance.js";
 const OtpVerify = () => {
-    const [ checked,
-        setChecked ] = React.useState(true);
-    const [ otp,
-        setOtp ] = useState("");
-    const [ isValidPhoneNumber,
-        setIsValidPhoneNumber ] = useState(false);
+    const [checked,
+        setChecked] = React.useState(true);
+    const [otp,
+        setOtp] = useState("");
+    const [isValidPhoneNumber,
+        setIsValidPhoneNumber] = useState(false);
     const navigate = useNavigate();
-    
+
     const location = useLocation();
 
     console.log("phoneNumberObj", location.state.phoneNumber);
@@ -27,7 +27,7 @@ const OtpVerify = () => {
         const value = e.target.value;
         const phoneRegex = /^\d{6}$/;
         const isValid = phoneRegex.test(value);
-        
+
         setOtp(value);
         setIsValidPhoneNumber(isValid);
     };
@@ -56,7 +56,7 @@ const OtpVerify = () => {
                 console.log("token store ", localStorage.getItem("token"));
 
                 navigate("/pricing", {
-                    replace: true 
+                    replace: true
                 });
             }
         }
@@ -71,7 +71,7 @@ const OtpVerify = () => {
                     timer: 2500,
                     title: error.response.data.error._message
                 });
-                    
+
                 console.log("Status :" + error.response.status);
             }
             else if (error.request) { // The request was made but no response was received
@@ -84,17 +84,22 @@ const OtpVerify = () => {
     };
 
     return (
-        <div className="bg-white py-24 sm:py-32">
-            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-2 lg:grid-cols-2">
+        <div class="h-screen md:flex">
+
+            <div
+                class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
                 <div className="w-full text-center">
-                    {/* <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2> */}
-                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
-                    <img className="h-full w-full rounded-full" src={customer} alt=" " />
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
+                    <p className="mt-6 text-lg leading-8 text-gray-600">Sign In to enjoy exclusive access!.</p>
+                    <img className="max-h-fit w-full rounded-full" src={customer} alt=" " />
                 </div>
-                <div className="w-full">
-                    <div className="shadow-md p-8">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To JunkBazar</h2>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">Sign up to enjoy exclusive access!.</p>
+
+            </div>
+            <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
+                <div className="max-w-2xl max-h-screen">
+                    <div className="shadow-lg p-20 w-full">
+
+                        <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Please Enter OTP</p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">Enter OTP</p>
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Enter OTP</p>
@@ -140,7 +145,7 @@ const OtpVerify = () => {
                             </span>
                             <span className="text-dimgray-200">{" "}</span>
                             <span onClick={() => navigate("/sign-in", {
-                                replace: true 
+                                replace: true
                             })} className="[text-decoration:underline]">{"Log in  "}</span>
                         </div>
 

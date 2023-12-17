@@ -5,12 +5,16 @@ import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
 import LabeledInput from "../../Components/auth/LabeledInput.jsx";
 import Button from "../../Components/auth/Button.jsx";
+import Swal from "sweetalert2";
 import {
     useNavigate
 } from "react-router-dom";
-import Swal from "sweetalert2";
+import flag from '../../assets/PNG/fllag.png'
 import axiosInstance from "../../api-config/axiosInstance.js";
-const SignUp = () => {
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
+
+const SignInTest = () => {
     const navigate = useNavigate();
 
     const [checked,
@@ -20,32 +24,37 @@ const SignUp = () => {
     const [isValidPhoneNumber,
         setIsValidPhoneNumber] = useState(false);
 
+    const [value, setValue] = useState()
+
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
         const phoneRegex = /^\d{10}$/;
         const isValid = phoneRegex.test(value);
 
-        console.log("isValid", isValid);
         setPhoneNumber(value);
         setIsValidPhoneNumber(isValid);
     };
-    const signUpService = async () => {
-        const payload = {
-            dialCode: "+91",
-            phoneNumber: phoneNumber
-        };
 
+    const SignInService = async () => {
         try {
-            const resp = await axiosInstance.post("/register", payload);
-            const dataObject = resp.data;
+            const payLoad = {
+                dialCode: "+91",
+                phoneNumber: phoneNumber
+            };
 
-            if (dataObject.statusCode === 200) {
+            const response = await axiosInstance.post("/login", payLoad);
+
+            const dataObj = response.data;
+
+            console.log("sign in resp dataObj", dataObj);
+
+            if (dataObj.statusCode === 200) {
                 Swal.fire({
                     icon: "success",
                     position: "center",
-                    showConfirmButton: true,
+                    showConfirmButton: false,
                     timer: 2500,
-                    title: dataObject.message
+                    title: response.data.message
                 });
                 navigate("/otp-verify", {
                     state: {
@@ -55,9 +64,10 @@ const SignUp = () => {
             }
         }
         catch (error) {
-            console.error("error", error);
+            console.error("Error fetching data:", error);
 
             if (error.response) {
+                // If server responded with a status code for a request  
                 Swal.fire({
                     icon: "error",
                     position: "center",
@@ -75,10 +85,8 @@ const SignUp = () => {
                 // Other case 
                 console.log("Error", error.message);
             }
-            // Error handling here 
         }
     };
-
     return (
         <div class="h-screen md:flex">
             <div
@@ -94,7 +102,7 @@ const SignUp = () => {
                 <div className="max-w-2xl max-h-screen">
                     <div className="shadow-lg p-20 w-full">
 
-                        <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign up now</p>
+                        <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign In</p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
                         <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
@@ -135,22 +143,21 @@ const SignUp = () => {
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
                             disabled={!isValidPhoneNumber}
-                            handleClick={signUpService}
+                            handleClick={SignInService}
                         />
                         <div className="relative text-center mt-10">
                             <span className="text-darkslategray-200">
                                 Already have an account?
                             </span>
                             <span className="text-dimgray-200">{" "}</span>
-                            <span onClick={() => navigate("/sign-in")} className="[text-decoration:underline]">{"Sign In  "}</span>
+                            <span onClick={() => navigate("/sign-up")} className="[text-decoration:underline]">{"Sign Up  "}</span>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default SignUp;
-
+export default SignInTest;
