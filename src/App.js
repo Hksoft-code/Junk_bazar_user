@@ -21,6 +21,7 @@ import OrderSuccessful from "./Pages/OrderSuccessfull.jsx";
 import Faqs from "./Pages/Faqs.jsx";
 import CardPage from "./Pages/CardPage.jsx";
 import TrackOrder from "./Pages/TrackOrder.jsx";
+import TrackOrderDetails from "./Components/TrackOrder/TrackOrderDetails.jsx";
 
 function App() {
     return (
@@ -39,7 +40,9 @@ function App() {
                 <Route path="/otp-verify" element={<OtpVerify />} />
                 <Route path="/Success-page" element={<OrderSuccessful />} />
                 <Route path="/faqs" element={<Faqs />} />
-                <Route path='/TrackOrder' element={<TrackOrder />} />
+
+                <Route path="/trackOrder" element={<TrackOrder />} />
+                <Route path="/trackOrderDetails" element={<TrackOrderDetails />} />
             </Routes>
 
         </div>

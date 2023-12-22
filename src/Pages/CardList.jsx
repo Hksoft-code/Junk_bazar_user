@@ -60,7 +60,7 @@ const CartList = () => {
 
     const handleRequestAddTocart = async (scrapId) => {
 
-        if (quantity > 0) {
+        if (quantity[scrapId] > 0) {
             console.log("handleRequestAddTocart working", scrapId);
             const currentQuantity = quantity[scrapId];
 

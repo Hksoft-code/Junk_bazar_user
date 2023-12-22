@@ -321,7 +321,7 @@ const RequestPickup = () => {
                         <br />
                         <div className="col-span-6 sm:col-span-3">
                             <button
-                                disabled={!isFormValidate}
+
                                 onClick={handleConfirm}
                                 className="w-full h-[50px] text-white font-extrabold bg-[#81D742] rounded-[30px]"
                             >

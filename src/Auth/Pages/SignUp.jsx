@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstance from "../../api-config/axiosInstance.js";
+import PhoneInput from "react-phone-number-input";
+import 'react-phone-number-input/style.css'
 const SignUp = () => {
     const navigate = useNavigate();
 
@@ -30,9 +32,11 @@ const SignUp = () => {
         setIsValidPhoneNumber(isValid);
     };
     const signUpService = async () => {
+        console.log("phone number ", phoneNumber.slice(3, 13))
+        const mobile = phoneNumber.slice(3, 13)
         const payload = {
             dialCode: "+91",
-            phoneNumber: phoneNumber
+            phoneNumber: mobile
         };
 
         try {
@@ -49,7 +53,7 @@ const SignUp = () => {
                 });
                 navigate("/otp-verify", {
                     state: {
-                        phoneNumber
+                        mobile
                     }
                 });
             }
@@ -92,7 +96,7 @@ const SignUp = () => {
             </div>
             <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
                 <div className="max-w-2xl max-h-screen">
-                    <div className="shadow-lg p-20 w-full">
+                    <div className="shadow-xl p-20 w-full">
 
                         <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign up now</p>
                         <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
@@ -106,18 +110,25 @@ const SignUp = () => {
                                 onChange={setPhoneNumber}
 
                             /> */}
-                        <LabeledInput className="col-span-2"
+                        <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
+                            <PhoneInput
+                                international
+                                defaultCountry="IN"
+                                value={phoneNumber}
+                                onChange={setPhoneNumber} />
+                        </div>
+                        {/* <LabeledInput className="col-span-2"
                             type='number'
                             inputMode='numeric'
                             pattern="[0-9]*"
                             maxlength="10"
                             handleChange={handlePhoneNumberChange}
-                        />
+                        /> */}
                         {/* </div> */}
 
-                        {!isValidPhoneNumber && (
+                        {/* {!isValidPhoneNumber && (
                             <p className="text-red-500 text-sm mt-1">Please enter a valid 10-digit phone number.</p>
-                        )}
+                        )} */}
                         <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                             <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                 <Input
@@ -134,7 +145,7 @@ const SignUp = () => {
                         <Button
                             label="Continue"
                             classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-                            disabled={!isValidPhoneNumber}
+
                             handleClick={signUpService}
                         />
                         <div className="relative text-center mt-10">

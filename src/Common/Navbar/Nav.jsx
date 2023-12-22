@@ -42,6 +42,7 @@ const Nav = () => {
         handleShow] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -62,6 +63,10 @@ const Nav = () => {
         localStorage.clear();
         navigate("/sign-in", { replace: true })
 
+    }
+
+    const handleTrack = () => {
+        navigate("/trackOrder", { replace: true })
     }
 
 
@@ -147,19 +152,30 @@ const Nav = () => {
                                         Sign up/Sign in
                                     </button>
                                 ) : (
-                                    <div>
-                                        <FaUserCircle
-                                            onClick={handleLogout}
-                                            size={30}
-                                            className="cursor-pointer m-5"
+                                    <div onMouseLeave={() => setOpen(false)} className="relative">
+                                        <FaUserCircle onMouseOver={() => setOpen(true)}
+
+                                            size={42}
+                                            className="-mr-8 cursor-pointer"
                                             fill="#555"
                                         />
+                                        <ul
+                                            className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl ${open ? "block" : "hidden"
+                                                }`}
+                                        >
+                                            <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Track Order
+                                            </li>
+                                            <li
+                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Profile
+                                            </li>
+                                            <li onClick={handleLogout}
+                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Logout
+                                            </li>
 
-                                        {/* <select className="w-full bg-[#80d7421c] p-1" value='' >
-                                           
-                                            <option value="" onClick={handleTrackOut}>Track Order</option>
-                                            <option value="" onClick={handleLogout}>Log Out</option>
-                                        </select> */}
+                                        </ul>
                                     </div>
 
                                 )}
@@ -314,20 +330,30 @@ const Nav = () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div>
-                                        <FaUserCircle
-                                            onClick={handleLogout}
-                                            size={30}
-                                            className="cursor-pointer m-5"
+                                    <div onMouseLeave={() => setOpen(false)} className="relative">
+                                        <FaUserCircle onMouseOver={() => setOpen(true)}
+
+                                            size={42}
+                                            className="-mr-8 cursor-pointer"
                                             fill="#555"
                                         />
-                                        {/* <select className="w-full bg-[#80d7421c] p-1" value='' >
-                                            <option value="">Track Order</option>
-                                            <option value="">Log Out</option>
-                                        </select> */}
-                                        {/* <p className="mt-6 -ml-3 text-medium font-semibold">
-                                            User xyz
-                                        </p> */}
+                                        <ul
+                                            className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl ${open ? "block" : "hidden"
+                                                }`}
+                                        >
+                                            <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Track Order
+                                            </li>
+                                            <li
+                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Profile
+                                            </li>
+                                            <li onClick={handleLogout}
+                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Logout
+                                            </li>
+
+                                        </ul>
                                     </div>
                                 )}
 
