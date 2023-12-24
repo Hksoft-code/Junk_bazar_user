@@ -1,5 +1,7 @@
-
 import { useLocation, useNavigate } from 'react-router-dom'
+import React, {
+    useState
+} from "react";
 import step1 from '../../assets/PNG/step1.png'
 import step2 from '../../assets/PNG/step2.png'
 import step3 from '../../assets/PNG/step3.png'
@@ -16,7 +18,7 @@ const TrackOrderDetails = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
-
+    const [backendOrderStatus, setOrderStatus] = useState("");
     console.log("phoneNumberObj", location.state.orderId);
 
     useEffect(() => {
@@ -33,16 +35,21 @@ const TrackOrderDetails = () => {
             });
             const OrderTrack = JSON.parse(response.data.data);
             console.log('order Track Status', OrderTrack);
-
+            setOrderStatus(OrderTrack.orderStatus)
             // Initialize quantity state with default value   
 
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-
-
-
+    const OrdersEnum = {
+        ACCEPTED: 1,
+        ARRVIED: 3,
+        ON_THE_WAY: 2,
+        PENDING: 0,
+        REJECTED: 5,
+        SCRAP_PICKED: 4
+    }
     return (
         <div>
             <Nav />
@@ -74,7 +81,7 @@ const TrackOrderDetails = () => {
 
                                     <img
                                         className="w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[10px] object-cover mr-[20px]  max-er:w-[30px] max-er:h-[30px] rounded-[10px]"
-                                        src={tick_grey}
+                                        src={backendOrderStatus >= OrdersEnum.ACCEPTED ? tick_green : tick_grey}
                                         alt=""
                                     />
                                 </div>
@@ -101,7 +108,7 @@ const TrackOrderDetails = () => {
 
                                     <img
                                         className="w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[10px] object-cover mr-[20px]  max-er:w-[30px] max-er:h-[30px] rounded-[10px]"
-                                        src={tick_grey}
+                                        src={backendOrderStatus >= OrdersEnum.ON_THE_WAY ? tick_green : tick_grey}
                                         alt=""
                                     />
                                 </div>
@@ -127,7 +134,7 @@ const TrackOrderDetails = () => {
 
                                     <img
                                         className="w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[10px] object-cover mr-[20px]  max-er:w-[30px] max-er:h-[30px] rounded-[10px]"
-                                        src={tick_grey}
+                                        src={backendOrderStatus >= OrdersEnum.ARRVIED ? tick_green : tick_grey}
                                         alt=""
                                     />
                                 </div>
@@ -153,7 +160,7 @@ const TrackOrderDetails = () => {
 
                                     <img
                                         className="w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[10px] object-cover mr-[20px]  max-er:w-[30px] max-er:h-[30px] rounded-[10px]"
-                                        src={tick_grey}
+                                        src={backendOrderStatus >= OrdersEnum.SCRAP_PICKED ? tick_green : tick_grey}
                                         alt=""
                                     />
                                 </div>

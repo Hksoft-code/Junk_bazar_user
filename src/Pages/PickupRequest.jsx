@@ -9,6 +9,7 @@ import {
 import axiosInstance from "../api-config/axiosInstance.js";
 import Nav from "../Common/Navbar/Nav.jsx";
 import Footer from "../Common/Footer/Footer.jsx";
+import pickupRequest from '../assets/PNG/pickupRequest.png'
 const RequestPickup = () => {
     const [selectedCountry, setSelectedCountry] = useState("");
     const [selectedState, setSelectedState] = useState("");
@@ -166,9 +167,9 @@ const RequestPickup = () => {
             <Nav />
             <div className="w-full flex justify-center items-center p-4 md:mt-[150px] sm:mt-[20px] mt-14 ">
                 <div className="flex flex-col md:flex-row justify-between items-start w-full md:w-[80%] flex-wrap">
-                    <div className="w-full md:w-[40%] h-[300px] md:h-auto">
+                    <div className="w-full md:w-[40%] h-[500px] md:h-auto">
                         <img
-                            src={phone_guy}
+                            src={pickupRequest}
                             alt="Map"
                             className="inset-0 w-full h-full object-cover sm:object-contain"
                         />

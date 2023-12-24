@@ -12,6 +12,7 @@ import faq from "../../assets/SVG/mobile-icon/faq.svg";
 import sign_in from "../../assets/SVG/mobile-icon/sign-in.svg";
 import sign_up from "../../assets/SVG/mobile-icon/sign-up.svg";
 import logout from "../../assets/SVG/mobile-icon/logout.svg";
+import track from '../../assets/PNG/track.png'
 import {
     useState, useEffect
 } from "react";
@@ -93,7 +94,7 @@ const Nav = () => {
                     </div>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-                        <ul className="flex justify-between items-center">
+                        <ul className="flex justify-between items-center ">
                             <Link to="/">
                                 <li className="mr-5 cursor-pointer">Home</li>
                             </Link>
@@ -160,7 +161,7 @@ const Nav = () => {
                                             fill="#555"
                                         />
                                         <ul
-                                            className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl ${open ? "block" : "hidden"
+                                            className={`absolute right-0 w-40 -m-10  py-2 mt-2 rounded-lg shadow-xl ${open ? "block" : "hidden"
                                                 }`}
                                         >
                                             <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
@@ -253,19 +254,21 @@ const Nav = () => {
                                             </span>
                                         </li>
                                     </Link>
-                                    <li
-                                        onClick={() => setMobileNav(false)}
-                                        className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
-                                    >
-                                        <img
-                                            src={price}
-                                            alt="price-icon"
-                                            className="mx-3 mr-3 w-6"
-                                        />
-                                        <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
-                                            Price List
-                                        </span>
-                                    </li>
+                                    <Link to="/pricing">
+                                        <li
+                                            onClick={() => setMobileNav(false)}
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                        >
+                                            <img
+                                                src={price}
+                                                alt="price-icon"
+                                                className="mx-3 mr-3 w-6"
+                                            />
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                                Price List
+                                            </span>
+                                        </li>
+                                    </Link>
                                     <Link to="/cart">
                                         <li
                                             onClick={() => setMobileNav(false)}
@@ -278,6 +281,21 @@ const Nav = () => {
                                             />
                                             <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Cart
+                                            </span>
+                                        </li>
+                                    </Link>
+                                    <Link to="/cart">
+                                        <li
+                                            onClick={() => setMobileNav(false)}
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                        >
+                                            <img
+                                                src={track}
+                                                alt="cart-icon"
+                                                className="mx-3 mr-3 w-6"
+                                            />
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                                Track Order
                                             </span>
                                         </li>
                                     </Link>
@@ -295,9 +313,9 @@ const Nav = () => {
                                         </span>
                                     </li>
                                 </ul>
-                                <h1 className="font-semibold text-lg text-lime-600 mx-3">
+                                {/* <h1 className="font-semibold text-lg text-lime-600 mx-3">
                                     Become a <span className="font-bold"> VENDOR</span>
-                                </h1>
+                                </h1> */}
                             </div>
 
                             <div className="">
@@ -330,31 +348,13 @@ const Nav = () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div onMouseLeave={() => setOpen(false)} className="relative">
-                                        <FaUserCircle onMouseOver={() => setOpen(true)}
 
-                                            size={42}
-                                            className="-mr-8 cursor-pointer"
-                                            fill="#555"
-                                        />
-                                        <ul
-                                            className={`absolute right-0 w-40 py-2 mt-2 rounded-lg shadow-xl ${open ? "block" : "hidden"
-                                                }`}
-                                        >
-                                            <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                                Track Order
-                                            </li>
-                                            <li
-                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                                Profile
-                                            </li>
-                                            <li onClick={handleLogout}
-                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                                Logout
-                                            </li>
+                                    <FaUserCircle
 
-                                        </ul>
-                                    </div>
+                                        size={42}
+                                        className="-mr-8 cursor-pointer"
+                                        fill="#555"
+                                    />
                                 )}
 
                                 <div

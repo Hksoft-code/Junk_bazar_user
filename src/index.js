@@ -2,12 +2,13 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import "./Styles/login.css"
 import reportWebVitals from "./reportWebVitals";
 import {
-    BrowserRouter 
+    BrowserRouter
 } from "react-router-dom";
 import {
-    Provider 
+    Provider
 } from "react-redux";
 
 import store from "./redux/store";
@@ -16,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <BrowserRouter>
-        <Provider  store={store} >
+        <Provider store={store} >
             <App />
         </Provider>
     </BrowserRouter>

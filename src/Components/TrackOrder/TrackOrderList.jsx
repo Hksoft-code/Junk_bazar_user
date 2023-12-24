@@ -41,7 +41,7 @@ const TrackOrderList = () => {
 
             <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">
                 {orderList?.map((cart, index) => (
-                    <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#5AB344] mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
+                    <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-lime-300  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
                         <div className="flex justify-center items-center mb-4 md:mb-0">
                             <img
                                 className="w-[150px] h-[150px] max-sm:w-[100px] max-sm:h-[100px] object-cover mr-[20px]  max-er:w-[120px] max-er:h-[120px] rounded-[10px]"
