@@ -57,7 +57,7 @@ const TrackOrderList = () => {
                             />
 
                             <div>
-                                <span className="font-bold text-[12px] max-er:text-[15px] md:text-[12px] bg-[#81D742]  text-white p-3">
+                                <span className="font-bold text-[12px] max-er:text-[15px] md:text-[12px]  rounded-lg text-black p-3">
                                     {OrdersRespEnum[cart.orderStatus]}
                                 </span>
                                 <h3 className="font-bold text-[20px] max-er:text-[20px] md:text-[30px] text-white">
