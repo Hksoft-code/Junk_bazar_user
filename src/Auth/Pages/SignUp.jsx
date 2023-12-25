@@ -11,7 +11,7 @@ import {
 import Swal from "sweetalert2";
 import axiosInstance from "../../api-config/axiosInstance.js";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+// import 'react-phone-number-input/style.css'
 import SmallSignUp from "./SmallSignUp.jsx";
 const SignUp = () => {
     const navigate = useNavigate();
