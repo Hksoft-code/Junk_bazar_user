@@ -167,10 +167,7 @@ const Nav = () => {
                                             <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
                                                 Track Order
                                             </li>
-                                            <li
-                                                className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                                Profile
-                                            </li>
+
                                             <li onClick={handleLogout}
                                                 className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
                                                 Logout
@@ -284,7 +281,7 @@ const Nav = () => {
                                             </span>
                                         </li>
                                     </Link>
-                                    <Link to="/cart">
+                                    <Link to="/trackOrder">
                                         <li
                                             onClick={() => setMobileNav(false)}
                                             className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
@@ -348,13 +345,13 @@ const Nav = () => {
                                         </div>
                                     </div>
                                 ) : (
-
-                                    <FaUserCircle
-
-                                        size={42}
-                                        className="-mr-8 cursor-pointer"
-                                        fill="#555"
-                                    />
+                                    <div className="mx-auto">
+                                        <FaUserCircle
+                                            size={42}
+                                            className="ml-6 cursor-pointer"
+                                            fill="#555"
+                                        />
+                                    </div>
                                 )}
 
                                 <div

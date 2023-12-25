@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api-config/axiosInstance";
 import { useNavigate } from "react-router-dom";
-
+const OrdersRespEnum = {
+    0: "Order In Pending",
+    1: "Orders Accpeted",
+    2: "Vendor On the Way",
+    3: "Vendor Arrived",
+    4: "Vendor Picked The Scrap",
+    5: "Vendor rejected Your Order"
+}
 const TrackOrderList = () => {
 
     const navigate = useNavigate();
@@ -48,7 +55,11 @@ const TrackOrderList = () => {
                                 src={cart?.scrapInfo.docUrl}
                                 alt=""
                             />
+
                             <div>
+                                <span className="font-bold text-[12px] max-er:text-[15px] md:text-[12px] bg-[#81D742]  text-white p-3">
+                                    {OrdersRespEnum[cart.orderStatus]}
+                                </span>
                                 <h3 className="font-bold text-[20px] max-er:text-[20px] md:text-[30px] text-white">
                                     {cart?.scrapInfo.scrapName}
                                 </h3>

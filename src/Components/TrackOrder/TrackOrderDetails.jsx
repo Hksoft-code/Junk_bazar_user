@@ -20,6 +20,7 @@ const TrackOrderDetails = () => {
     const navigate = useNavigate();
     const [backendOrderStatus, setOrderStatus] = useState("");
     console.log("phoneNumberObj", location.state.orderId);
+    const [orderDetail, setOrderDetail] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,6 +37,7 @@ const TrackOrderDetails = () => {
             const OrderTrack = JSON.parse(response.data.data);
             console.log('order Track Status', OrderTrack);
             setOrderStatus(OrderTrack.orderStatus)
+            setOrderDetail(OrderTrack)
             // Initialize quantity state with default value   
 
         } catch (error) {
@@ -55,7 +57,18 @@ const TrackOrderDetails = () => {
             <Nav />
             <div className=" mt-20 lg:mt-32  justify-center items-center lg:max-w-[1250px] mx-auto ">
                 <h2 className="mt-5 text-3xl text-center font-extrabold">Pickup Status</h2>
+                {orderDetail.vendorInfo && (
+                    <>
+                        <h4>
+                            Name: {orderDetail.vendorInfo?.firstName}  {orderDetail.vendorInfo?.lastName}
+                        </h4>
+                        <h4>
+                            Phone Number: {orderDetail.vendorInfo?.dialCode}  {orderDetail.vendorInfo?.phoneNumber}
+                        </h4>
+                    </>
+                )}
                 <div className="pt-[10px] p-10 pb-12 flex flex-col justify-center items-center ">
+
                     <div className="w-full p-2 mt-12 flex justify-center items-center lg:max-w-[1100px] mx-auto">
 
                         <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">

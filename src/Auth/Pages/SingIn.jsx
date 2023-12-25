@@ -112,14 +112,7 @@ const SignIn = () => {
                             <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
                             <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
-                            {/* <div className="border-solid p-2 max-w-md rounded-lg border-2 border-gray-600 "> */}
-                            {/* <PhoneInput
-                                international
-                                defaultCountry="IN"
-                                value={phoneNumber}
-                                onChange={setPhoneNumber}
 
-                            /> */}
                             <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                                 <PhoneInput
                                     international
@@ -127,18 +120,7 @@ const SignIn = () => {
                                     value={phoneNumber}
                                     onChange={setPhoneNumber} />
                             </div>
-                            {/* <LabeledInput className="col-span-2"
-                            type='number'
-                            inputMode='numeric'
-                            pattern="[0-9]*"
-                            maxlength="10"
-                            handleChange={handlePhoneNumberChange}
-                        /> */}
-                            {/* </div> */}
 
-                            {/* {!isValidPhoneNumber && (
-                            <p className="text-red-500 text-sm mt-1">Please enter a valid 10-digit phone number.</p>
-                        )} */}
                             <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                                 <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                     <Input
