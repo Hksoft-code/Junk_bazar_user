@@ -7,12 +7,16 @@ import {
     useNavigate
 } from "react-router-dom";
 import Swal from "sweetalert2";
-import { addToCart, removeFromCart } from "../../redux/user/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+import { addToCart,
+    //  removeFromCart 
+    } from "../../redux/user/userSlice.js";
+import { useDispatch, 
+    // useSelector 
+} from "react-redux";
 
 const PriceCardComponent = () => {
     const dispatch = useDispatch();
-    const itemsInCart = useSelector((state) => state.cart);
+    // const itemsInCart = useSelector((state) => state.cart);
     const navigate = useNavigate();
     const [scrapList,
         setScrapList] = useState([]);

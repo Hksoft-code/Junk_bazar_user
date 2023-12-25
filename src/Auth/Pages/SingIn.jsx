@@ -3,17 +3,15 @@ import React, {
 } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
-import LabeledInput from "../../Components/auth/LabeledInput.jsx";
 import Button from "../../Components/auth/Button.jsx";
 import Swal from "sweetalert2";
 
 import {
     useNavigate
 } from "react-router-dom";
-import flag from '../../assets/PNG/fllag.png'
 import axiosInstance from "../../api-config/axiosInstance.js";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+// import 'react-phone-number-input/style.css'
 import SmallSignIn from "./SmallSignIn.jsx";
 
 const SignIn = () => {
@@ -23,18 +21,18 @@ const SignIn = () => {
         setChecked] = React.useState(true);
     const [phoneNumber,
         setPhoneNumber] = useState("");
-    const [isValidPhoneNumber,
-        setIsValidPhoneNumber] = useState(false);
+    // const [isValidPhoneNumber,
+    //     setIsValidPhoneNumber] = useState(false);
 
 
-    const handlePhoneNumberChange = (e) => {
-        const value = e.target.value;
-        const phoneRegex = /^\d{10}$/;
-        const isValid = phoneRegex.test(value);
+    // const handlePhoneNumberChange = (e) => {
+    //     const value = e.target.value;
+    //     const phoneRegex = /^\d{10}$/;
+    //     const isValid = phoneRegex.test(value);
 
-        setPhoneNumber(value);
-        setIsValidPhoneNumber(isValid);
-    };
+    //     setPhoneNumber(value);
+    //     setIsValidPhoneNumber(isValid);
+    // };
 
     const SignInService = async () => {
         console.log("phone number ", phoneNumber.slice(3, 13))
@@ -94,9 +92,9 @@ const SignIn = () => {
     return (
         <>
             <SmallSignIn />
-            <div class="h-screen md:flex signup-container">
+            <div className="h-screen md:flex signup-container">
                 <div
-                    class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
+                    className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
                     <div className="w-full text-center ">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mt-20">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
                         <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
@@ -104,7 +102,7 @@ const SignIn = () => {
                     </div>
 
                 </div>
-                <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
+                <div className="flex md:w-1/2  justify-center py-10 items-center bg-white">
                     <div className="max-w-2xl max-h-screen">
                         <div className="shadow-xl p-20 w-full">
 

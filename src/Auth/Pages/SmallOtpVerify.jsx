@@ -1,9 +1,9 @@
 
-import PhoneInput from "react-phone-number-input";
+// import PhoneInput from "react-phone-number-input";
 import userImage from '../../assets/PNG/smallUserImag.png'
 import { useState } from "react";
-import OTPInput, { ResendOTP } from "otp-input-react";
-import OtpInput from 'react-otp-input';
+// import OTPInput, { ResendOTP } from "otp-input-react";
+// import OtpInput from 'react-otp-input';
 import Button from "../../Components/auth/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import LabeledInput from "../../Components/auth/LabeledInput";
 import Input from "../../Components/auth/Input";
 const SmallOtpVerify = () => {
-    const [phoneNumber, setPhoneNumber] = useState("");
+    // const [phoneNumber, setPhoneNumber] = useState("");
     const [otp,
         setOtp] = useState("");
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 
 import PhoneInput from "react-phone-number-input";
 import userImage from '../../assets/PNG/smallUserImag.png'
@@ -10,21 +11,21 @@ import Swal from "sweetalert2";
 const SmallSignUp = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
-    const [checked,
-        setChecked] = useState(true);
+    // const [checked,
+    //     setChecked] = useState(true);
 
-    const [isValidPhoneNumber,
-        setIsValidPhoneNumber] = useState(false);
+    // const [isValidPhoneNumber,
+    //     setIsValidPhoneNumber] = useState(false);
 
-    const handlePhoneNumberChange = (e) => {
-        const value = e.target.value;
-        const phoneRegex = /^\d{10}$/;
-        const isValid = phoneRegex.test(value);
+    // const handlePhoneNumberChange = (e) => {
+    //     const value = e.target.value;
+    //     const phoneRegex = /^\d{10}$/;
+    //     const isValid = phoneRegex.test(value);
 
-        console.log("isValid", isValid);
-        setPhoneNumber(value);
-        setIsValidPhoneNumber(isValid);
-    };
+    //     console.log("isValid", isValid);
+    //     setPhoneNumber(value);
+    //     setIsValidPhoneNumber(isValid);
+    // };
     const signUpService = async () => {
         console.log("phone number ", phoneNumber.slice(3, 13))
         const mobile = phoneNumber.slice(3, 13)

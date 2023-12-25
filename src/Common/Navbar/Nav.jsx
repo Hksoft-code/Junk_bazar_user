@@ -26,7 +26,8 @@ import {
     FaUserCircle
 } from "react-icons/fa";
 import {
-    useDispatch, useSelector
+    // useDispatch,
+     useSelector
 } from "react-redux";
 
 import {
@@ -42,7 +43,7 @@ const Nav = () => {
     const [show,
         handleShow] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
