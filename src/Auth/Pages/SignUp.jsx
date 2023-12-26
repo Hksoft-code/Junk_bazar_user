@@ -90,9 +90,9 @@ const SignUp = () => {
             <div class="h-screen md:flex signup-container">
                 <div
                     class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
-                    <div className="w-full text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">Sign In to enjoy exclusive access!.</p>
+                    <div className="w-full text-center ">
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mt-20">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
+                        <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
                         <img className="max-h-fit w-full rounded-full" src={customer} alt=" " />
                     </div>
 

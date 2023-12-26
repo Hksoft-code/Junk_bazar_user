@@ -5,13 +5,13 @@ import playstore_logo from "../../assets/SVG/Vector.svg";
 
 
 const Banner = () => {
-    
-    return (
-        <main className="shadow-[0_25px_40px_-15px_rgba(0,0,0,0.1)] lg:mb-8">
+
+  return (
+    <main className="shadow-[0_25px_40px_-15px_rgba(0,0,0,0.1)] lg:mb-8">
       <section className="max-w-[1200px] mx-auto relative lg:pt-10 mt-10 lg:mt-16">
         <div className="grid md:grid-cols-2 ml-2 md:ml-5  justify-around lg:items-center">
           <div className="w-full max-w-[600px] lg:mt-6">
-            <div className="shadow-xl shadow-zinc-200 py-2 rounded px-5 text-zinc-400 w-10/12 hidden lg:flex">
+            {/* <div className="shadow-xl shadow-zinc-200 py-2 rounded px-5 text-zinc-400 w-10/12 hidden lg:flex">
               <input
                 type="search"
                 name="search"
@@ -38,9 +38,9 @@ const Banner = () => {
                 
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="pt-10 md:pt-20 font-['Gilroy-Regular'] lg:font-['Gilroy-Heavy'] font-bold">
+            <div className="pt-1 md:pt-20 font-['Gilroy-Regular'] lg:font-['Gilroy-Heavy'] font-bold">
               <h1 className="text-4xl lg:text-5xl lg:font-extrabold font-bold">
                 Welcome to
               </h1>
@@ -93,7 +93,7 @@ const Banner = () => {
         </div>
       </section>
     </main>
-    );
+  );
 };
 
 export default Banner;

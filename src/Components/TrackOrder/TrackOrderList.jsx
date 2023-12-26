@@ -48,7 +48,7 @@ const TrackOrderList = () => {
 
             <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">
                 {orderList?.map((cart, index) => (
-                    <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-lime-300  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
+                    <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c]  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
                         <div className="flex justify-center items-center mb-4 md:mb-0">
                             <img
                                 className="w-[150px] h-[150px] max-sm:w-[100px] max-sm:h-[100px] object-cover mr-[20px]  max-er:w-[120px] max-er:h-[120px] rounded-[10px]"
@@ -57,15 +57,15 @@ const TrackOrderList = () => {
                             />
 
                             <div>
-                                <span className="font-bold text-[12px] max-er:text-[15px] md:text-[12px]  rounded-lg text-black p-3">
+                                <span className="font-bold text-[10px] max-er:text-[12px] md:text-[10px] bg-[#81D742] mb-5 rounded-lg text-black p-2">
                                     {OrdersRespEnum[cart.orderStatus]}
                                 </span>
-                                <h3 className="font-bold text-[20px] max-er:text-[20px] md:text-[30px] text-white">
+                                <h3 className="font-bold text-[20px] max-er:text-[20px] md:text-[30px] text-black">
                                     {cart?.scrapInfo.scrapName}
                                 </h3>
-                                <div className="flex items-center text-white">
+                                <div className="grid  items-center text-black">
 
-                                    <p> {cart?.address}</p>
+                                    <p>{cart?.address}</p>
                                 </div>
                             </div>
                         </div>

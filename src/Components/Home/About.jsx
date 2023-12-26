@@ -37,7 +37,7 @@ const About = () => {
               />
             </div>
             <h1 className="text-center font-semibold text-base text-black p-1">
-              Online Auction
+              Fast Pickup
             </h1>
             <p className="max-w-[200px] mx-auto">
               We provide professional pickup services to scrap your materials in
@@ -75,7 +75,7 @@ const About = () => {
             </p>
           </div>
         </section>
-        
+
       </div>
     </main>
   );
