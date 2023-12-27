@@ -8,8 +8,10 @@ const Pricing = () => {
     return (
         <>
             <Nav />
-            <div className=" mt-20 lg:mt-32  lg:max-w-[1250px] mx-auto">
-                <h2 className="mt-5 text-3xl text-center font-extrabold">Rates Of Scrap Bazar</h2>
+            <div className=" mt-20 lg:mt-32  lg:max-w-[1550px] mx-auto">
+                <div className="text-center text-[96px] font-['Gilroy-Bold'] tracking-[0.2] text-[#060714] ">
+                    Rates Of JunkBazar Scraps
+                </div>
                 <div className="pricing-lists">
                     <PriceCardComponent />
                 </div>

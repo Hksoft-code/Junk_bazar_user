@@ -104,8 +104,10 @@ const PriceCardComponent = () => {
                     <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
                 </a>
                 <div className="mt-4 px-5 pb-5">
-
-                    <h5 className="text-lg  tracking-tight text-slate-900">{item.scrapName}</h5>
+                    <div className="opacity-80 text-2xl font-['Gilroy-SemiBold'] text-[#4a4a4a] ">
+                        {item.scrapName}
+                    </div>
+                    {/* <h5 className="text-lg  tracking-tight text-slate-900">{item.scrapName}</h5> */}
 
                     <div className="mt-2 mb-5 flex items-center justify-between">
                         <p>
@@ -125,7 +127,7 @@ const PriceCardComponent = () => {
 
     return (
         <div className="max-w-screen-xl mx-auto p-5 sm:p-5 md:p-5">
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-10 md:gap-10">{renderData()}</div>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-10 md:gap-10">{renderData()}</div>
         </div>
     );
 };

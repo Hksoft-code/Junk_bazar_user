@@ -58,15 +58,15 @@ const CartList = () => {
         }
     };
 
-    const handleRequestAddTocart = async (scrapId) => {
+    const handleRequestAddTocart = async (cart) => {
 
-        if (quantity[scrapId] > 0) {
-            console.log("handleRequestAddTocart working", scrapId);
-            const currentQuantity = quantity[scrapId];
+        if (quantity[cart.scrapId] > 0) {
+            console.log("handleRequestAddTocart working", cart.scrapId);
+            const currentQuantity = quantity[cart.scrapId];
 
             const payload = {
                 addScrapQuantity: currentQuantity,
-                scrapId: scrapId,
+                scrapId: cart.scrapId,
             };
             console.log('handleRequestAddTocart payload', payload, 'readCart', readCart);
             try {
@@ -80,9 +80,16 @@ const CartList = () => {
                 console.error("Error fetching data:", error);
             }
 
+            const passData = {
+                addToCartId:cart.addToCartId,
+                quantity:cart.quantity,
+                price:cart.scrapInfo.price,
+                scrapId:cart.scrapId
+            }
+
             navigate("/request_pickup", {
                 state: {
-                    id: scrapId,
+                    passData
                 },
             });
         } else {
@@ -131,7 +138,7 @@ const CartList = () => {
                                     alt=""
                                 />
                                 <div>
-                                    <h5 className="font-bold text-[20px] max-er:text-[20px] md:text-[30px] text-gray-700">
+                                    <h5 className="opacity-80 text-3xl font-['Gilroy-SemiBold'] text-[#4a4a4a] ">
                                         {cart?.scrapInfo.scrapName}
                                     </h5>
                                     <p className="font-bold text-[10px] max-er:text-[10px] md:text-[14px] text-gray-700">
@@ -169,7 +176,7 @@ const CartList = () => {
                                     Browse More Scraps
                                 </button>
                                 <button
-                                    onClick={() => handleRequestAddTocart(cart.scrapId)}
+                                    onClick={() => handleRequestAddTocart(cart)}
                                     className="lg:w-[200px] rounded-[30px] h-[50px] font-semibold text-white bg-[#81D742] cursor-pointer max-sm:w-[100px] max-er:text-[10px] lg:text-[15px] max-md:w-[120px] max-er:w-[130px] p-3"
                                 >
                                     Request Pickup

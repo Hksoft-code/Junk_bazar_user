@@ -24,13 +24,11 @@ const RequestPickup = () => {
     //     setScrapId ] = useState("");
     const [countriesAndStates, setcountriesAndStates] = useState([]);
 
-    const {
-        state
-    } = useLocation(); const {
-        id
-    } = state;
 
-    console.log("Scrap Id", id);
+    const location = useLocation();
+
+    console.log("phoneNumberObj", location.state.passData);
+    const passDta = location.state.passData;
 
     const navigate = useNavigate();
 
@@ -92,11 +90,15 @@ const RequestPickup = () => {
         if (fullName !== '' || undefined && selectedCity !== '' || undefined && address !== '' || undefined && selectedState !== '' || undefined && selectedCountry !== '' || undefined && selectedDialCode !== '' || undefined && phoneNumber !== '' || undefined && pincode !== '' || undefined) {
             setFormValidate(true)
             const payload = {
+                addToCartId: passDta.addToCartId,
+                price: passDta.price,
+                quantity: passDta.quantity,
+                scrapId: passDta.scrapId,
                 fullName: fullName,
                 city: selectedCity,
                 address: address,
                 pincode: JSON.parse(pincode),
-                scrapIds: id,
+                scrapIds: passDta.scrapId,
                 stateCode: selectedState,
                 countryCode: selectedCountry,
                 dialCode: selectedDialCode,
