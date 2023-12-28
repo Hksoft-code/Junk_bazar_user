@@ -24,6 +24,7 @@ import TrackOrder from "./Pages/TrackOrder.jsx";
 import TrackOrderDetails from "./Components/TrackOrder/TrackOrderDetails.jsx";
 import SignInTest from "./Auth/Pages/SignInTest.jsx";
 import AddressVerify from "./Auth/Pages/addressVerify.jsx";
+import Profile from "./Pages/Profile.jsx";
 
 function App() {
     return (
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/faqs" element={<Faqs />} />
                 <Route path="/addressVerify" element={<AddressVerify />} />
                 <Route path="/trackOrder" element={<TrackOrder />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/trackOrderDetails" element={<TrackOrderDetails />} />
             </Routes>
 

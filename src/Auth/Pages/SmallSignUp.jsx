@@ -95,6 +95,7 @@ const SmallSignUp = () => {
                 <form className="mt-5">
                     <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                         <PhoneInput
+                            className={"input-phone-number"}
                             international
                             defaultCountry="IN"
                             value={phoneNumber}

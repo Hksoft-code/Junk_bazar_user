@@ -70,6 +70,10 @@ const Nav = () => {
         navigate("/trackOrder", { replace: true })
     }
 
+    const handleProfile = () => {
+        navigate("/profile", { replace: true })
+    }
+
 
     // const handleTrackOut = () => {
     //     console.log("trackorder click")
@@ -154,7 +158,7 @@ const Nav = () => {
                                     </button>
                                 ) : (
                                     <div onMouseLeave={() => setOpen(false)} className="relative">
-                                        <FaUserCircle onMouseOver={() => setOpen(true)}
+                                        <FaUserCircle onClick={() => setOpen(true)}
 
                                             size={42}
                                             className="-mr-8 cursor-pointer"
@@ -166,6 +170,9 @@ const Nav = () => {
                                         >
                                             <li onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
                                                 Track Order
+                                            </li>
+                                            <li onClick={handleProfile} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Profile
                                             </li>
 
                                             <li onClick={handleLogout}

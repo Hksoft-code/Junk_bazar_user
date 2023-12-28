@@ -9,12 +9,12 @@ const Pricing = () => {
         <>
             <Nav />
             <div className=" mt-20 lg:mt-32  lg:max-w-[1550px] mx-auto">
-                <div className="text-center text-[96px] font-['Gilroy-Bold'] tracking-[0.2] text-[#060714] ">
-                    Rates Of JunkBazar Scraps
-                </div>
-                <div className="pricing-lists">
+                <>
+                    <div class="text-center p-10">
+                        <h1 class="font-bold text-4xl mb-4">Rates Of JunkBazar Scraps</h1>
+                    </div>
                     <PriceCardComponent />
-                </div>
+                </>
             </div>
             <Footer />
         </>

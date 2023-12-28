@@ -64,6 +64,8 @@ const CartList = () => {
             console.log("handleRequestAddTocart working", cart.scrapId);
             const currentQuantity = quantity[cart.scrapId];
 
+            console.log("Scap", quantity[cart.scrapId])
+
             const payload = {
                 addScrapQuantity: currentQuantity,
                 scrapId: cart.scrapId,
@@ -81,10 +83,10 @@ const CartList = () => {
             }
 
             const passData = {
-                addToCartId:cart.addToCartId,
-                quantity:cart.quantity,
-                price:cart.scrapInfo.price,
-                scrapId:cart.scrapId
+                addToCartId: cart.addToCartId,
+                quantity: quantity[cart.scrapId],
+                price: cart.scrapInfo.price,
+                scrapId: cart.scrapId
             }
 
             navigate("/request_pickup", {

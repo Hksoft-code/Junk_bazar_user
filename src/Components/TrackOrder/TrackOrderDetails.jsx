@@ -2,10 +2,14 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import React, {
     useState
 } from "react";
-import step1 from '../../assets/PNG/step1.png'
-import step2 from '../../assets/PNG/step2.png'
-import step3 from '../../assets/PNG/step3.png'
-import step4 from '../../assets/PNG/step4.png'
+import step1 from '../../assets/PNG/accept.png'
+import step2 from '../../assets/PNG/onway.png'
+import step3 from '../../assets/PNG/arrive.png'
+import step4 from '../../assets/PNG/deliver.png'
+import step1_done from '../../assets/PNG/accept_grren.png'
+import step2_done from '../../assets/PNG/onway_green.png'
+import step3_done from '../../assets/PNG/arrive_green.png'
+import step4_done from '../../assets/PNG/deliver_greenn.png'
 import tick_green from '../../assets/PNG/tick_green.png'
 import tick_grey from '../../assets/PNG/tick_grey.png'
 import Button from '../auth/Button'
@@ -13,14 +17,25 @@ import Nav from '../../Common/Navbar/Nav'
 import Footer from '../../Common/Footer/Footer'
 import { useEffect } from 'react'
 import axiosInstance from '../../api-config/axiosInstance'
+import { Rating } from 'react-simple-star-rating';
+import StarRatingComponent from 'react-star-rating-component';
+import Swal from 'sweetalert2';
 
 const TrackOrderDetails = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
     const [backendOrderStatus, setOrderStatus] = useState("");
+    const [rating, setRating] = useState(1)
     console.log("phoneNumberObj", location.state.orderId);
     const [orderDetail, setOrderDetail] = useState("");
+
+    const [review, setReview] = useState();
+
+
+    const handleRating = (rate) => {
+        setRating(rate)
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -44,6 +59,55 @@ const TrackOrderDetails = () => {
             console.error("Error fetching data:", error);
         }
     };
+
+    const handleReview = async () => {
+        const payload = {
+            "vendorId": location.state.orderId,
+            "rating": rating,
+            "comment": review
+        }
+
+        try {
+            const resp = await axiosInstance.post("/addReview", payload);
+            const dataObject = resp.data;
+
+
+            if (dataObject.statusCode === 200) {
+                Swal.fire({
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: true,
+                    timer: 2500,
+                    title: "Thanks for your feedback"
+                });
+                navigate("/pricing",);
+            }
+        }
+        catch (error) {
+            console.error("error", error);
+
+            if (error.response) {
+                Swal.fire({
+                    icon: "error",
+                    position: "center",
+                    showConfirmButton: false,
+                    timer: 2500,
+                    title: error.response.data.error._message
+                });
+            }
+            else if (error.request) {
+                // Client made a request but response is not received 
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
+            }
+            else {
+                // Other case 
+                console.log("Error", error.message);
+            }
+            // Error handling here 
+        }
+
+    }
     const OrdersEnum = {
         ACCEPTED: 1,
         ARRVIED: 3,
@@ -77,7 +141,7 @@ const TrackOrderDetails = () => {
                                 <div className="flex justify-center items-center mb-4 md:mb-0">
                                     <img
                                         className="w-[50px] h-[50px] max-sm:w-[20px] max-sm:h-[20px] object-cover mr-[20px]  max-er:w-[50px] max-er:h-[50px] rounded-[10px]"
-                                        src={step1}
+                                        src={backendOrderStatus >= OrdersEnum.ACCEPTED ? step1_done : step1}
                                         alt=""
                                     />
                                     <div>
@@ -104,7 +168,7 @@ const TrackOrderDetails = () => {
                                 <div className="flex justify-center items-center mb-4 md:mb-0">
                                     <img
                                         className="w-[50px] h-[50px] max-sm:w-[20px] max-sm:h-[20px] object-cover mr-[20px]  max-er:w-[50px] max-er:h-[50px] rounded-[10px]"
-                                        src={step2}
+                                        src={backendOrderStatus >= OrdersEnum.ON_THE_WAY ? step2_done : step2}
                                         alt=""
                                     />
                                     <div>
@@ -130,7 +194,7 @@ const TrackOrderDetails = () => {
                                 <div className="flex justify-center items-center mb-4 md:mb-0">
                                     <img
                                         className="w-[50px] h-[50px] max-sm:w-[20px] max-sm:h-[20px] object-cover mr-[20px]  max-er:w-[50px] max-er:h-[50px] rounded-[10px]"
-                                        src={step3}
+                                        src={backendOrderStatus >= OrdersEnum.ARRVIED ? step3_done : step3}
                                         alt=""
                                     />
                                     <div>
@@ -156,7 +220,7 @@ const TrackOrderDetails = () => {
                                 <div className="flex justify-center items-center mb-4 md:mb-0">
                                     <img
                                         className="w-[50px] h-[50px] max-sm:w-[20px] max-sm:h-[20px] object-cover mr-[20px]  max-er:w-[50px] max-er:h-[50px] rounded-[10px]"
-                                        src={step4}
+                                        src={backendOrderStatus >= OrdersEnum.SCRAP_PICKED ? step4_done : step4}
                                         alt=""
                                     />
                                     <div>
@@ -195,6 +259,34 @@ const TrackOrderDetails = () => {
                             classname="order_btn rounded-[50.94px] h-[60px] w-[350px] font-[400] text-[28px] bg-[#5AB344] text-white m-2"
                         />
                     </div>
+                </div>
+                <div class="py-3 sm:max-w-xl sm:mx-auto">
+                    <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
+                        <div class="px-12 py-5">
+                            <h2 class="text-gray-800 text-3xl font-semibold">Your opinion matters to us!</h2>
+                        </div>
+                        <div class="bg-gray-200 w-full flex flex-col items-center">
+                            <div class="flex flex-col items-center py-6 space-y-3">
+                                <span class="text-lg text-gray-800">How was quality of the call?</span>
+                                <StarRatingComponent
+                                    className="w-20"
+                                    name="rate1"
+                                    starCount={5}
+                                    value={rating}
+                                    onStarClick={handleRating}
+                                />
+                            </div>
+                            <div class="w-3/4 flex flex-col">
+                                <textarea onChange={(e) => {
+                                    setReview(e.target.value);
+                                }} rows="3" class="p-4 text-gray-500 rounded-xl resize-none" placeholder='Leave a message, if you want'></textarea>
+                                <button onClick={handleReview} class="py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white">Rate now</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
             <Footer />
