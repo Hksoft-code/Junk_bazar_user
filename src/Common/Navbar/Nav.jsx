@@ -151,10 +151,10 @@ const Nav = () => {
 
                                 {token === "" || token === undefined || token === null ? (
                                     <button
-                                        className="text-center text-white text-base font-semibold  tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.65rem]"
+                                        className="ml-5 text-center text-white text-base font-semibold  tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.65rem]"
                                         onClick={() => navigate("/Sign-Up")}
                                     >
-                                        Sign up/Sign in
+                                        Sign up / Sign in
                                     </button>
                                 ) : (
                                     <div onMouseLeave={() => setOpen(false)} className="relative">
@@ -358,20 +358,24 @@ const Nav = () => {
                                             className="ml-6 cursor-pointer"
                                             fill="#555"
                                         />
+
+                                        <div
+                                            className=" ml-2 mt-4 mb-3  flex items-center cursor-pointer"
+                                            onClick={handleLogout}
+                                        >
+                                            <img
+                                                src={logout}
+                                                alt="log-out-icon"
+                                                className="mx-3 mr-3 w-6"
+                                            />
+                                            <h1 className="text-base font-bold text-red-600">Log out</h1>
+                                        </div>
                                     </div>
+
+
                                 )}
 
-                                <div
-                                    className=" ml-2 mt-4 mb-3  flex items-center cursor-pointer"
-                                    onClick={handleLogout}
-                                >
-                                    <img
-                                        src={logout}
-                                        alt="log-out-icon"
-                                        className="mx-3 mr-3 w-6"
-                                    />
-                                    <h1 className="text-base font-bold text-red-600">Log out</h1>
-                                </div>
+
                             </div>
                         </nav>
                     </div>

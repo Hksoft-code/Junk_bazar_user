@@ -20,7 +20,7 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     const [checked,
-        setChecked] = React.useState(true);
+        setChecked] = React.useState(false);
     const [phoneNumber,
         setPhoneNumber] = useState("");
     const [isValidPhoneNumber,
@@ -37,58 +37,70 @@ const SignIn = () => {
     };
 
     const SignInService = async () => {
-        console.log("phone number ", phoneNumber.slice(3, 13))
-        const mobile = phoneNumber.slice(3, 13)
-        try {
-            const payLoad = {
-                dialCode: "+91",
-                phoneNumber: mobile
-            };
+        console.log("checked", checked)
+        if (checked) {
+            console.log("phone number ", phoneNumber.slice(3, 13))
+            const mobile = phoneNumber.slice(3, 13)
+            try {
+                const payLoad = {
+                    dialCode: "+91",
+                    phoneNumber: mobile
+                };
 
-            const response = await axiosInstance.post("/login", payLoad);
+                const response = await axiosInstance.post("/login", payLoad);
 
-            const dataObj = response.data;
+                const dataObj = response.data;
 
-            console.log("sign in resp dataObj", dataObj);
+                console.log("sign in resp dataObj", dataObj);
 
-            if (dataObj.statusCode === 200) {
-                Swal.fire({
-                    icon: "success",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: response.data.message
-                });
-                navigate("/otp-verify", {
-                    state: {
-                        mobile
-                    }
-                });
+                if (dataObj.statusCode === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: response.data.message
+                    });
+                    navigate("/otp-verify", {
+                        state: {
+                            mobile
+                        }
+                    });
+                }
             }
+            catch (error) {
+                console.error("Error fetching data:", error);
+
+                if (error.response) {
+                    // If server responded with a status code for a request  
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: "Enter Valid Mobile Number"
+                    });
+                }
+                else if (error.request) {
+                    // Client made a request but response is not received 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                }
+                else {
+                    // Other case 
+                    console.log("Error", error.message);
+                }
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2500,
+                title: "Select Term And Condition"
+            });
         }
-        catch (error) {
-            console.error("Error fetching data:", error);
 
-            if (error.response) {
-                // If server responded with a status code for a request  
-                Swal.fire({
-                    icon: "error",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: error.response.data.error._message
-                });
-            }
-            else if (error.request) {
-                // Client made a request but response is not received 
-                console.log("<<<<<<<Response Not Received>>>>>>>>");
-                console.log(error.request);
-            }
-            else {
-                // Other case 
-                console.log("Error", error.message);
-            }
-        }
     };
 
     return (
@@ -99,7 +111,7 @@ const SignIn = () => {
                     class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
                     <div className="w-full text-center ">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mt-20">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
-                        <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
+                        <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to Enjoy Exclusive Access!.</p>
                         <img className="max-h-fit w-full rounded-full" src={customer} alt=" " />
                     </div>
 
@@ -156,13 +168,14 @@ const SignIn = () => {
                     <div className="max-w-2xl max-h-screen">
                         <div className="shadow-xl p-20 w-full">
 
-                            <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign In now</p>
+                            <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign In Now</p>
                             <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
-                            <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
+                            <p className="mt-6 text-sm leading-8 text-gray-600">Phone Number</p>
 
                             <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                                 <PhoneInput
+                                    maxLength={15}
                                     className={"input-phone-number"}
                                     international
                                     defaultCountry="IN"
@@ -176,7 +189,7 @@ const SignIn = () => {
                                         type="checkbox"
                                         classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
                                         value={checked}
-                                        checked={checked}
+
                                         handleChange={() => setChecked((prevState) => !prevState)}
                                     />By creating an account, I agree to our {" "}
                                     <span className="underline cursor-pointer">Terms of use</span> and{" "}

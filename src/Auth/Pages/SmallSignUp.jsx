@@ -86,7 +86,7 @@ const SmallSignUp = () => {
             <div className="bg-white p-10 rounded-t-lg shadow-2xl shadow-slate-900">
                 <div className="">
                     <h2 className="text-[#303030]  text-[22px] mt-2 mb-0">
-                        Sign up now
+                        Sign Up Now
                     </h2>
                     <p className="text-[#707070]  text-[10px]">
                         Create a new account in four simple steps
@@ -95,6 +95,7 @@ const SmallSignUp = () => {
                 <form className="mt-5">
                     <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                         <PhoneInput
+                            maxLength={15}
                             className={"input-phone-number"}
                             international
                             defaultCountry="IN"

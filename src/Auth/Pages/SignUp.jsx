@@ -17,7 +17,7 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const [checked,
-        setChecked] = React.useState(true);
+        setChecked] = React.useState(false);
     const [phoneNumber,
         setPhoneNumber] = useState("");
     const [isValidPhoneNumber,
@@ -33,55 +33,66 @@ const SignUp = () => {
         setIsValidPhoneNumber(isValid);
     };
     const signUpService = async () => {
-        console.log("phone number ", phoneNumber.slice(3, 13))
-        const mobile = phoneNumber.slice(3, 13)
-        const payload = {
-            dialCode: "+91",
-            phoneNumber: mobile
-        };
+        if (checked) {
+            console.log("phone number ", phoneNumber.slice(3, 13))
+            const mobile = phoneNumber.slice(3, 13)
+            const payload = {
+                dialCode: "+91",
+                phoneNumber: mobile
+            };
 
-        try {
-            const resp = await axiosInstance.post("/register", payload);
-            const dataObject = resp.data;
+            try {
+                const resp = await axiosInstance.post("/register", payload);
+                const dataObject = resp.data;
 
-            if (dataObject.statusCode === 200) {
-                Swal.fire({
-                    icon: "success",
-                    position: "center",
-                    showConfirmButton: true,
-                    timer: 2500,
-                    title: dataObject.message
-                });
-                navigate("/otp-verify", {
-                    state: {
-                        mobile
-                    }
-                });
+                if (dataObject.statusCode === 200) {
+                    Swal.fire({
+                        icon: "success",
+                        position: "center",
+                        showConfirmButton: true,
+                        timer: 2500,
+                        title: dataObject.message
+                    });
+                    navigate("/otp-verify", {
+                        state: {
+                            mobile
+                        }
+                    });
+                }
             }
+            catch (error) {
+                console.error("error", error);
+
+                if (error.response) {
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: "Enter Valid Mobile Number"
+                    });
+                }
+                else if (error.request) {
+                    // Client made a request but response is not received 
+                    console.log("<<<<<<<Response Not Received>>>>>>>>");
+                    console.log(error.request);
+                }
+                else {
+                    // Other case 
+                    console.log("Error", error.message);
+                }
+                // Error handling here 
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                position: "center",
+                showConfirmButton: false,
+                timer: 2500,
+                title: "Select Term And Condition"
+            });
         }
-        catch (error) {
-            console.error("error", error);
 
-            if (error.response) {
-                Swal.fire({
-                    icon: "error",
-                    position: "center",
-                    showConfirmButton: false,
-                    timer: 2500,
-                    title: error.response.data.error._message
-                });
-            }
-            else if (error.request) {
-                // Client made a request but response is not received 
-                console.log("<<<<<<<Response Not Received>>>>>>>>");
-                console.log(error.request);
-            }
-            else {
-                // Other case 
-                console.log("Error", error.message);
-            }
-            // Error handling here 
-        }
     };
 
     return (
@@ -115,6 +126,7 @@ const SignUp = () => {
                             /> */}
                             <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                                 <PhoneInput
+                                    maxLength={15}
                                     className={"input-phone-number"}
                                     international
                                     defaultCountry="IN"

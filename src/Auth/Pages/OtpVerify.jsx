@@ -140,7 +140,7 @@ const OtpVerify = () => {
                                 <p className="text-red-500 text-sm mt-1">Please enter a valid 6-digit Otp.</p>
                             )}
                             <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
-                                <p className="text-[10px] text-[#666666] font-semibold mt-24 mb-5">
+                                <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                     We’ve sent a one Time password (OTP to +91{location.state.mobile}).
                                     Please enter it to complete verification.
                                     Didn’t receive code? RESEND CODE

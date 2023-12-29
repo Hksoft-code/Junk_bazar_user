@@ -1,10 +1,6 @@
-// import { useCallback } from "react";
+
 import Banner from "../Components/Home/banner.jsx";
 
-// import search_icon from "../assets/SVG/Search Icon.svg";
-// import phone from "../assets/PNG/junkbazar 1.png";
-// import apple_logo from "../assets/SVG/Vector (1).svg";
-// import playstore_logo from "../assets/SVG/Vector.svg";
 import About from "../Components/Home/About.jsx";
 import Treasure from "../Components/Home/Treasure.jsx";
 import Tutorial from "../Components/Home/Tutorial.jsx";
@@ -16,8 +12,7 @@ import { useEffect } from "react";
 import axiosInstance from "../api-config/axiosInstance.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/user/userSlice.js";
-// import Footer from "../Common/Footer/Footer";
-// import Nav from "../Common/Navbar/Nav";
+
 const Homepage = () => {
 
     useEffect(() => {

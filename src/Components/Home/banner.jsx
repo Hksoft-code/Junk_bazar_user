@@ -66,7 +66,7 @@ const Banner = () => {
                   </span>
                 </div>
 
-                <div className="flex justify-between items-center mr-6 bg-black px-2 lg:px-3 py-2 text-white rounded">
+                {/* <div className="flex justify-between items-center mr-6 bg-black px-2 lg:px-3 py-2 text-white rounded">
                   <img
                     src={apple_logo}
                     alt="playstore-logo"
@@ -76,7 +76,7 @@ const Banner = () => {
                     Download on the <br />
                     <span className="text-base font-bold"> App Store</span>
                   </span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

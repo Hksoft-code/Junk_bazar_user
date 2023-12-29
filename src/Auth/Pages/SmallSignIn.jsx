@@ -89,13 +89,14 @@ const SmallSignIn = () => {
             <div className="bg-white p-10 rounded-t-lg shadow-2xl shadow-slate-900">
                 <div className="">
                     <h2 className="text-[#303030]  text-[22px] mt-2 mb-0">
-                        Sign In now
+                        Sign In Now
                     </h2>
 
                 </div>
                 <form className="mt-5">
                     <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
                         <PhoneInput
+                            maxLength={15}
                             className={"input-phone-number"}
                             international
                             defaultCountry="IN"

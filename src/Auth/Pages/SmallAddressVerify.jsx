@@ -152,7 +152,7 @@ const SmallAddressVerify = () => {
                                     onChange={(e) => {
                                         setFirstName(e.target.value);
                                     }}
-                                    placeholder="Enter Address"
+                                    placeholder="Enter First Name"
                                     className="w-full p-1 ml-3 text-black outline-none bg-transparent"
                                 />
                             </div>
@@ -167,7 +167,7 @@ const SmallAddressVerify = () => {
                                     onChange={(e) => {
                                         setLastName(e.target.value);
                                     }}
-                                    placeholder="Enter Address"
+                                    placeholder="Enter Last Name"
                                     className="w-full p-1 ml-3 text-black outline-none bg-transparent"
                                 />
                             </div>
