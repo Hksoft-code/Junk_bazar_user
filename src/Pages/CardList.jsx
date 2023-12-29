@@ -86,7 +86,8 @@ const CartList = () => {
                 addToCartId: cart.addToCartId,
                 quantity: quantity[cart.scrapId],
                 price: cart.scrapInfo.price,
-                scrapId: cart.scrapId
+                scrapId: cart.scrapId,
+                quantityType: cart.scrapInfo.quantityType
             }
 
             navigate("/request_pickup", {

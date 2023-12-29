@@ -102,7 +102,8 @@ const RequestPickup = () => {
                 stateCode: selectedState,
                 countryCode: selectedCountry,
                 dialCode: selectedDialCode,
-                phoneNumber: phoneNumber
+                phoneNumber: phoneNumber,
+                quantityType: passDta.quantityType
             };
             console.log("validate", payload);
 
