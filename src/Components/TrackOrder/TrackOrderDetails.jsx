@@ -62,7 +62,7 @@ const TrackOrderDetails = () => {
 
     const handleReview = async () => {
         const payload = {
-            "vendorId": location.state.orderId,
+            "vendorId": orderDetail.vendorId,
             "rating": rating,
             "comment": review
         }
