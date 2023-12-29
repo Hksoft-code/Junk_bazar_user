@@ -98,65 +98,35 @@ const PriceCardComponent = () => {
 
     const renderData = () => {
         return scrapList?.map((item) => (
-
-
-            <div key={item.scrapId} class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-
-                <img src={item?.docUrl}
-                    alt="Product" class="h-80 w-72 object-cover rounded-t-xl" />
-                <div class="px-4 py-3 w-72">
-
-                    <p class="text-lg font-bold text-black truncate block capitalize">{item.scrapName}</p>
-                    <div class="flex items-center">
-                        <p class="text-lg font-semibold text-black cursor-auto my-3">₹ {item.price}-{item.quantityType}</p>
-
-                        <div class="ml-auto">
-                            <button onClick={() => handleAddToCard(item.scrapId)} class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
-                                Add to Cart
-                            </button>
-                        </div>
+            <div key={item.scrapId} className="relative  flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+                <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
+                    <img className="object-cover" src={item?.docUrl} alt="product image" />
+                    <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
+                </a>
+                <div className="mt-4 px-5 pb-5">
+                    <div className="opacity-80 text-2xl font-['Gilroy-SemiBold'] text-[#4a4a4a] ">
+                        {item.scrapName}
                     </div>
+                    {/* <h5 className="text-lg  tracking-tight text-slate-900">{item.scrapName}</h5> */}
+
+                    <div className="mt-2 mb-5 flex items-center justify-between">
+                        <p>
+                            <span className="text-1xl font-bold text-slate-900"> ₹ {item.price}-{item.quantityType}</span>
+                        </p>
+                    </div>
+                    <a onClick={() => handleAddToCard(item.scrapId)} className="cursor-pointer flex items-center justify-center rounded-md bg-lime-400 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lime-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
+
+                        Add to cart
+                    </a>
                 </div>
-
             </div>
-
-
-
-
-
-            // <div  className="relative  flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-            //     <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
-            //         <img className="object-cover" src={item?.docUrl} alt="product image" />
-            //         <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span>
-            //     </a>
-            //     <div className="mt-4 px-5 pb-5">
-            //         <div className="opacity-80 text-2xl font-['Gilroy-SemiBold'] text-[#4a4a4a] ">
-            //             {item.scrapName}
-            //         </div>
-            //         {/* <h5 className="text-lg  tracking-tight text-slate-900">{item.scrapName}</h5> */}
-
-            //         <div className="mt-2 mb-5 flex items-center justify-between">
-            //             <p>
-            //                 <span className="text-1xl font-bold text-slate-900"> ₹ {item.price}-{item.quantityType}</span>
-            //             </p>
-            //         </div>
-            //         <a onClick={() => handleAddToCard(item.scrapId)} className="cursor-pointer flex items-center justify-center rounded-md bg-lime-400 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-lime-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-            //             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            //                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            //             </svg>
-            //             Add to cart
-            //         </a>
-            //     </div>
-            // </div>
         ));
     };
 
     return (
-        <section id="Projects"
-            class="w-fit mx-auto grid grid-cols-3 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-            {renderData()}
-        </section>
-
+        <div className="max-w-screen-xl mx-auto p-5 sm:p-5 md:p-5">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-10 md:gap-10">{renderData()}</div>
+        </div>
     );
 };
 
