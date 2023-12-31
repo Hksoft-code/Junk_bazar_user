@@ -65,8 +65,10 @@ const Nav = () => {
     const handleLogout = () => {
         console.log("logout click")
         localStorage.clear();
-        navigate("/sign-in", { replace: true })
+        // navigate("/sign-in", { replace: true })
         setOpen(false); 
+        navigate("/")
+
     }
 
     const handleTrack = () => {
@@ -94,13 +96,13 @@ const Nav = () => {
                     className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
                         }`}
                 >
-                    <div>
+                    <Link to="/">
                         <img
                             src={junk_logo}
                             alt="Junk-bazzar-logo"
                             className="w-[115px] h-[8] lg:w-[202px] lg:h-[53px] cursor-pointer"
                         />
-                    </div>
+                    </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
                         <ul className="flex justify-between items-center ">
@@ -148,7 +150,7 @@ const Nav = () => {
                         </div>
                         <div className="hidden lg:flex ">
                             <div className="flex justify-between items-center">
-                                <Link to="/cart">
+                                <Link to="/request_pickup">
                                     <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white hover:border-0 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.45rem] mr-2">
                                         Request Pickup
                                     </button>
@@ -172,7 +174,7 @@ const Nav = () => {
                                     <ul
                                       className={`absolute right-0 w-40 -m-10 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
                                     >
-                                      <Link onClick={handleTrack} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                      <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
                                         Track Order
                                       </Link>
                                       <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">

@@ -23,6 +23,7 @@ import TrackOrderDetails from "./Components/TrackOrder/TrackOrderDetails.jsx";
 import SignInTest from "./Auth/Pages/SignInTest.jsx";
 import AddressVerify from "./Auth/Pages/addressVerify.jsx";
 import Profile from "./Pages/Profile.jsx";
+import UnauthorizedAccessPage from "./Common/AuthuserModal.jsx";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
         <Route path="/contact-us" element={<ContactScreen />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/request-pickup" element={<RequestPickup />} />
+        <Route path="/request_pickup" element={<RequestPickup />} />
         <Route path="/cart" element={<CardPage />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/upload-scrap" element={<UploadScrap />} />
@@ -44,6 +45,7 @@ function App() {
         <Route path="/trackOrder" element={<TrackOrder />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/trackOrderDetails" element={<TrackOrderDetails />} />
+        <Route path="/unauthorized" element={<UnauthorizedAccessPage/>} />
       </Routes>
     </div>
   );

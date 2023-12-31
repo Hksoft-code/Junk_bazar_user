@@ -110,7 +110,7 @@ const SmallSignUp = () => {
                             handleClick={signUpService}
 
                         />
-                        <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400]">
+                        <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">
                             Don't have an account?{" "}
                             <span onClick={() => navigate("/sign-in")}
                                 className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">

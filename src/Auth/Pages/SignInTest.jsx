@@ -155,7 +155,7 @@ const SignInTest = () => {
                                 handleClick={SignInService}
 
                             />
-                            <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3">
+                            <p className="text-[#333333] text-[16px] font-[400] text-center mt-5 -mb-3 cursor-pointer">
                                 Already have an account?{" "}
                                 <span
                                     className="font-semibold cursor-pointer underline hover:text-[#5AB344]"

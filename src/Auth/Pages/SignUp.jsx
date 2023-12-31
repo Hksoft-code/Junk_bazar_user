@@ -6,6 +6,7 @@ import Input from "../../Components/auth/Input.jsx";
 import LabeledInput from "../../Components/auth/LabeledInput.jsx";
 import Button from "../../Components/auth/Button.jsx";
 import {
+    Link,
     useNavigate
 } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,6 +14,7 @@ import axiosInstance from "../../api-config/axiosInstance.js";
 import PhoneInput from "react-phone-number-input";
 import 'react-phone-number-input/style.css'
 import SmallSignUp from "./SmallSignUp.jsx";
+import { IoChevronBackOutline } from "react-icons/io5";
 const SignUp = () => {
     const navigate = useNavigate();
 
@@ -98,17 +100,25 @@ const SignUp = () => {
     return (
         <>
             <SmallSignUp />
+
             <div class="h-screen md:flex signup-container">
                 <div
-                    class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden">
-                    <div className="w-full text-center ">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mt-20">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
-                        <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
-                        <img className="max-h-fit w-full rounded-full" src={customer} alt=" " />
-                    </div>
+                    class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden sm:block ">
+                   <div className="w-full text-center   ">
+    <div className="flex flex-row gap-2">
+        <Link to="/">
+    <IoChevronBackOutline className="ml-12 w-12 h-12 cursor-pointer rounded-full border border-gray-300 p-2 hover:bg-gray-100 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200" />
+        </Link>
+
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl ">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
+    </div>
+    <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
+    <img className="max-w-lg mx-auto mt-4 rounded-full" src={customer} alt=" " />
+</div>
+
 
                 </div>
-                <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
+                <div class="flex md:w-1/2 mx-auto justify-center py-10 items-center bg-white">
                     <div className="max-w-2xl max-h-screen">
                         <div className="shadow-xl p-20 w-full">
 
@@ -169,7 +179,7 @@ const SignUp = () => {
                                     Already have an account?
                                 </span>
                                 <span className="text-dimgray-200">{" "}</span>
-                                <span onClick={() => navigate("/sign-in")} className="[text-decoration:underline]">{"Sign In  "}</span>
+                                <span onClick={() => navigate("/sign-in")} className="[text-decoration:underline] cursor-pointer">{"Sign In  "}</span>
                             </div>
 
                         </div>

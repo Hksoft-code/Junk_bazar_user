@@ -1,54 +1,66 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "../../api-config/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../Common/Footer/Loader";
+import PaginationComponent from "../PriceList/utils";
+
 const OrdersRespEnum = {
-    0: "Order In Pending",
-    1: "Orders Accpeted",
-    2: "Vendor On the Way",
-    3: "Vendor Arrived",
-    4: "Vendor Picked The Scrap",
-    5: "Vendor rejected Your Order"
-}
+  0: "Order In Pending",
+  1: "Orders Accepted",
+  2: "Vendor On the Way",
+  3: "Vendor Arrived",
+  4: "Vendor Picked The Scrap",
+  5: "Vendor rejected Your Order"
+};
+
 const TrackOrderList = () => {
+  const navigate = useNavigate();
+  const [orderList, setOrderList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-    const navigate = useNavigate();
-    const [orderList, setOrderList] = useState([]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetchData(currentPage);
+  }, [currentPage]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const response = await axiosInstance.get('/getUserOrder');
-            const scrapList = JSON.parse(response.data.data);
-            console.log('orderList', scrapList);
-            setOrderList(scrapList.orders)
-            // Initialize quantity state with default value   
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
-    const handleTrackOrder = (event) => {
-        console.log("tracking order id", event)
-        const orderId = event;
-        navigate("/trackOrderDetails", {
-            state: {
-                orderId
-            }
-        })
+  const fetchData = async (page) => {
+    try {
+      const response = await axiosInstance.get(`/getUserOrder?page=${page}`);
+      const scrapList = JSON.parse(response.data.data);
+      console.log('orderList', scrapList);
+      setOrderList(scrapList.orders);
+      setTotalPages(scrapList.totalPages);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
     }
+  };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
-    return (
+  const handleTrackOrder = (orderId) => {
+    console.log("tracking order id", orderId);
+    navigate("/trackOrderDetails", {
+      state: {
+        orderId
+      }
+    });
+  };
+
+ return (
         <div className="w-full mt-32 flex justify-center items-center lg:max-w-[1100px] mx-auto">
 
             <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">
-                {orderList?.map((cart, index) => (
-                    <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c]  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
+            {loading && <Loader/>}
+        {!loading && orderList.length === 0 && <p className=" flex justify-center items-center h-20">No data available.</p>}
+        {!loading &&
+          orderList.map((cart, index) => (
+               <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c]  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
                         <div className="flex justify-center items-center mb-4 md:mb-0">
                             <img
                                 className="w-[150px] h-[150px] max-sm:w-[100px] max-sm:h-[100px] object-cover mr-[20px]  max-er:w-[120px] max-er:h-[120px] rounded-[10px]"
@@ -79,6 +91,13 @@ const TrackOrderList = () => {
                         </div>
                     </div>
                 ))}
+                {!loading && orderList.length > 0 && (
+          <PaginationComponent
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
             </div>
         </div>
     )

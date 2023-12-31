@@ -1,5 +1,6 @@
 import axios from "axios";
 import { serverUrl } from "../api-config/config.js";
+import { useNavigate } from "react-router-dom";
 
 const axiosInstance = axios.create({
   baseURL: serverUrl,
@@ -32,7 +33,8 @@ axiosInstance.interceptors.response.use(
 
     if (error.response && error.response.status === 401) {
       console.log("Unauthorized access. Showing alert message.");
-      alert("Unauthorized access. Please log in again."); // Show an alert message
+      const navigate = useNavigate();
+      navigate("/unauthorized");
     }
 
     return Promise.reject(error);
