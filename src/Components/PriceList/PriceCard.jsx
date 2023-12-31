@@ -13,11 +13,10 @@ const PriceCardComponent = () => {
   const itemsInCart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // You can adjust this based on your design
+  const itemsPerPage = 9; // You can adjust this based on your design
   const [loading, setLoading] = useState(true);
   const [scrapList, setScrapList] = useState([]);
-  const totalPages = Math.ceil(scrapList.length / itemsPerPage);
-
+  const [totalItems, setTotalItems] = useState(0);
   const handleApiError = (error) => {
     if (error.response) {
       const { status, data } = error.response;
@@ -47,12 +46,15 @@ const PriceCardComponent = () => {
     else console.error("Other error:", error.message);
   };
 
-  async function fetchData() {
+  async function fetchData(page) {
+    // Ensure page is not less than 1
+  
     try {
       const response = await axiosInstance.get("/getScrap");
-      const { scraps } = JSON.parse(response.data.data);
-
-      console.log("pricing", scraps);
+  
+      const { scraps, totalScrapCount } = JSON.parse(response.data.data);
+      console.log(totalScrapCount);
+      setTotalItems(totalScrapCount);
       setScrapList(scraps);
       setLoading(false);
     } catch (error) {
@@ -60,6 +62,9 @@ const PriceCardComponent = () => {
       setLoading(false);
     }
   }
+  
+  
+  
 
   const handleAddToCard = async (scrapId) => {
     dispatch(addToCart(scrapId));
@@ -85,11 +90,15 @@ const PriceCardComponent = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(currentPage);
+  }, [currentPage]);
+  
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+    fetchData(pageNumber);
   };
+  
+const totalPages = Math.ceil(totalItems / itemsPerPage);
   const renderData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -136,7 +145,7 @@ const PriceCardComponent = () => {
         {loading ? (
           <Loader />
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-10 md:gap-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-10 md:gap-10">
             {renderData()}
           </div>
         )}
