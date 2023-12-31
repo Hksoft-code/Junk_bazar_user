@@ -19,23 +19,31 @@ const Profile = () => {
     const [openModal, setOpenModal] = useState(false);
     const [profile, setProfileData] = useState({});
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        fetchData();
-    }, []);
-
+ 
+    
     const fetchData = async () => {
         try {
             const response = await axiosInstance.get("/getCurrentUser");
             console.log("get User data", response);
-            const data = JSON.parse(response.data.data);
-            setProfileData(data);
-            console.log("get Profile of user ", data)
-        }
-        catch (error) {
+    
+            if (response.status === 200) {
+                const data = JSON.parse(response.data.data);
+                setProfileData(data);
+                console.log("get Profile of user ", data);
+            } else {
+                console.error("Unexpected server response:", response);
+                // Handle the error or redirect to login page
+            }
+        } catch (error) {
             console.error("Error fetching data:", error);
+            // Handle the error or redirect to login page
         }
     };
+    
+    useEffect(() => {
+        fetchData();
+    }, [axiosInstance]);
+    
     return (
         <>
             <Nav />

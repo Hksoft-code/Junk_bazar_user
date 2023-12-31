@@ -5,7 +5,7 @@ import team from "../../assets/PNG/TEAM 1.png";
 import phone from "../../assets/PNG/APP 1.png";
 import phone_2 from "../../assets/PNG/APP 2.png";
 import Tutorial from "../Home/Tutorial.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Treasure = () => {
     const navigate = useNavigate();
@@ -91,9 +91,14 @@ const Treasure = () => {
                             </p>
                         </div>
                         <div className="flex items-center mt-4">
-                            <button className="text-center text-white text-base font-semibold tracking-tight bg-transparent border-white border-2 hover:bg-white hover:text-lime-500  duration-200 flex items-center justify-center shadow-inner rounded-full  mt-5 cursor-pointer px-4 py-[.40rem]">
-                                Click here to download
-                            </button>
+                        <a
+  href="https://play.google.com/store/apps/details?id=com.whatsapp&hl=en&gl=US"
+  className="text-center text-white text-base font-semibold tracking-tight bg-transparent border-white border-2 hover:bg-white hover:text-lime-500 duration-200 flex items-center justify-center shadow-inner rounded-full mt-5 cursor-pointer px-4 py-[.40rem]"
+  target="_blank" rel="noopener noreferrer"
+>
+  Click here to download
+</a>
+
                         </div>
                     </div>
 

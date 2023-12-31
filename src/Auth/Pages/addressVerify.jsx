@@ -31,7 +31,9 @@ const AddressVerify = () => {
     const navigate = useNavigate();
     const [address, setAddress] = useState("");
     const location = useLocation();
-
+    const [addressError, setAddressError] = useState('');
+    const [firstNameError, setFirstNameError] = useState('');
+    const [lastNameError, setLastNameError] = useState('');
     console.log("userId", location.state.userId);
     const fetchData = async () => {
         try {
@@ -52,7 +54,10 @@ const AddressVerify = () => {
         window.scrollTo(0, 0);
         fetchData();
     }, []);
-
+    const isValidName = (value) => {
+        // Check if the input is not composed entirely of zeros or whitespaces
+        return value.trim() !== "0" && value.trim() !== "";
+      };
     console.log("countriesAndStates", countriesAndStates);
 
     const handleCountryChange = (event) => {
@@ -178,55 +183,68 @@ const AddressVerify = () => {
                         <div className="col-span-6 sm:col-span-3">
                             <form className="mt-5">
                                 <div className="grid  grid-cols-2 gap-6">
+                                <div>
+  <label className="block py-3 text-black">
+    First Name<span className="text-red-500">*</span>
+  </label>
+  <div className={`flex items-center p-2 border rounded-md bg-[#80d7421c] ${firstNameError ? 'border-red-500' : ''}`}>
+    <input
+      required
+      onChange={(e) => {
+        const inputValue = e.target.value;
+        setFirstName(inputValue);
+        setFirstNameError(isValidName(inputValue) ? '' : 'Invalid input');
+      }}
+      placeholder="Enter First Name"
+      className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+    />
+  </div>
+  {firstNameError && <p className="text-red-500 text-sm mt-1">{firstNameError}</p>}
+</div>
 
-                                    <div>
-                                        <label className="block py-3 text-black">First Name</label>
-                                        <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
-                                            <input
-                                                required
-                                                onChange={(e) => {
-                                                    setFirstName(e.target.value);
-                                                }}
-                                                placeholder="Enter Address"
-                                                className="w-full p-1 ml-3 text-black outline-none bg-transparent"
-                                            />
-                                        </div>
-                                    </div>
-
-
-                                    <div>
-                                        <label className="block py-3 text-black">Last Name</label>
-                                        <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
-                                            <input
-                                                required
-                                                onChange={(e) => {
-                                                    setLastName(e.target.value);
-                                                }}
-                                                placeholder="Enter Address"
-                                                className="w-full p-1 ml-3 text-black outline-none bg-transparent"
-                                            />
-                                        </div>
-                                    </div>
-
+<div>
+  <label className="block py-3 text-black">
+    Last Name<span className="text-red-500">*</span>
+  </label>
+  <div className={`flex items-center p-2 border rounded-md bg-[#80d7421c] ${lastNameError ? 'border-red-500' : ''}`}>
+    <input
+      required
+      onChange={(e) => {
+        const inputValue = e.target.value;
+        setLastName(inputValue);
+        setLastNameError(isValidName(inputValue) ? '' : 'Invalid input');
+      }}
+      placeholder="Enter Last Name"
+      className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+    />
+  </div>
+  {lastNameError && <p className="text-red-500 text-sm mt-1">{lastNameError}</p>}
+</div>
 
                                 </div>
 
 
                                 <div className="col-span-6 sm:col-span-3">
-                                    <div>
-                                        <label className="block py-3 text-black">Enter Address</label>
-                                        <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
-                                            <input
-                                                required
-                                                onChange={(e) => {
-                                                    setAddress(e.target.value);
-                                                }}
-                                                placeholder="Enter Address"
-                                                className="w-full p-1 ml-3 text-black outline-none bg-transparent"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+                                <div>
+  <label className="block py-3 text-black">
+    Enter Address<span className="text-red-500">*</span>
+  </label>
+  <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+    <input
+      required
+      value={address}
+     onChange={(e) => {
+        setAddress(e.target.value);
+        setAddressError(''); // Clear the error when user starts typing again
+      }}
+      className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+    />
+     {addressError && <p className="text-red-500 text-sm mt-1">{addressError}</p>}
+  </div>
+</div>
+
+</div>
+
                                 <div className="col-span-6 sm:col-span-3">
                                     <div className="grid  grid-cols-2 gap-6">
                                         <div>

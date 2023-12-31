@@ -82,12 +82,12 @@ const Banner = () => {
           </div>
 
           <div className="mt-16 lg:mt-0">
-            <div>
-              <img
-                src={phone}
-                alt="junk-bazzar-phone"
-                className="w-[350px] md:w-[400px] lg:w-[520px] lg:h-[543px] rounded-[35px]"
-              />
+          <div className="relative">
+  <img
+    src={phone}
+    alt="junk-bazzar-phone"
+    className="w-[350px] md:w-[400px] lg:w-[520px] lg:h-[543px] rounded-[35px]"
+  />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import money_bag from "../../assets/PNG/money-bag.png";
 import sellerIcon from "../../assets/SVG/seller-icon.svg"
 import buyerIcon from "../../assets/SVG/buyer-icon.svg"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Treasure = () => {
@@ -56,9 +56,9 @@ const Treasure = () => {
           </section>
 
           <div className="flex justify-center lg:justify-start items-center">
-            <button  className="text-center text-white text-base font-normal tracking-tight border-2 border-lime-400 bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-[.5rem] md:px-[1rem] py-[.65rem] md:font-bold">
+            <Link to="/upload-scrap"  className="text-center text-white text-base font-normal tracking-tight border-2 border-lime-400 bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-[.5rem] md:px-[1rem] py-[.65rem] md:font-bold">
               Get Started as Vendor
-            </button>
+            </Link>
             <button  onClick={() => navigate("upload-scrap")} className="text-center text-zinc-500 text-base font-normal tracking-tight border-2 h border-zinc-500 hover:bg-lime-400 hover:text-white hover:border-2 hover:border-lime-400 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-[.5rem] md:px-[1rem] py-[.5rem] md:font-bold">
               sell your scrap
             </button>

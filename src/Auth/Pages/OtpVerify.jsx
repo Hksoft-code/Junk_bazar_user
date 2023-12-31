@@ -128,17 +128,21 @@ const OtpVerify = () => {
                         <div className="shadow-lg p-10 w-full">
 
                             <p className="mt-2  leading-8 text-gray-600 font-bold text-xl">Please Enter OTP</p>
-                            <p className="mt-2 text-lg leading-8 text-gray-600">Enter OTP</p>
+                                                
+                            <input
+  className={`border ${isValidPhoneNumber ? 'border-[#66666659]' : 'border-red-500'} rounded-[12px] mt-1 bg-white w-full p-3 outline-none text-[16px]`}
+  type="number"
+  inputMode="numeric"
+  pattern="[0-9]*"
+  maxLength={6}
+  onChange={handlePhoneNumberChange}
+/>
 
-                            <p className="mt-2 text-sm leading-8 text-gray-600">Enter OTP</p>
-                            <LabeledInput
-                                type='number' inputMode='numeric' pattern="[0-9]*"
-                                maxlength="6"
-                                handleChange={handlePhoneNumberChange}
-                            />
-                            {!isValidPhoneNumber && (
-                                <p className="text-red-500 text-sm mt-1">Please enter a valid 6-digit Otp.</p>
-                            )}
+{isValidPhoneNumber || (
+          <p className="text-red-500 text-sm">Please enter a valid 6-digit OTP.</p>
+        )}
+
+
                             <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                                 <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
                                     We’ve sent a one Time password (OTP to +91{location.state.mobile}).

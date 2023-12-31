@@ -1,45 +1,42 @@
 import axios from "axios";
-import {
-    serverUrl
-} from "../api-config/config.js";
+import { serverUrl } from "../api-config/config.js";
 
 const axiosInstance = axios.create({
-    baseURL: serverUrl
+  baseURL: serverUrl,
 });
 
 axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem("token");
+  (config) => {
+    const token = localStorage.getItem("token");
 
-        if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (token) config.headers.Authorization = `Bearer ${token}`;
 
-        config.headers.platform = "web";
+    config.headers.platform = "web";
 
-        return config;
-    },
-    (error) => {
-        // Handle request error
-        return Promise.reject(error);
-    }
+    return config;
+  },
+  (error) => {
+    // Handle request error
+    return Promise.reject(error);
+  }
 );
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        console.log("axios response ", response);
+  (response) => {
+    console.log("axios response ", response);
 
-        return response;
-    },
-    (error) => {
-        console.log("axiosInstance response error", error);
+    return response;
+  },
+  (error) => {
+    console.log("axiosInstance response error", error);
 
-        if (error.response && error.response.status === 401) {
-            // Handle unauthorized access, e.g., redirect to sign-in page
-            console.log("Unauthorized access. Redirecting to sign-in page.");
-            window.location.href = "/sign-in";
-        }
-
-        return Promise.reject(error);
+    if (error.response && error.response.status === 401) {
+      console.log("Unauthorized access. Showing alert message.");
+      alert("Unauthorized access. Please log in again."); // Show an alert message
     }
+
+    return Promise.reject(error);
+  }
 );
 
 export default axiosInstance;
