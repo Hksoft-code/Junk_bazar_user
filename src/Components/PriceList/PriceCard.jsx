@@ -47,21 +47,24 @@ const PriceCardComponent = () => {
   };
 
   async function fetchData(page) {
-    // Ensure page is not less than 1
-  
     try {
-      const response = await axiosInstance.get("/getScrap");
-  
-      const { scraps, totalScrapCount } = JSON.parse(response.data.data);
-      console.log(totalScrapCount);
-      setTotalItems(totalScrapCount);
-      setScrapList(scraps);
-      setLoading(false);
+        const response = await axiosInstance.get("/getScrap", {
+            params: {
+                page: page,  
+                limit: 10, 
+            },
+        });
+
+        const { scraps, totalScrapCount } = JSON.parse(response.data.data);
+        setTotalItems(totalScrapCount);
+        setScrapList(scraps);
+        setLoading(false);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setLoading(false);
+        console.error("Error fetching data:", error);
+        setLoading(false);
     }
-  }
+}
+
   
   
   
