@@ -46,7 +46,7 @@ const Nav = () => {
     const [open, setOpen] = useState(false);
 
     const handleToggle = () => {
-      setOpen(!open);
+        setOpen(!open);
     };
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -66,18 +66,18 @@ const Nav = () => {
         console.log("logout click")
         localStorage.clear();
         // navigate("/sign-in", { replace: true })
-        setOpen(false); 
+        setOpen(false);
         navigate("/")
 
     }
 
     const handleTrack = () => {
-        setOpen(false); 
+        setOpen(false);
         navigate("/trackOrder", { replace: true })
     }
 
     const handleProfile = () => {
-        setOpen(false); 
+        setOpen(false);
         navigate("/profile")
     }
 
@@ -150,7 +150,7 @@ const Nav = () => {
                         </div>
                         <div className="hidden lg:flex ">
                             <div className="flex justify-between items-center">
-                                <Link to="/request_pickup">
+                                <Link to="/cart">
                                     <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white hover:border-0 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.45rem] mr-2">
                                         Request Pickup
                                     </button>
@@ -165,27 +165,27 @@ const Nav = () => {
                                     </button>
                                 ) : (
                                     <div className="relative">
-                                    <FaUserCircle
-                                      onClick={handleToggle}
-                                      size={42}
-                                      className="-mr-8 cursor-pointer"
-                                      fill="#555"
-                                    />
-                                    <ul
-                                      className={`absolute right-0 w-40 -m-10 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
-                                    >
-                                      <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                        Track Order
-                                      </Link>
-                                      <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                        Profile
-                                      </Link>
-                                      <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
-                                        Logout
-                                      </Link>
-                                    </ul>
-                                  </div>
-                                  
+                                        <FaUserCircle
+                                            onClick={handleToggle}
+                                            size={42}
+                                            className="-mr-8 cursor-pointer"
+                                            fill="#555"
+                                        />
+                                        <ul
+                                            className={`absolute right-0 w-40 -m-10 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
+                                        >
+                                            <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Track Order
+                                            </Link>
+                                            <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Profile
+                                            </Link>
+                                            <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                                Logout
+                                            </Link>
+                                        </ul>
+                                    </div>
+
 
                                 )}
                             </div>
