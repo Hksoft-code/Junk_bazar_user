@@ -24,7 +24,7 @@ const CartList = () => {
     try {
       const response = await axiosInstance.get("/getAddToCart", {
         params: {
-          page: page - 1 ,
+          page: page - 1,
           limit: itemsPerPage,
         },
       });
@@ -40,7 +40,6 @@ const CartList = () => {
           console.log(cartLists);
           console.log(totalScrapCount);
   
-          setScrapList(cartLists);
           setTotalItems(totalScrapCount);
   
           const initialQuantityState = {};
@@ -50,6 +49,14 @@ const CartList = () => {
   
           setQuantity(initialQuantityState);
   
+          if (page === 1) {
+            // On the first page, replace the existing data
+            setScrapList(cartLists);
+          } else {
+            // On subsequent pages, append the new data
+            setScrapList((prevScrapList) => [...prevScrapList, ...cartLists]);
+          }
+  
           const calculatedTotalPages = Math.ceil(totalScrapCount / itemsPerPage);
           setTotalPages(calculatedTotalPages);
         } else {
@@ -58,11 +65,11 @@ const CartList = () => {
       } else {
         console.error("Invalid response structure:", responseData);
       }
-  
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
+  
   
   
   const removeFromCard = async (event) => {
@@ -165,8 +172,6 @@ const CartList = () => {
       setCurrentPage(pageNumber);
     }
   };
-  
-  
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   

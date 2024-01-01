@@ -27,21 +27,35 @@ const TrackOrderList = () => {
 
   const fetchData = async (page) => {
     try {
-      const response = await axiosInstance.get(`/getUserOrder?page=${page}`);
+      const response = await axiosInstance.get(`/getUserOrder?page=${page}&limit=10`);
       const scrapList = JSON.parse(response.data.data);
       console.log('orderList', scrapList);
-      setOrderList(scrapList.orders);
-      setTotalPages(scrapList.totalPages);
+  
+      if (page === 0) {
+        setOrderList([scrapList.orders[0]]);
+      } else {
+        setOrderList((prevOrderList) => [...prevOrderList, ...scrapList.orders]);
+      }
+  
+      // Update the total pages based on the totalScrapCount
+      // const calculatedTotalPages = Math.ceil(scrapList.totalScrapCount / itemsPerPage);
+      setTotalPages("1");
+  
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
+  
+  
+  
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    fetchData(page);
   };
+  
 
   const handleTrackOrder = (orderId) => {
     console.log("tracking order id", orderId);
@@ -91,13 +105,15 @@ const TrackOrderList = () => {
                         </div>
                     </div>
                 ))}
-                {!loading && orderList.length > 0 && (
-          <PaginationComponent
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        )}
+              {loading && orderList.length > 0 && (
+                <PaginationComponent
+  totalPages={totalPages}
+  currentPage={currentPage}
+  onPageChange={handlePageChange}
+/>
+
+)}
+
             </div>
         </div>
     )

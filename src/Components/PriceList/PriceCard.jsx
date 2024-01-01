@@ -64,17 +64,14 @@ const PriceCardComponent = () => {
   
    
       setScrapList((prevScrapList) => {
-        // If it's the first page, replace the existing data
+      
         if (page === 1) {
           return scraps;
         }
-  
-        // If it's not the first page, append the new data to the existing list
+
         return [...prevScrapList, ...scraps];
       });
-  
-      // Ensure that the new data is properly displayed on the screen
-      // You might need to adjust the logic based on how your component is rendering the data
+
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
