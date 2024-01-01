@@ -11,34 +11,60 @@ import PaginationComponent from "../Components/PriceList/utils";
 
 const CartList = () => {
   const readCart = useSelector((state) => state.cart);
-  const dispatch = useDispatch(0);
+  const dispatch = useDispatch();
   const [scrapList, setScrapList] = useState([]);
   const navigate = useNavigate();
-
-  const [quantity, setQuantity] = useState({}); // Use an object to store quantity for each scrap
+  const [quantity, setQuantity] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // You can adjust this based on your design
-  const totalPages = Math.ceil(scrapList.length / itemsPerPage);
+  const itemsPerPage = 4;
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const fetchData = async () => {
+  async function fetchData(page) {
     try {
-      const response = await axiosInstance.get("/getAddToCart");
-      const scrapList = JSON.parse(response.data.data);
-      console.log("scrapList", scrapList);
-      setScrapList(scrapList.cartLists);
-
+      const response = await axiosInstance.get("/getAddToCart", {
+        params: {
+          page: page - 1 ,
+          limit: itemsPerPage,
+        },
+      });
   
-      const initialQuantityState = {};
-scrapList.cartLists.forEach((cart) => {
-  initialQuantityState[cart.scrapId] = 1; // Set the initial quantity to 1
-});
-
-      setQuantity(initialQuantityState);
+      const responseData = response.data;
+  
+      if (responseData && responseData.data) {
+        const parsedData = JSON.parse(responseData.data);
+  
+        if (parsedData && parsedData.cartLists) {
+          const { cartLists, totalScrapCount } = parsedData;
+  
+          console.log(cartLists);
+          console.log(totalScrapCount);
+  
+          setScrapList(cartLists);
+          setTotalItems(totalScrapCount);
+  
+          const initialQuantityState = {};
+          cartLists.forEach((cart) => {
+            initialQuantityState[cart.scrapId] = 1;
+          });
+  
+          setQuantity(initialQuantityState);
+  
+          const calculatedTotalPages = Math.ceil(totalScrapCount / itemsPerPage);
+          setTotalPages(calculatedTotalPages);
+        } else {
+          console.error("Invalid parsed data structure:", parsedData);
+        }
+      } else {
+        console.error("Invalid response structure:", responseData);
+      }
+  
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
-
+  }
+  
+  
   const removeFromCard = async (event) => {
     const payload = {
       addToCartId: event,
@@ -55,7 +81,7 @@ scrapList.cartLists.forEach((cart) => {
           timer: 2500,
           title: data.message,
         });
-        fetchData(); // Refresh the data after removing an item
+        fetchData();
         window.location.reload(true);
       }
     } catch (error) {
@@ -134,22 +160,30 @@ scrapList.cartLists.forEach((cart) => {
     }));
   };
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    if (pageNumber !== currentPage) {
+      console.log("Changing page to:", pageNumber);
+      setCurrentPage(pageNumber);
+    }
   };
-
+  
+  
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  
   const currentItems = scrapList.slice(startIndex, endIndex);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    fetchData();
-  }, []);
+    console.log("Effect triggered for page:", currentPage);
+    console.log("Calling fetchData in useEffect");
+    fetchData(currentPage);
+  }, [currentPage]);
+  
 
   return (
     <div className="w-full mt-5 flex justify-center items-center lg:max-w-[1100px] mx-auto ">
       <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 flex-col flex justify-center items-center">
-        {scrapList && scrapList.length > 0 ? (
-          scrapList.map((cart, index) => (
+      {currentItems && currentItems.length > 0 ? (
+  currentItems.map((cart, index) => (
             <div
               key={index}
               className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c] mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12"

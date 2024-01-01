@@ -13,7 +13,7 @@ const PriceCardComponent = () => {
   const itemsInCart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // You can adjust this based on your design
+  const itemsPerPage = 9;
   const [loading, setLoading] = useState(true);
   const [scrapList, setScrapList] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -45,28 +45,42 @@ const PriceCardComponent = () => {
       console.error("Response not received:", error.request);
     else console.error("Other error:", error.message);
   };
-
   async function fetchData(page) {
     try {
-        const response = await axiosInstance.get("/getScrap", {
-            params: {
-                page: page,  
-                limit: 10, 
-            },
-        });
-
-        const { scraps, totalScrapCount } = JSON.parse(response.data.data);
-        setTotalItems(totalScrapCount);
-        setScrapList(scraps);
-        setLoading(false);
+      setLoading(true);
+      const response = await axiosInstance.get("/getScrap", {
+        params: {
+          page: page - 1,
+          limit: itemsPerPage,
+        },
+      });
+  
+      console.log("Fetching data for page:", page);
+      const { scraps, totalScrapCount } = JSON.parse(response.data.data);
+  
+      console.log(scraps, totalScrapCount);
+  
+      setTotalItems(totalScrapCount);
+  
+   
+      setScrapList((prevScrapList) => {
+        // If it's the first page, replace the existing data
+        if (page === 1) {
+          return scraps;
+        }
+  
+        // If it's not the first page, append the new data to the existing list
+        return [...prevScrapList, ...scraps];
+      });
+  
+      // Ensure that the new data is properly displayed on the screen
+      // You might need to adjust the logic based on how your component is rendering the data
     } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
-}
-
-  
-  
+  }
   
 
   const handleAddToCard = async (scrapId) => {
@@ -75,9 +89,18 @@ const PriceCardComponent = () => {
       const AddScrapPayLoad = {
         scrapId,
       };
-      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad);
+  
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        platform: "web",
+      };
+  
+      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, { headers });
+  
       const { statusCode } = response.data;
-
+  
       if (statusCode === 200) {
         Swal.fire({
           icon: "success",
@@ -91,17 +114,19 @@ const PriceCardComponent = () => {
       handleApiError(error);
     }
   };
+  
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage]);
-  
+  }, []);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData(pageNumber);
+    console.log("Page changed to:", pageNumber);
   };
-  
-const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const renderData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
