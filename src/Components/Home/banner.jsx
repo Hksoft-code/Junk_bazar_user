@@ -1,13 +1,13 @@
 import search_icon from "../../assets/SVG/Search Icon.svg";
 import phone from "../../assets/PNG/junkbazar 1.png";
 import apple_logo from "../../assets/SVG/Vector (1).svg";
-import playstore_logo from "../../assets/SVG/Vector.svg";
+import playstore_logo from "../../assets/PNG/playstore.png";
 
 
 const Banner = () => {
 
   return (
-    <main className="shadow-[0_25px_40px_-15px_rgba(0,0,0,0.1)] lg:mb-8">
+    <main className=" lg:mb-8">
       <section className="max-w-[1200px] mx-auto relative lg:pt-10 mt-10 lg:mt-16">
         <div className="grid md:grid-cols-2 ml-2 md:ml-5  justify-around lg:items-center">
           <div className="w-full max-w-[600px] lg:mt-6">
@@ -54,17 +54,11 @@ const Banner = () => {
 
             <div className="mt-10">
               <div className="flex items-center justify-center md:justify-start">
-                <div className="flex justify-between items-center mr-6 bg-black px-2 lg:px-3 py-2 text-white rounded">
-                  <img
+              <img
                     src={playstore_logo}
                     alt="playstore-logo"
-                    className="relative w-5 mr-2"
+                    className="relative w-[130px] h-12 mr-2"
                   />
-                  <span className="text-xs">
-                    Get it on <br />
-                    <span className="text-base font-bold"> Google Play</span>
-                  </span>
-                </div>
 
                 {/* <div className="flex justify-between items-center mr-6 bg-black px-2 lg:px-3 py-2 text-white rounded">
                   <img

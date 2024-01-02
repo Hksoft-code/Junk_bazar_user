@@ -103,7 +103,7 @@ const PriceCardComponent = () => {
           icon: "success",
           position: "center",
           showConfirmButton: false,
-          timer: 2500,
+          timer: 2000,
           title: "Add To Cart Successful",
         });
       }

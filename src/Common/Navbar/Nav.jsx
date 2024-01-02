@@ -92,10 +92,8 @@ const Nav = () => {
     return (
         <nav>
             <div>
-                <div
-                    className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
-                        }`}
-                >
+            <div className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
+}`}>
                     <Link to="/">
                         <img
                             src={junk_logo}
@@ -105,29 +103,29 @@ const Nav = () => {
                     </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-                        <ul className="flex justify-between items-center ">
+                        <ul className="flex justify-between gap-3 items-center ">
                             <Link to="/">
-                                <li className="mr-5 cursor-pointer">Home</li>
+                                <li className=" cursor-pointer">Home</li>
                             </Link>
                             <Link to="/about">
-                                <li className="mr-5 cursor-pointer">About Us</li>
+                                <li className=" cursor-pointer">About Us</li>
                             </Link>
                             <Link to="/pricing">
-                                <li className="mr-5 cursor-pointer">Price List</li>
+                                <li className=" cursor-pointer">Price List</li>
                             </Link>
                             <Link to="/contact-us">
-                                <li className="mr-5 cursor-pointer">Contact Us</li>
+                                <li className=" cursor-pointer">Contact Us</li>
                             </Link>
                             {/* <Link to="/vendor-dashboard">
-                <li className="mr-5 cursor-pointer">Vendor</li>
+                <li className=" cursor-pointer">Vendor</li>
               </Link> */}
                         </ul>
                     </div>
 
-                    <div className="flex">
-                        <div className="flex justify-between items-center ">
+                    <div className="flex gap-x-4 ">
+                        <div className="flex gap-x-4 ">
                             <Link to="/cart">
-                                <div className="mr-4 ">
+                                <div className=" ">
                                     <img
                                         src={cart}
                                         alt="cart-img"
@@ -149,20 +147,20 @@ const Nav = () => {
                             </div>
                         </div>
                         <div className="hidden lg:flex ">
-                            <div className="flex justify-between items-center">
-                                <Link to="/cart">
-                                    <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white hover:border-0 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.45rem] mr-2">
-                                        Request Pickup
-                                    </button>
-                                </Link>
+                            <div className="flex gap-x-3 items-center">
+                            <Link to="/cart">
+        <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]">
+            Request Pickup
+        </button>
+    </Link>
 
                                 {token === "" || token === undefined || token === null ? (
-                                    <button
-                                        className="ml-5 text-center text-white text-base font-semibold  tracking-tight bg-lime-600 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full cursor-pointer px-4 py-[.65rem]"
-                                        onClick={() => navigate("/Sign-Up")}
-                                    >
-                                        Sign up
-                                    </button>
+                                  <button
+                                  className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]"
+                                  onClick={() => navigate("/Sign-Up")}
+                              >
+                                  Sign up / Sign In
+                              </button>
                                 ) : (
                                     <div className="relative">
                                         <FaUserCircle
@@ -172,15 +170,15 @@ const Nav = () => {
                                             fill="#555"
                                         />
                                         <ul
-                                            className={`absolute right-0 w-40 -m-10 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
+                                            className={`absolute right-0 w-40 -m-10 border border-gray-200 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
                                         >
-                                            <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                            <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
                                                 Track Order
                                             </Link>
-                                            <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                            <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
                                                 Profile
                                             </Link>
-                                            <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100">
+                                            <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
                                                 Logout
                                             </Link>
                                         </ul>

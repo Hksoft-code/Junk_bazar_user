@@ -52,13 +52,7 @@ const OtpVerify = () => {
             if (dataUser.isDocumentUploaded === true) {
 
                 if (dataObject.statusCode === 200) {
-                    Swal.fire({
-                        icon: "success",
-                        position: "center",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        title: dataObject.message
-                    });
+                  
                     console.log("token store ", localStorage.getItem("token"));
 
                     navigate("/pricing", {

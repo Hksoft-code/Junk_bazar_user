@@ -123,9 +123,8 @@ const SignUp = () => {
                         <div className="shadow-xl p-20 w-full">
 
                             <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign up now</p>
-                            <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone Number.</p>
 
-                            <p className="mt-6 text-sm leading-8 text-gray-600">Phone number</p>
+                            <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone number</p>
                             {/* <div className="border-solid p-2 max-w-md rounded-lg border-2 border-gray-600 "> */}
                             {/* <PhoneInput
                                 international
@@ -134,7 +133,7 @@ const SignUp = () => {
                                 onChange={setPhoneNumber}
 
                             /> */}
-                            <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
+                            <div className="border  rounded p-2 max-w-sm">
                                 <PhoneInput
                                     maxLength={15}
                                     className={"input-phone-number"}

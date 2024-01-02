@@ -116,11 +116,11 @@ const RequestPickup = () => {
           };
       
           console.log("validate", payload);
-      
+      console.log(passData.scrapId);
           try {
             const resp = await axiosInstance.post("/addPickUpAddress", payload);
             const dataObj = resp.data;
-      
+            console.log("Received payload:", resp.body);
             if (dataObj.statusCode === 200) {
               Swal.fire({
                 icon: "success",

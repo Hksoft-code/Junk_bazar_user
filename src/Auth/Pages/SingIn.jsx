@@ -171,11 +171,9 @@ const SignIn = () => {
               <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">
                 Sign In Now
               </p>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                Enter Phone Number.
-              </p>
+             
 
-              <p className="mt-6 text-sm leading-8 text-gray-600">
+              <p className="mt-6 text-lg leading-8 text-gray-600">
                 Phone Number
               </p>
 

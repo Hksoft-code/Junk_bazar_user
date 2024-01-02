@@ -21,7 +21,7 @@ const NavLinks = ({
                         activateSignup();
                     }}
                 >
-                    <p>Sign Up</p>
+<p>Sign Up / Sign In</p>
                 </li>
             </ul>
         </div>
