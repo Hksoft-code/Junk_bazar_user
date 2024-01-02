@@ -124,7 +124,7 @@ const OtpVerify = () => {
                             <p className="mt-2  leading-8 text-gray-600 font-bold text-xl">Please Enter OTP</p>
                                                 
                             <input
-  className={`border ${isValidPhoneNumber ? 'border-[#66666659]' : 'border-red-500'} rounded-[12px] mt-1 bg-white w-full p-3 outline-none text-[16px]`}
+  className={`border  rounded-[12px] mt-1 bg-white w-full p-3 outline-none text-[16px]`}
   type="number"
   inputMode="numeric"
   pattern="[0-9]*"

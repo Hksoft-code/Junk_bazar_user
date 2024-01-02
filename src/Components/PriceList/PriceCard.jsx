@@ -55,13 +55,14 @@ const PriceCardComponent = () => {
           limit: itemsPerPage,
         },
       });
-  
+      
       console.log("Fetching data for page:", page);
-  
-      const { scraps, totalScrapCount } = response.data.data; 
-  
-      console.log(scraps, totalScrapCount);
-  
+      
+      const responseData = JSON.parse(response.data.data);
+      const { scraps, totalScrapCount } = responseData;
+      
+      console.log(scraps, totalScrapCount, "getdatas");
+      
       setTotalItems(totalScrapCount);
   
       setScrapList((prevScrapList) => {
@@ -127,7 +128,9 @@ const PriceCardComponent = () => {
   const renderData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentItems = scrapList.slice(startIndex, endIndex);
+    
+    const currentItems = scrapList ? scrapList.slice(startIndex, endIndex) : [];
+    
     return currentItems?.map((item) => (
       <div
         key={item.scrapId}

@@ -19,6 +19,7 @@ const TrackOrderList = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const OrdersPerPage = 4; // Number of orders to display per page
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -27,7 +28,7 @@ const TrackOrderList = () => {
 
   const fetchData = async (page) => {
     try {
-      const response = await axiosInstance.get(`/getUserOrder?page=${page}&limit=10`);
+      const response = await axiosInstance.get(`/getUserOrder?page=0&limit=10`);
       const scrapList = JSON.parse(response.data.data);
       console.log('orderList', scrapList);
   
@@ -36,9 +37,9 @@ const TrackOrderList = () => {
       } else {
         setOrderList((prevOrderList) => [...prevOrderList, ...scrapList.orders]);
       }
-  
-      // Update the total pages based on the totalScrapCount
-      // const calculatedTotalPages = Math.ceil(scrapList.totalScrapCount / itemsPerPage);
+
+      const calculatedTotalPages = Math.ceil(scrapList.totalScrapCount / OrdersPerPage);
+      setTotalPages(calculatedTotalPages);
       setTotalPages("1");
   
       setLoading(false);
@@ -51,7 +52,7 @@ const TrackOrderList = () => {
   
   
 
-  const handlePageChange = (page) => {
+   const handlePageChange = (page) => {
     setCurrentPage(page);
     fetchData(page);
   };
@@ -70,8 +71,10 @@ const TrackOrderList = () => {
         <div className="w-full mt-32 flex justify-center items-center lg:max-w-[1100px] mx-auto">
 
             <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 ">
-            {loading && <Loader/>}
-        {!loading && orderList.length === 0 && <p className=" flex justify-center items-center h-20">No data available.</p>}
+            {loading && <Loader />}
+     
+     
+        {!loading && orderList.length === 0 && <p className=" flex justify-center items-center ">No data available.</p>}
         {!loading &&
           orderList.map((cart, index) => (
                <div key={index} className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c]  mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12 rounded-lg">
@@ -105,15 +108,14 @@ const TrackOrderList = () => {
                         </div>
                     </div>
                 ))}
-              {loading && orderList.length > 0 && (
-                <PaginationComponent
-  totalPages={totalPages}
-  currentPage={currentPage}
-  onPageChange={handlePageChange}
-/>
-
+     
+{loading && orderList.length > 0 && (
+  <PaginationComponent
+    totalPages={totalPages}
+    currentPage={currentPage}
+    onPageChange={handlePageChange}
+  />
 )}
-
             </div>
         </div>
     )
