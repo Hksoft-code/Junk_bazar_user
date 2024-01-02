@@ -19,6 +19,7 @@ const CartList = () => {
   const itemsPerPage = 4;
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [addToCard, setAddToCard] = useState();
   const initialScrapState = {
     scraps: [],
     totalScrapCount: 0,
@@ -33,13 +34,13 @@ const CartList = () => {
       });
 
       const responseData = response.data;
-
+      console.log("scrap data", JSON.parse(responseData.data))
       const parsedData = JSON.parse(responseData.data);
       if (parsedData && parsedData.cartLists) {
         const { cartLists, totalScrapCount } = parsedData;
 
         setTotalItems(totalScrapCount);
-
+        setAddToCard(parsedData.cartLists.addToCartId)
         const initialQuantityState = {};
         cartLists.items.forEach((item) => {
           initialQuantityState[item.scrapInfo.scrapId] = item.quantity;
@@ -75,6 +76,7 @@ const CartList = () => {
       const response = await axiosInstance.post("/removeFormCart", payload);
       const data = response.data;
 
+
       if (data && data.statusCode === 409) {
         console.error("Scrap Not Found:", data.message);
       } else if (data && data.statusCode === 200) {
@@ -103,6 +105,9 @@ const CartList = () => {
   };
 
   const handleRequestAddToCart = async (cart) => {
+    console.log("card dat ", cart)
+    // if (cart.quantity > 0) {
+    console.log("card dat ", cart)
     const currentQuantity = quantity[cart.scrapInfo.scrapId] || 0;
 
     if (currentQuantity === 0) {
@@ -128,19 +133,34 @@ const CartList = () => {
       console.error("Error updating scrap quantity:", error);
     }
 
+    console.log("card", cart)
+
     const passData = {
-      addToCartId: cart.addToCartId,
+      addToCartId: addToCard,
       quantity: currentQuantity,
       price: cart.scrapInfo.price,
       scrapId: cart.scrapInfo.scrapId,
       quantityType: cart.scrapInfo.quantityType,
     };
 
+    console.log("passdata", passData);
+
     navigate("/request_pickup", {
       state: {
         passData,
       },
     });
+    // } else {
+    //   Swal.fire({
+    //     icon: "error",
+    //     position: "center",
+    //     showConfirmButton: false,
+    //     timer: 2500,
+    //     title: "Add Quantity",
+    //   });
+    // }
+
+
   };
 
   const handleIncrement = (scrapId) => {
