@@ -48,6 +48,7 @@ const PriceCardComponent = () => {
   async function fetchData(page) {
     try {
       setLoading(true);
+  
       const response = await axiosInstance.get("/getScrap", {
         params: {
           page: page - 1,
@@ -56,28 +57,27 @@ const PriceCardComponent = () => {
       });
   
       console.log("Fetching data for page:", page);
-      const { scraps, totalScrapCount } = JSON.parse(response.data.data);
+  
+      const { scraps, totalScrapCount } = response.data.data; 
   
       console.log(scraps, totalScrapCount);
   
       setTotalItems(totalScrapCount);
   
-   
       setScrapList((prevScrapList) => {
-      
         if (page === 1) {
           return scraps;
         }
-
+  
         return [...prevScrapList, ...scraps];
       });
-
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
   }
+  
   
 
   const handleAddToCard = async (scrapId) => {

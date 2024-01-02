@@ -19,7 +19,10 @@ const CartList = () => {
   const itemsPerPage = 4;
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
+  const initialScrapState = {
+    scraps: [],
+    totalScrapCount: 0,
+  };
   async function fetchData(page) {
     try {
       const response = await axiosInstance.get("/getAddToCart", {
@@ -30,38 +33,32 @@ const CartList = () => {
       });
   
       const responseData = response.data;
+      console.log(responseData.data, "respo");
   
       if (responseData && responseData.data) {
-        const parsedData = JSON.parse(responseData.data);
+        const { cartLists, totalScrapCount } = responseData.data;
   
-        if (parsedData && parsedData.cartLists) {
-          const { cartLists, totalScrapCount } = parsedData;
+        console.log(cartLists);
+        console.log(totalScrapCount);
   
-          console.log(cartLists);
-          console.log(totalScrapCount);
+        setTotalItems(totalScrapCount);
   
-          setTotalItems(totalScrapCount);
+        const initialQuantityState = {};
+        cartLists.items.forEach((item) => {
+          initialQuantityState[item.scrapInfo.scrapId] = item.quantity;
+        });
   
-          const initialQuantityState = {};
-          cartLists.forEach((cart) => {
-            initialQuantityState[cart.scrapId] = 1;
-          });
+        setQuantity(initialQuantityState);
   
-          setQuantity(initialQuantityState);
-  
-          if (page === 1) {
-            // On the first page, replace the existing data
-            setScrapList(cartLists);
-          } else {
-            // On subsequent pages, append the new data
-            setScrapList((prevScrapList) => [...prevScrapList, ...cartLists]);
-          }
-  
-          const calculatedTotalPages = Math.ceil(totalScrapCount / itemsPerPage);
-          setTotalPages(calculatedTotalPages);
+        if (page === 1) {
+          setScrapList(cartLists.items);
         } else {
-          console.error("Invalid parsed data structure:", parsedData);
+    
+          setScrapList((prevScrapList) => [...prevScrapList, ...cartLists.items]);
         }
+  
+        const calculatedTotalPages = Math.ceil(totalScrapCount / itemsPerPage);
+        setTotalPages(calculatedTotalPages);
       } else {
         console.error("Invalid response structure:", responseData);
       }
@@ -70,17 +67,20 @@ const CartList = () => {
     }
   }
   
-  
-  
-  const removeFromCard = async (event) => {
+  const removeFromCard = async (scrapId) => {
     const payload = {
-      addToCartId: event,
+      scrapId: scrapId,
     };
+  
     try {
       const response = await axiosInstance.post("/removeFormCart", payload);
       const data = response.data;
-      if (data.statusCode === 200) {
-        dispatch(removeFromCart(event));
+
+      if (data && data.statusCode === 409) {
+        console.error("Scrap Not Found:", data.message);
+      } else if (data && data.statusCode === 200) {
+        dispatch(removeFromCart(scrapId));
+      
         Swal.fire({
           icon: "success",
           position: "center",
@@ -88,107 +88,103 @@ const CartList = () => {
           timer: 2500,
           title: data.message,
         });
-        fetchData();
-        window.location.reload(true);
+      
+        setScrapList((prevScrapList) =>
+          prevScrapList.filter((scrap) => scrap.scrapId !== scrapId)
+        );
+      
+        setTotalItems((prevCount) => prevCount - 1);
+      
+      } else {
+        // Handle other cases or unexpected responses
+        console.error("Unexpected response:", data);
+      }
+      
+ 
+    } catch (error) {
+      console.error("Error removing from cart:", error);
+    }
+  };
+  
+  
+  const handleRequestAddToCart = async (cart) => {
+    const currentQuantity = quantity[cart.scrapInfo.scrapId] || 0;
+  
+    if (currentQuantity === 0) {
+      setQuantity((prevQuantity) => ({
+        ...prevQuantity,
+        [cart.scrapInfo.scrapId]: 1,
+      }));
+    }
+  
+    const payload = {
+      addScrapQuantity: currentQuantity,
+      scrapId: cart.scrapInfo.scrapId,
+    };
+  
+    try {
+      const response = await axiosInstance.post("/addScrapQuantity", payload);
+      const data = response.data;
+  
+      if (data.statusCode === 200) {
+        fetchData(); // Refresh the data after updating quantity
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error updating scrap quantity:", error);
     }
+  
+    const passData = {
+      addToCartId: cart.addToCartId,
+      quantity: currentQuantity,
+      price: cart.scrapInfo.price,
+      scrapId: cart.scrapInfo.scrapId,
+      quantityType: cart.scrapInfo.quantityType,
+    };
+  
+    navigate("/request_pickup", {
+      state: {
+        passData,
+      },
+    });
   };
-
-  const handleRequestAddTocart = async (cart) => {
-    if (quantity[cart.scrapId] > 0) {
-      console.log("handleRequestAddTocart working", cart.scrapId);
-      const currentQuantity = quantity[cart.scrapId];
-
-      console.log("Scap", quantity[cart.scrapId]);
-
-      if (currentQuantity === 0) {
-        setQuantity((prevQuantity) => ({
-          ...prevQuantity,
-          [cart.scrapId]: 1,
-        }));
-      }
-      const payload = {
-        addScrapQuantity: currentQuantity,
-        scrapId: cart.scrapId,
-      };
-      console.log(
-        "handleRequestAddTocart payload",
-        payload,
-        "readCart",
-        readCart
-      );
-      try {
-        const response = await axiosInstance.post("/addScrapQuantity", payload);
-        const data = response.data;
-        if (data.statusCode === 200) {
-          fetchData(); // Refresh the data after updating quantity
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-
-      const passData = {
-        addToCartId: cart.addToCartId,
-        quantity: quantity[cart.scrapId],
-        price: cart.scrapInfo.price,
-        scrapId: cart.scrapId,
-        quantityType: cart.scrapInfo.quantityType,
-      };
-
-      navigate("/request_pickup", {
-        state: {
-          passData,
-        },
-      });
-    } else {
-      Swal.fire({
-        icon: "error",
-        position: "center",
-        showConfirmButton: false,
-        timer: 2500,
-        title: "Add Quantity",
-      });
-    }
-  };
-
+  
   const handleIncrement = (scrapId) => {
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
-      [scrapId]: prevQuantity[scrapId] + 1,
+      [scrapId]: (prevQuantity[scrapId] || 0) + 1,
     }));
   };
-
+  
   const handleDecrement = (scrapId) => {
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
-      [scrapId]: Math.max(prevQuantity[scrapId] - 1, 0),
+      [scrapId]: Math.max((prevQuantity[scrapId] || 0) - 1, 0),
     }));
   };
+  
   const handlePageChange = (pageNumber) => {
     if (pageNumber !== currentPage) {
       console.log("Changing page to:", pageNumber);
       setCurrentPage(pageNumber);
     }
   };
+  
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   
   const currentItems = scrapList.slice(startIndex, endIndex);
-
+  
   useEffect(() => {
     console.log("Effect triggered for page:", currentPage);
     console.log("Calling fetchData in useEffect");
     fetchData(currentPage);
   }, [currentPage]);
   
-
   return (
     <div className="w-full mt-5 flex justify-center items-center lg:max-w-[1100px] mx-auto ">
       <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 flex-col flex justify-center items-center">
-      {currentItems && currentItems.length > 0 ? (
-  currentItems.map((cart, index) => (
+        {currentItems && currentItems.length > 0 ? (
+          currentItems.map((cart, index) => (
             <div
               key={index}
               className="w-full max-sm:h-[250px] h-[300px] md:h-auto bg-[#80d7421c] mt-[10px] mb-[10px] flex flex-col md:flex-row justify-between items-center p-[2.5rem] py-[2.7rem] md:p-8 lg:p-12"
@@ -249,18 +245,19 @@ const CartList = () => {
                   Browse More Scraps
                 </button>
                 <button
-                  onClick={() => handleRequestAddTocart(cart)}
+                  onClick={() => handleRequestAddToCart(cart)}
                   className="lg:w-[200px] rounded-[30px] h-[50px] font-semibold text-white bg-[#81D742] cursor-pointer max-sm:w-[100px] max-er:text-[10px] lg:text-[15px] max-md:w-[120px] max-er:w-[130px] p-3"
                 >
                   Request Pickup
                 </button>
               </div>
               <div
-                className="cursor-pointer"
-                onClick={() => {
-                  removeFromCard(cart.addToCartId);
-                }}
-              >
+  className="cursor-pointer"
+  onClick={() => {
+    removeFromCard(cart.scrapInfo.scrapId);
+  }}
+>
+
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

@@ -108,18 +108,18 @@ const Nav = () => {
                     </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-      <ul className="flex justify-between gap-3 items-center">
+      <ul className="flex justify-between space-x-4 items-center">
         <Link to="/">
-          <li className={`cursor-pointer ${isActive('/') && 'text-lime-500'}`}>Home</li>
+          <li className={`cursor-pointer ${isActive('/') && 'text-lime-500 font-bold'}`}>Home</li>
         </Link>
         <Link to="/about">
-          <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500'}`}>About Us</li>
+          <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500 font-bold'}`}>About Us</li>
         </Link>
         <Link to="/pricing">
-          <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500'}`}>Price List</li>
+          <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500 font-bold'}`}>Price List</li>
         </Link>
         <Link to="/contact-us">
-          <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500'}`}>Contact Us</li>
+          <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500 font-bold'}`}>Contact Us</li>
         </Link>
         {/* Add more links as needed */}
       </ul>
