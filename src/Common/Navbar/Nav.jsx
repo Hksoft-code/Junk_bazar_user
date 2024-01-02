@@ -17,7 +17,7 @@ import {
     useState, useEffect
 } from "react";
 import {
-    Link, useParams
+    Link, useLocation, useParams
 } from "react-router-dom";
 import {
     useNavigate
@@ -81,7 +81,12 @@ const Nav = () => {
         navigate("/profile")
     }
 
+    const location = useLocation();
 
+    const isActive = (path) => {
+      // Check if the current path matches the link path
+      return location.pathname === path;
+    };
     // const handleTrackOut = () => {
     //     console.log("trackorder click")
     //     navigate("/TrackOrder", { replace: true })
@@ -103,24 +108,22 @@ const Nav = () => {
                     </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-                        <ul className="flex justify-between gap-3 items-center ">
-                            <Link to="/">
-                                <li className=" cursor-pointer">Home</li>
-                            </Link>
-                            <Link to="/about">
-                                <li className=" cursor-pointer">About Us</li>
-                            </Link>
-                            <Link to="/pricing">
-                                <li className=" cursor-pointer">Price List</li>
-                            </Link>
-                            <Link to="/contact-us">
-                                <li className=" cursor-pointer">Contact Us</li>
-                            </Link>
-                            {/* <Link to="/vendor-dashboard">
-                <li className=" cursor-pointer">Vendor</li>
-              </Link> */}
-                        </ul>
-                    </div>
+      <ul className="flex justify-between gap-3 items-center">
+        <Link to="/">
+          <li className={`cursor-pointer ${isActive('/') && 'text-lime-500'}`}>Home</li>
+        </Link>
+        <Link to="/about">
+          <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500'}`}>About Us</li>
+        </Link>
+        <Link to="/pricing">
+          <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500'}`}>Price List</li>
+        </Link>
+        <Link to="/contact-us">
+          <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500'}`}>Contact Us</li>
+        </Link>
+        {/* Add more links as needed */}
+      </ul>
+    </div>
 
                     <div className="flex gap-x-4 ">
                         <div className="flex gap-x-4 ">
