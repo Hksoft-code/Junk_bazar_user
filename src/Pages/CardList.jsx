@@ -6,8 +6,8 @@ import card from "../assets/PNG/cart.png";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/user/userSlice";
-import { MdDeleteForever } from "react-icons/md";
-import PaginationComponent from "../Components/PriceList/utils";
+// import { MdDeleteForever } from "react-icons/md";
+// import PaginationComponent from "../Components/PriceList/utils";
 
 const CartList = () => {
   const readCart = useSelector((state) => state.cart);
@@ -20,29 +20,24 @@ const CartList = () => {
   const [loading, setLoading] = useState(true);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [addToCard, setAddToCard] = useState();
-  const [scrapPass, setScrapPass] = useState([]);
+  // const [addToCard, setAddToCard] = useState();
+  // const [scrapPass, setScrapPass] = useState([]);
   const initialScrapState = {
     scraps: [],
     totalScrapCount: 0,
   };
   async function fetchData(page) {
     try {
-      const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`, {
-
-      });
+      const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
+        {}
+      );
 
       const scrapAll = JSON.parse(response.data.data);
-      console.log('orderList', scrapAll);
-
+      console.log('scrapAll', scrapAll);
       setScrapList(scrapAll.cartLists);
-      console.log("card list", scrapList)
-      // Update the total pages based on the totalScrapCount
-      // const calculatedTotalPages = Math.ceil(scrapList.totalScrapCount / itemsPerPage);
       setTotalPages("1");
 
       setLoading(false);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -57,7 +52,6 @@ const CartList = () => {
       const response = await axiosInstance.post("/removeFormCart", payload);
       const data = response.data;
 
-
       if (data && data.statusCode === 409) {
         console.error("Scrap Not Found:", data.message);
       } else if (data && data.statusCode === 200) {
@@ -70,14 +64,13 @@ const CartList = () => {
           timer: 2500,
           title: data.message,
         });
-        fetchData(1)
-        setScrapList((prevScrapList) =>
-          prevScrapList.filter((scrap) => scrap.scrapId !== scrapId)
-        );
+        // fetchData(1)
+        // setScrapList((prevScrapList) =>
+        //   prevScrapList.filter((scrap) => scrap.scrapId !== scrapId)
+        // );
 
-        setTotalItems((prevCount) => prevCount - 1);
+        // setTotalItems((prevCount) => prevCount - 1);
       } else {
-        // Handle other cases or unexpected responses
         console.error("Unexpected response:", data);
       }
     } catch (error) {
@@ -86,48 +79,27 @@ const CartList = () => {
   };
 
   const handlePickeupRequest = async (cart) => {
+    const cartItems = cart.items;
+    console.log("card dat ", cartItems);
 
-    console.log("card dat ", cart)
-    const data = cart.items;
-
-
-    for (var i = 0; i < data.length; i++) {
-      const data = cart.item;
-      const scrap = data[i];
-      console.log("scrap id", scrap);
+    const scrapIdArray = [];
+    for (let cartItem of cartItems) {
+      scrapIdArray.push(cartItem.scrapId);
     }
 
-    console.log("scrapList", scrapPass)
-    // if (currentQuantity === 0) {
-    //   setQuantity((prevQuantity) => ({
-    //     ...prevQuantity,
-    //     [cart.scrapInfo.scrapId]: 1,
-    //   }));
-    // }
+    const passData = {
+      addToCartId: cart.addToCartId,
+      scrapId: scrapIdArray.join(", "),
+    };
 
-    // console.log("card", cart);
-
-    // const passData = {
-    //   addToCartId: cart.addToCartId,
-    //   quantity: cart.item[0].quantity,
-    //   price: cart.scrapInfo.price,
-    //   scrapId: cart.scrapInfo.scrapId,
-    //   quantityType: cart.scrapInfo.quantityType,
-    // };
-
-    // console.log("passdata", passData);
-
-    // navigate("/request_pickup", {
-    //   state: {
-    //     passData,
-    //   },
-    // });
-
-
-
+    navigate("/request_pickup", {
+      state: {
+        passData,
+      },
+    });
   };
 
-  const addQuantity = async (scrapId, quantity) => {
+  const triggerAddQuantity = async (scrapId, quantity) => {
     const payload = {
       addScrapQuantity: quantity,
       scrapId: scrapId,
@@ -138,42 +110,40 @@ const CartList = () => {
       const data = response.data;
 
       if (data.statusCode === 200) {
-        fetchData(); // Refresh the data after updating quantity
+        // fetchData(); // Refresh the data after updating quantity
       }
     } catch (error) {
       console.error("Error updating scrap quantity:", error);
     }
-  }
-
+  };
 
   const handleIncrement = (scrapId) => {
-
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
       [scrapId]: (prevQuantity[scrapId] || 0) + 1,
     }));
 
-    addQuantity(scrapId, quantity);
+    triggerAddQuantity(scrapId, quantity);
   };
 
   const handleDecrement = (scrapId) => {
-    console.log("scrap decrease", scrapId)
+    console.log("scrap decrease", scrapId);
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
       [scrapId]: Math.max((prevQuantity[scrapId] || 0) - 1, 0),
     }));
-    addQuantity(scrapId, quantity);
+    triggerAddQuantity(scrapId, quantity);
   };
 
-  const handlePageChange = (pageNumber) => {
-    if (pageNumber !== currentPage) {
-      console.log("Changing page to:", pageNumber);
-      setCurrentPage(pageNumber);
-    }
-  };
+  // const handlePageChange = (pageNumber) => {
+  //   if (pageNumber !== currentPage) {
+  //     console.log("Changing page to:", pageNumber);
+  //     setCurrentPage(pageNumber);
+  //   }
+  // };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
 
   // const currentItems = scrapList.slice(startIndex, endIndex);
 
@@ -181,7 +151,7 @@ const CartList = () => {
     console.log("Effect triggered for page:", currentPage);
     console.log("Calling fetchData in useEffect");
     fetchData(currentPage);
-    setQuantity(1)
+    setQuantity(1);
   }, [currentPage]);
 
   return (
@@ -194,51 +164,89 @@ const CartList = () => {
                 <div class="flow-root">
                   <ul class="-my-8">
                     {scrapList?.items.map((cart, index) => (
-                      <li key={index} class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+                      <li
+                        key={index}
+                        class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
+                      >
                         <div class="shrink-0">
-                          <img class="h-24 w-24 max-w-full rounded-lg object-cover" src={cart?.scrapInfo.docUrl} alt="" />
+                          <img
+                            class="h-24 w-24 max-w-full rounded-lg object-cover"
+                            src={cart?.scrapInfo.docUrl}
+                            alt=""
+                          />
                         </div>
 
                         <div class="relative flex flex-1 flex-col justify-between">
                           <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
                             <div class="pr-8 sm:pr-5">
-                              <p class="text-base font-semibold text-gray-900"> {cart?.scrapInfo.scrapName}</p>
+                              <p class="text-base font-semibold text-gray-900">
+                                {" "}
+                                {cart?.scrapInfo.scrapName}
+                              </p>
                               {/* <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{order?.addressInfo.address}</p> */}
                             </div>
 
                             <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                              <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">₹ {cart?.scrapInfo.price}</p>
+                              <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                                ₹ {cart?.scrapInfo.price}
+                              </p>
 
                               <div class="sm:order-1">
                                 <div class="sm:order-1">
                                   <div className="flex items-start mt-2">
-                                    <button onClick={() => handleDecrement(cart?.scrapId)} className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2">-</button>
-                                    <span className="text-4xl font-bold mx-4">{quantity[cart?.scrapId]}</span>
-                                    <button onClick={() => handleIncrement(cart?.scrapId)} className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2">+</button>
+                                    <button
+                                      onClick={() =>
+                                        handleDecrement(cart?.scrapId)
+                                      }
+                                      className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2"
+                                    >
+                                      -
+                                    </button>
+                                    <span className="text-4xl font-bold mx-4">
+                                      {cart.quantity[cart?.scrapId]}
+                                    </span>
+                                    <button
+                                      onClick={() =>
+                                        handleIncrement(cart?.scrapId)
+                                      }
+                                      className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2"
+                                    >
+                                      +
+                                    </button>
                                   </div>
                                 </div>
                               </div>
 
                               <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                                <button onClick={(e) => removeFromCard(cart.scrapId)} type="button" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900">
-                                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class=""></path>
+                                <button
+                                  onClick={(e) => removeFromCard(cart.scrapId)}
+                                  type="button"
+                                  class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
+                                >
+                                  <svg
+                                    class="h-5 w-5"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                  >
+                                    <path
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M6 18L18 6M6 6l12 12"
+                                      class=""
+                                    ></path>
                                   </svg>
                                 </button>
                               </div>
                             </div>
                           </div>
-
-
                         </div>
                       </li>
                     ))}
-
-
                   </ul>
                 </div>
-
-
 
                 <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
                   <div className="flex space-x-4">
@@ -259,7 +267,6 @@ const CartList = () => {
               </div>
             </div>
           </div>
-
         ) : (
           <div className="container mx-auto max-w-sm w-full  sm:w-1/2">
             <div className="card flex flex-col justify-center p-10 rounded-lg ">

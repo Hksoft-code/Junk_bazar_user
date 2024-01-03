@@ -1,29 +1,21 @@
-import React, {
-    useState
-} from "react";
+import React, { useState } from "react";
 import customer from "../../assets/PNG/customer.png";
 import Input from "../../Components/auth/Input.jsx";
 import LabeledInput from "../../Components/auth/LabeledInput.jsx";
 import Button from "../../Components/auth/Button.jsx";
-import {
-    Link,
-    useNavigate
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstance from "../../api-config/axiosInstance.js";
 import PhoneInput from "react-phone-number-input";
-import 'react-phone-number-input/style.css'
+import "react-phone-number-input/style.css";
 import SmallSignUp from "./SmallSignUp.jsx";
 import { IoChevronBackOutline } from "react-icons/io5";
 const SignUp = () => {
     const navigate = useNavigate();
 
-    const [checked,
-        setChecked] = React.useState(false);
-    const [phoneNumber,
-        setPhoneNumber] = useState("");
-    const [isValidPhoneNumber,
-        setIsValidPhoneNumber] = useState(false);
+    const [checked, setChecked] = React.useState(false);
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
 
     const handlePhoneNumberChange = (e) => {
         const value = e.target.value;
@@ -36,11 +28,11 @@ const SignUp = () => {
     };
     const signUpService = async () => {
         if (checked) {
-            console.log("phone number ", phoneNumber.slice(3, 13))
-            const mobile = phoneNumber.slice(3, 13)
+            console.log("phone number ", phoneNumber.slice(3, 13));
+            const mobile = phoneNumber.slice(3, 13);
             const payload = {
                 dialCode: "+91",
-                phoneNumber: mobile
+                phoneNumber: mobile,
             };
 
             try {
@@ -53,16 +45,15 @@ const SignUp = () => {
                         position: "center",
                         showConfirmButton: true,
                         timer: 2500,
-                        title: dataObject.message
+                        title: dataObject.message,
                     });
                     navigate("/otp-verify", {
                         state: {
-                            mobile
-                        }
+                            mobile,
+                        },
                     });
                 }
-            }
-            catch (error) {
+            } catch (error) {
                 console.error("error", error);
 
                 if (error.response) {
@@ -71,19 +62,17 @@ const SignUp = () => {
                         position: "center",
                         showConfirmButton: false,
                         timer: 2500,
-                        title: "Enter Valid Mobile Number"
+                        title: "Enter Valid Mobile Number",
                     });
-                }
-                else if (error.request) {
-                    // Client made a request but response is not received 
+                } else if (error.request) {
+                    // Client made a request but response is not received
                     console.log("<<<<<<<Response Not Received>>>>>>>>");
                     console.log(error.request);
-                }
-                else {
-                    // Other case 
+                } else {
+                    // Other case
                     console.log("Error", error.message);
                 }
-                // Error handling here 
+                // Error handling here
             }
         } else {
             Swal.fire({
@@ -91,10 +80,9 @@ const SignUp = () => {
                 position: "center",
                 showConfirmButton: false,
                 timer: 2500,
-                title: "Select Term And Condition"
+                title: "Select Term And Condition",
             });
         }
-
     };
 
     return (
@@ -102,29 +90,37 @@ const SignUp = () => {
             <SmallSignUp />
 
             <div class="h-screen md:flex signup-container">
-                <div
-                    class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden sm:block ">
-                   <div className="w-full text-center   ">
-    <div className="flex flex-row gap-2">
-        <Link to="/">
-    <IoChevronBackOutline className="ml-12 w-12 h-12 cursor-pointer rounded-full border border-gray-300 p-2 hover:bg-gray-100 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200" />
-        </Link>
+                <div class="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr  i justify-around items-center hidden sm:block ">
+                    <div className="w-full text-center   ">
+                        <div className="flex flex-row gap-2">
+                            <Link to="/">
+                                <IoChevronBackOutline className="ml-12 w-12 h-12 cursor-pointer rounded-full border border-gray-300 p-2 hover:bg-gray-100 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200" />
+                            </Link>
 
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl ">Welcome To <span className="text-lime-600">JunkBazar</span></h2>
-    </div>
-    <p className="mt-6 text-lg leading-8 text-gray-600 ">Sign In to enjoy exclusive access!.</p>
-    <img className="max-w-lg mx-auto mt-4 rounded-full" src={customer} alt=" " />
-</div>
-
-
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl ">
+                                Welcome To <span className="text-lime-600">JunkBazar</span>
+                            </h2>
+                        </div>
+                        <p className="mt-6 text-lg leading-8 text-gray-600 ">
+                            Sign In to enjoy exclusive access!.
+                        </p>
+                        <img
+                            className="max-w-lg mx-auto mt-4 rounded-full"
+                            src={customer}
+                            alt=" "
+                        />
+                    </div>
                 </div>
                 <div class="flex md:w-1/2 mx-auto justify-center py-10 items-center bg-white">
                     <div className="max-w-2xl max-h-screen">
                         <div className="shadow-xl p-20 w-full">
+                            <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">
+                                Sign up now
+                            </p>
 
-                            <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">Sign up now</p>
-
-                            <p className="mt-6 text-lg leading-8 text-gray-600">Enter Phone number</p>
+                            <p className="mt-6 text-lg leading-8 text-gray-600">
+                                Enter Phone number
+                            </p>
                             {/* <div className="border-solid p-2 max-w-md rounded-lg border-2 border-gray-600 "> */}
                             {/* <PhoneInput
                                 international
@@ -140,7 +136,8 @@ const SignUp = () => {
                                     international
                                     defaultCountry="IN"
                                     value={phoneNumber}
-                                    onChange={setPhoneNumber} />
+                                    onChange={setPhoneNumber}
+                                />
                             </div>
                             {/* <LabeledInput className="col-span-2"
                             type='number'
@@ -162,25 +159,32 @@ const SignUp = () => {
                                         value={checked}
                                         checked={checked}
                                         handleChange={() => setChecked((prevState) => !prevState)}
-                                    />By creating an account, I agree to our {" "}
-                                    <span className="underline cursor-pointer">Terms of use</span> and{" "}
-                                    <span className="underline cursor-pointer">Privacy Policy </span>
+                                    />
+                                    By creating an account, I agree to our{" "}
+                                    <span className="underline cursor-pointer">Terms of use</span>{" "}
+                                    and{" "}
+                                    <span className="underline cursor-pointer">
+                                        Privacy Policy{" "}
+                                    </span>
                                 </p>
                             </div>
                             <Button
                                 label="Continue"
                                 classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-
                                 handleClick={signUpService}
                             />
                             <div className="relative text-center mt-10">
                                 <span className="text-darkslategray-200">
                                     Already have an account?
                                 </span>
-                                <span className="text-dimgray-200">{" "}</span>
-                                <span onClick={() => navigate("/sign-in")} className="[text-decoration:underline] cursor-pointer">{"Sign In  "}</span>
+                                <span className="text-dimgray-200"> </span>
+                                <span
+                                    onClick={() => navigate("/sign-in")}
+                                    className="text-decoration:none cursor-pointer"
+                                >
+                                    {"Sign In  "}
+                                </span>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -190,4 +194,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-

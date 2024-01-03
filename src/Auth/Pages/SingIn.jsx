@@ -171,10 +171,9 @@ const SignIn = () => {
               <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">
                 Sign In Now
               </p>
-             
 
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Phone Number
+                Enter Phone number
               </p>
 
               <div className="border border-l-zinc-600 rounded p-2 max-w-sm">
@@ -216,7 +215,7 @@ const SignIn = () => {
                 <span className="text-dimgray-200"> </span>
                 <span
                   onClick={() => navigate("/sign-up")}
-                  className="[text-decoration:underline]"
+                  className="text-decoration:none cursor-pointer"
                 >
                   {"Sign Up  "}
                 </span>
