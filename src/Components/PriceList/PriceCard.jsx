@@ -48,28 +48,28 @@ const PriceCardComponent = () => {
   async function fetchData(page) {
     try {
       setLoading(true);
-  
+
       const response = await axiosInstance.get("/getScrap", {
         params: {
           page: page - 1,
           limit: itemsPerPage,
         },
       });
-      
+
       console.log("Fetching data for page:", page);
-      
+
       const responseData = JSON.parse(response.data.data);
       const { scraps, totalScrapCount } = responseData;
-      
+
       console.log(scraps, totalScrapCount, "getdatas");
-      
+
       setTotalItems(totalScrapCount);
-  
+
       setScrapList((prevScrapList) => {
         if (page === 1) {
           return scraps;
         }
-  
+
         return [...prevScrapList, ...scraps];
       });
     } catch (error) {
@@ -78,27 +78,26 @@ const PriceCardComponent = () => {
       setLoading(false);
     }
   }
-  
-  
+
+
 
   const handleAddToCard = async (scrapId) => {
-    dispatch(addToCart(scrapId));
     try {
       const AddScrapPayLoad = {
         scrapId,
       };
-  
+
       const token = localStorage.getItem("token");
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
         platform: "web",
       };
-  
+
       const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, { headers });
-  
+
       const { statusCode } = response.data;
-  
+
       if (statusCode === 200) {
         Swal.fire({
           icon: "success",
@@ -107,12 +106,13 @@ const PriceCardComponent = () => {
           timer: 2000,
           title: "Add To Cart Successful",
         });
+        dispatch(addToCart(scrapId));
       }
     } catch (error) {
       handleApiError(error);
     }
   };
-  
+
 
   useEffect(() => {
     fetchData(currentPage);
@@ -128,9 +128,9 @@ const PriceCardComponent = () => {
   const renderData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    
+
     const currentItems = scrapList ? scrapList.slice(startIndex, endIndex) : [];
-    
+
     return currentItems?.map((item) => (
       <div
         key={item.scrapId}

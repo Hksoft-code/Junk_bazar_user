@@ -29,7 +29,7 @@ const CartList = () => {
   async function fetchData(page) {
     try {
       const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
-        {}
+
       );
 
       const scrapAll = JSON.parse(response.data.data);
@@ -110,29 +110,29 @@ const CartList = () => {
       const data = response.data;
 
       if (data.statusCode === 200) {
-        // fetchData(); // Refresh the data after updating quantity
+        fetchData(currentPage); // Refresh the data after updating quantity
       }
     } catch (error) {
       console.error("Error updating scrap quantity:", error);
     }
   };
 
-  const handleIncrement = (scrapId) => {
+  const handleIncrement = (scrapId, quantityNumber) => {
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
       [scrapId]: (prevQuantity[scrapId] || 0) + 1,
     }));
 
-    triggerAddQuantity(scrapId, quantity);
+    triggerAddQuantity(scrapId, quantityNumber + 1);
   };
 
-  const handleDecrement = (scrapId) => {
+  const handleDecrement = (scrapId, quantityNumber) => {
     console.log("scrap decrease", scrapId);
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
       [scrapId]: Math.max((prevQuantity[scrapId] || 0) - 1, 0),
     }));
-    triggerAddQuantity(scrapId, quantity);
+    triggerAddQuantity(scrapId, quantityNumber - 1);
   };
 
   // const handlePageChange = (pageNumber) => {
@@ -196,18 +196,18 @@ const CartList = () => {
                                   <div className="flex items-start mt-2">
                                     <button
                                       onClick={() =>
-                                        handleDecrement(cart?.scrapId)
+                                        handleDecrement(cart?.scrapId, cart.quantity)
                                       }
                                       className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2"
                                     >
                                       -
                                     </button>
                                     <span className="text-4xl font-bold mx-4">
-                                      {cart.quantity[cart?.scrapId]}
+                                      {cart.quantity}
                                     </span>
                                     <button
                                       onClick={() =>
-                                        handleIncrement(cart?.scrapId)
+                                        handleIncrement(cart?.scrapId, cart.quantity)
                                       }
                                       className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2"
                                     >
