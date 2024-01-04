@@ -9,7 +9,7 @@ import { addToCart, removeFromCart } from "../redux/user/userSlice";
 // import { MdDeleteForever } from "react-icons/md";
 // import PaginationComponent from "../Components/PriceList/utils";
 
-const CartList = () => {
+const   CartList = () => {
   const readCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [scrapList, setScrapList] = useState([]);
