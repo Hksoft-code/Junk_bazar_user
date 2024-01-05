@@ -118,6 +118,7 @@ const CartList = () => {
   };
 
   const handleIncrement = (scrapId, quantityNumber) => {
+    console.log("scrap decrease", scrapId);
     setQuantity((prevQuantity) => ({
       ...prevQuantity,
       [scrapId]: (prevQuantity[scrapId] || 0) + 1,
