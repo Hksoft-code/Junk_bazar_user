@@ -48,7 +48,6 @@ const PriceCardComponent = () => {
   async function fetchData(page) {
     try {
       setLoading(true);
-
       const response = await axiosInstance.get("/getScrap", {
         params: {
           page: page - 1,
@@ -79,7 +78,18 @@ const PriceCardComponent = () => {
     }
   }
 
-
+  const fetchDataForCard = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `/getAddToCart?page=${0}&limit=10`,
+        {}
+      );
+      const data = JSON.parse(response.data.data);
+      navigate(`/pricing?items=${data.totalScrapCount}`);
+    } catch (error) {
+      console.log("error is", error);
+    }
+  };
 
   const handleAddToCard = async (scrapId) => {
     try {
@@ -94,7 +104,9 @@ const PriceCardComponent = () => {
         platform: "web",
       };
 
-      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, { headers });
+      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, {
+        headers,
+      });
 
       const { statusCode } = response.data;
 
@@ -107,15 +119,16 @@ const PriceCardComponent = () => {
           title: "Add To Cart Successful",
         });
         dispatch(addToCart(scrapId));
+        fetchDataForCard();
       }
     } catch (error) {
       handleApiError(error);
     }
   };
 
-
   useEffect(() => {
     fetchData(currentPage);
+    fetchDataForCard();
   }, []);
 
   const handlePageChange = (pageNumber) => {

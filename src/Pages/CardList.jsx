@@ -16,6 +16,7 @@ const CartList = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [scrapTotalCount, setScrapTotalCount] = useState(0);
   const itemsPerPage = 4;
   const [loading, setLoading] = useState(true);
   const [totalItems, setTotalItems] = useState(0);
@@ -26,22 +27,23 @@ const CartList = () => {
     scraps: [],
     totalScrapCount: 0,
   };
-  async function fetchData(page) {
-    try {
-      const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
+  // async function fetchData(page) {
+  //   try {
+  //     const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
 
-      );
+  //     );
 
-      const scrapAll = JSON.parse(response.data.data);
-      console.log('scrapAll', scrapAll);
-      setScrapList(scrapAll.cartLists);
-      setTotalPages("1");
+  //     const scrapAll = JSON.parse(response.data.data);
+  //     console.log('scrapAll', scrapAll);
+  //     setScrapList(scrapAll.cartLists);
+  //     setTotalPages("1");
+  //     navigate('/cart?items=1');
 
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // }
 
   const removeFromCard = async (scrapId) => {
     const payload = {
@@ -54,9 +56,8 @@ const CartList = () => {
 
       if (data && data.statusCode === 409) {
         console.error("Scrap Not Found:", data.message);
-      } else if (data && data.statusCode === 200) {
-        dispatch(removeFromCart(scrapId));
-
+      } else if (data.success && data.statusCode === 200) {
+        await fetchData(currentPage);
         Swal.fire({
           icon: "success",
           position: "center",
@@ -77,9 +78,26 @@ const CartList = () => {
       console.error("Error removing from cart:", error);
     }
   };
+  const fetchData = async (page) => {
+    try {
+      const response = await axiosInstance.get(
+        `/getAddToCart?page=${page - 1}&limit=10`,
+        {}
+      );
+      const data = JSON.parse(response.data.data);
+      if (data.totalScrapCount > 0) {
+        setScrapList(data.cartLists.items);
+      }
+      setScrapTotalCount(data.totalScrapCount);
+      setTotalPages("1");
+      navigate(`/cart?items=${data.totalScrapCount}`);
+    } catch (error) {
+      console.log("error is", error);
+    }
+  };
 
   const handlePickeupRequest = async (cart) => {
-    const cartItems = cart.items;
+    const cartItems = cart;
     console.log("card dat ", cartItems);
 
     const scrapIdArray = [];
@@ -158,13 +176,13 @@ const CartList = () => {
   return (
     <div className="w-full mt-5 flex justify-center items-center lg:max-w-[1100px] mx-auto ">
       <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 flex-col flex justify-center items-center">
-        {scrapList?.items && scrapList?.items.length > 0 ? (
+        {scrapTotalCount > 0 > 0 ? (
           <div class="mx-auto mt-8 max-w-2xl md:mt-12">
             <div class="bg-white shadow">
               <div class="px-4 py-6 sm:px-8 sm:py-10">
                 <div class="flow-root">
                   <ul class="-my-8">
-                    {scrapList?.items.map((cart, index) => (
+                    {scrapList.map((cart, index) => (
                       <li
                         key={index}
                         class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
@@ -197,9 +215,16 @@ const CartList = () => {
                                   <div className="flex items-start mt-2">
                                     <button
                                       onClick={() =>
-                                        handleDecrement(cart?.scrapId, cart.quantity)
+                                        handleDecrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
-                                      className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2"
+                                      className={`border bg-lime-500 text-white rounded-md py-2 px-4 mr-2 ${
+                                        cart.quantity <= 1
+                                          ? "pointer-events-none"
+                                          : ""
+                                      }`}
                                     >
                                       -
                                     </button>
@@ -208,7 +233,10 @@ const CartList = () => {
                                     </span>
                                     <button
                                       onClick={() =>
-                                        handleIncrement(cart?.scrapId, cart.quantity)
+                                        handleIncrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
                                       className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2"
                                     >
