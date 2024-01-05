@@ -206,9 +206,7 @@ const CartList = () => {
                             </div>
 
                             <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                              <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-                                ₹ {cart?.scrapInfo.price}
-                              </p>
+                             
 
                               <div class="sm:order-1">
                                 <div class="sm:order-1">
@@ -246,7 +244,7 @@ const CartList = () => {
                                 </div>
                               </div>
 
-                              <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
+                              <div class="absolute">
                                 <button
                                   onClick={(e) => removeFromCard(cart.scrapId)}
                                   type="button"
@@ -269,6 +267,9 @@ const CartList = () => {
                                   </svg>
                                 </button>
                               </div>
+                              <p class="shrink-0 w-20 mt-10 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                                ₹ {cart?.scrapInfo.price}
+                              </p>
                             </div>
                           </div>
                         </div>
