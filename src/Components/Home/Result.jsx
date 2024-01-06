@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Results = () => {
   return (
     <main className="max-w-[1200px] mx-auto lg:my-9 my-3 mb-5 md:mb-0 pb-5 md:pb-0 py-3 lg:py-9 md:my-5 md:py-5">
-      <section className="grid grid-cols-2 md:grid-cols-4 max-w-[700px] mx-auto">
+      {/* <section className="grid grid-cols-2 md:grid-cols-4 max-w-[700px] mx-auto">
         <aside className="flex justify-center items-center">
           <div className="flex flex-col items-center justify-center p-4">
             <img src={user} alt="user-icon" className="w-5" />
@@ -38,7 +38,7 @@ const Results = () => {
             <p className="text-xs text-zinc-500">Money Paid Out</p>
           </div>
         </aside>
-      </section>
+      </section> */}
 
       <aside className="lg:mt-16 lg:px-8 flex justify-center items-center bg-lime-400 text-white lg:pb-6">
         <section className="grid grid-cols-1 lg:grid-cols-2 items-start">
