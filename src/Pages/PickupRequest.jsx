@@ -27,7 +27,7 @@ const RequestPickup = () => {
 
     const location = useLocation();
     const passData = location.state ? location.state.passData : null;
-  
+
     console.log("phoneNumberObj", passData);
 
     const navigate = useNavigate();
@@ -86,90 +86,87 @@ const RequestPickup = () => {
     };
 
     const handleConfirm = async () => {
-        if (passData && passData.addToCartId &&
-            fullName !== '' &&
-            selectedCity !== '' &&
-            address !== '' &&
-            selectedState !== '' &&
-            selectedCountry !== '' &&
-            selectedDialCode !== '' &&
-            phoneNumber !== '' &&
-            pincode !== ''
-        ) {
-          setFormValidate(true);
-      
-          const payload = {
-            addToCartId: passData.addToCartId,
-            price: passData.price,
-            quantity: passData.quantity,
-            scrapId: passData.scrapId,
+        // if (passData && passData.addToCartId &&
+        //     fullName !== '' &&
+        //     selectedCity !== '' &&
+        //     address !== '' &&
+        //     selectedState !== '' &&
+        //     selectedCountry !== '' &&
+        //     selectedDialCode !== '' &&
+        //     phoneNumber !== '' &&
+        //     pincode !== ''
+        // ) {
+        setFormValidate(true);
+
+        const payload = {
             fullName: fullName,
-            city: selectedCity,
-            address: address,
-            pincode: JSON.parse(pincode),
             scrapIds: passData.scrapId,
             stateCode: selectedState,
             countryCode: selectedCountry,
+            pincode: pincode,
             dialCode: selectedDialCode,
             phoneNumber: phoneNumber,
-            quantityType: passData.quantityType
-          };
-      
-          console.log("validate", payload);
-      
-          try {
-            const resp = await axiosInstance.post("/addPickUpAddress", payload);
+            address: address,
+            city: selectedCity,
+            addToCartId: passData.addToCartId
+
+        };
+
+        console.log("validate", payload);
+        console.log(passData.scrapId);
+        try {
+            const resp = await axiosInstance.post("/raisePickUp", payload);
             const dataObj = resp.data;
-      
+            console.log("Received payload:", resp.body);
             if (dataObj.statusCode === 200) {
-              Swal.fire({
-                icon: "success",
-                position: "center",
-                showConfirmButton: true,
-                timer: 2500,
-                title: dataObj.message
-              });
-              navigate("/Success-page", {
-                replace: true
-              });
-            }
-          } catch (error) {
-            console.log("Data", error.response.data);
-      
-            if (error.response) {
-              // If server responded with a status code for a request
-              console.log("Data", error.response.data);
-              const data = error.response.data;
-      
-              if (data.error.statusCode === 400) {
-                const mess = data.error;
-      
                 Swal.fire({
-                  icon: "error",
-                  position: "center",
-                  showConfirmButton: false,
-                  timer: 2500,
-                  title: mess._message
+                    icon: "success",
+                    position: "center",
+                    showConfirmButton: true,
+                    timer: 2500,
+                    title: dataObj.message
                 });
-              }
-      
-              console.log("Status", error.response.status);
-              console.log("Headers", error.response.headers);
+                navigate("/Success-page", {
+                    replace: true
+                });
+            }
+        } catch (error) {
+            console.log("Data", error.response.data);
+
+            if (error.response) {
+                // If server responded with a status code for a request
+                console.log("Data", error.response.data);
+                const data = error.response.data;
+
+                if (data.error.statusCode === 400) {
+                    const mess = data.error;
+
+                    Swal.fire({
+                        icon: "error",
+                        position: "center",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        title: mess._message
+                    });
+                }
+
+                console.log("Status", error.response.status);
+                console.log("Headers", error.response.headers);
             } else if (error.request) {
-              // Client made a request but response is not received
-              console.log("<<<<<<<Response Not Received>>>>>>>>");
-              console.log(error.request);
+                // Client made a request but response is not received
+                console.log("<<<<<<<Response Not Received>>>>>>>>");
+                console.log(error.request);
             } else {
-              // Other case
-              console.log("Error", error.message);
+                // Other case
+                console.log("Error", error.message);
             }
             // Error handling here
-          }
-        } else {
-          setFormValidate(false);
         }
-      };
-      
+        // } else {
+        //   setFormValidate(false);
+        // }
+    };
+
 
     return (
         <div>

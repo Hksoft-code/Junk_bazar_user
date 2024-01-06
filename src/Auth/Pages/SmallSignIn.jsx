@@ -115,7 +115,7 @@ const SmallSignIn = () => {
                             Don't have an account?{" "}
                             <span onClick={() => navigate("/sign-up")}
                                 className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer">
-                                Sign p
+                                Sign Up
                             </span>
                         </p>
                     </div>

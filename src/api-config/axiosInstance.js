@@ -1,9 +1,10 @@
 import axios from "axios";
-import { serverUrl } from "../api-config/config.js";
-import { useNavigate } from "react-router-dom";
+import {
+  serverUrl
+} from "../api-config/config.js";
 
 const axiosInstance = axios.create({
-  baseURL: serverUrl,
+  baseURL: serverUrl
 });
 
 axiosInstance.interceptors.request.use(
@@ -32,9 +33,9 @@ axiosInstance.interceptors.response.use(
     console.log("axiosInstance response error", error);
 
     if (error.response && error.response.status === 401) {
-      console.log("Unauthorized access. Showing alert message.");
-      const navigate = useNavigate();
-      navigate("/unauthorized");
+      // Handle unauthorized access, e.g., redirect to sign-in page
+      console.log("Unauthorized access. Redirecting to sign-in page.");
+      window.location.href = "/sign-in";
     }
 
     return Promise.reject(error);

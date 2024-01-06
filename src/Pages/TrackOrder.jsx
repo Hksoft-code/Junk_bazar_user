@@ -7,7 +7,7 @@ const TrackOrder = () => {
         <div>
             <Nav />
             <div className=" mt-20 lg:mt-32  lg:max-w-[1250px] mx-auto">
-                <h2 className="mt-5 text-3xl text-center font-extrabold">Track Oders</h2>
+                <h2 className="mt-5 text-3xl text-center font-extrabold">Track Orders</h2>
                 <div className="pricing-lists">
                     <TrackOrderList />
                 </div>

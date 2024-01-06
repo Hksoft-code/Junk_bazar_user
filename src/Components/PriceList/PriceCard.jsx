@@ -13,7 +13,7 @@ const PriceCardComponent = () => {
   const itemsInCart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9; // You can adjust this based on your design
+  const itemsPerPage = 9;
   const [loading, setLoading] = useState(true);
   const [scrapList, setScrapList] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -45,37 +45,57 @@ const PriceCardComponent = () => {
       console.error("Response not received:", error.request);
     else console.error("Other error:", error.message);
   };
-
   async function fetchData(page) {
     try {
-        const response = await axiosInstance.get("/getScrap", {
-            params: {
-                page: page,  
-                limit: 10, 
-            },
-        });
+      setLoading(true);
 
-        const { scraps, totalScrapCount } = JSON.parse(response.data.data);
-        setTotalItems(totalScrapCount);
-        setScrapList(scraps);
-        setLoading(false);
+      const response = await axiosInstance.get("/getScrap", {
+        params: {
+          page: page - 1,
+          limit: itemsPerPage,
+        },
+      });
+
+      console.log("Fetching data for page:", page);
+
+      const responseData = JSON.parse(response.data.data);
+      const { scraps, totalScrapCount } = responseData;
+
+      console.log(scraps, totalScrapCount, "getdatas");
+
+      setTotalItems(totalScrapCount);
+
+      setScrapList((prevScrapList) => {
+        if (page === 1) {
+          return scraps;
+        }
+
+        return [...prevScrapList, ...scraps];
+      });
     } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
-}
+  }
 
-  
-  
-  
+
 
   const handleAddToCard = async (scrapId) => {
-    dispatch(addToCart(scrapId));
     try {
       const AddScrapPayLoad = {
         scrapId,
       };
-      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad);
+
+      const token = localStorage.getItem("token");
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        platform: "web",
+      };
+
+      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, { headers });
+
       const { statusCode } = response.data;
 
       if (statusCode === 200) {
@@ -83,29 +103,34 @@ const PriceCardComponent = () => {
           icon: "success",
           position: "center",
           showConfirmButton: false,
-          timer: 2500,
+          timer: 2000,
           title: "Add To Cart Successful",
         });
+        dispatch(addToCart(scrapId));
       }
     } catch (error) {
       handleApiError(error);
     }
   };
 
+
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage]);
-  
+  }, []);
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData(pageNumber);
+    console.log("Page changed to:", pageNumber);
   };
-  
-const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const renderData = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const currentItems = scrapList.slice(startIndex, endIndex);
+
+    const currentItems = scrapList ? scrapList.slice(startIndex, endIndex) : [];
+
     return currentItems?.map((item) => (
       <div
         key={item.scrapId}
