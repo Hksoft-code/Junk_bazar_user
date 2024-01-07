@@ -15,7 +15,7 @@ const Footer = () => {
                 alt="junzbazar-logo"
                 className="w-40 my-5"
               />
-              <div className="hidden md:flex flex-row">
+              {/* <div className="hidden md:flex flex-row">
                 <input
                   type="email"
                   name="email"
@@ -29,7 +29,7 @@ const Footer = () => {
                 >
                   Subscribe
                 </button>
-              </div>
+              </div> */}
             </div>
           </section>
           <section>
@@ -79,7 +79,7 @@ const Footer = () => {
                   <a href="tel:+913496933405">+91 97097 09248</a>
                 </li>
                 <li>
-                  <a href="mailto:info@junkBazar.in">info@junkBazar.in</a>
+                  <a href="mailto:info@junkBazar.com">info@junkBazar.com</a>
                 </li>
                 <li>
                   <a
