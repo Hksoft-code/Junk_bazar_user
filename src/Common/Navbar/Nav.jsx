@@ -84,8 +84,8 @@ const Nav = () => {
     const location = useLocation();
 
     const isActive = (path) => {
-      // Check if the current path matches the link path
-      return location.pathname === path;
+        // Check if the current path matches the link path
+        return location.pathname === path;
     };
     // const handleTrackOut = () => {
     //     console.log("trackorder click")
@@ -97,8 +97,8 @@ const Nav = () => {
     return (
         <nav>
             <div>
-            <div className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
-}`}>
+                <div className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
+                    }`}>
                     <Link to="/">
                         <img
                             src={junk_logo}
@@ -108,22 +108,22 @@ const Nav = () => {
                     </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-      <ul className="flex justify-between space-x-4 items-center">
-        <Link to="/">
-          <li className={`cursor-pointer ${isActive('/') && 'text-lime-500 font-bold'}`}>Home</li>
-        </Link>
-        <Link to="/about">
-          <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500 font-bold'}`}>About Us</li>
-        </Link>
-        <Link to="/pricing">
-          <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500 font-bold'}`}>Price List</li>
-        </Link>
-        <Link to="/contact-us">
-          <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500 font-bold'}`}>Contact Us</li>
-        </Link>
-        {/* Add more links as needed */}
-      </ul>
-    </div>
+                        <ul className="flex justify-between space-x-4 items-center">
+                            <Link to="/">
+                                <li className={`cursor-pointer ${isActive('/') && 'text-lime-500 font-bold'}`}>Home</li>
+                            </Link>
+                            <Link to="/about">
+                                <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500 font-bold'}`}>About Us</li>
+                            </Link>
+                            <Link to="/pricing">
+                                <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500 font-bold'}`}>Price List</li>
+                            </Link>
+                            <Link to="/contact-us">
+                                <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500 font-bold'}`}>Contact Us</li>
+                            </Link>
+                            {/* Add more links as needed */}
+                        </ul>
+                    </div>
 
                     <div className="flex gap-x-4 ">
                         <div className="flex gap-x-4 ">
@@ -151,19 +151,19 @@ const Nav = () => {
                         </div>
                         <div className="hidden lg:flex ">
                             <div className="flex gap-x-3 items-center">
-                            <Link to="/cart">
-        <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]">
-            Request Pickup
-        </button>
-    </Link>
+                                <Link to="/cart">
+                                    <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]">
+                                        Request Pickup
+                                    </button>
+                                </Link>
 
                                 {token === "" || token === undefined || token === null ? (
-                                  <button
-                                  className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]"
-                                  onClick={() => navigate("/Sign-Up")}
-                              >
-                                  Sign up / Sign In
-                              </button>
+                                    <button
+                                        className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]"
+                                        onClick={() => navigate("/Sign-Up")}
+                                    >
+                                        Sign In
+                                    </button>
                                 ) : (
                                     <div className="relative">
                                         <FaUserCircle
@@ -330,7 +330,7 @@ const Nav = () => {
                             <div className="">
                                 {token === "" || token === undefined || token === null ? (
                                     <div>
-                                        <div
+                                        {/* <div
                                             className="w-3/4 rounded-full ml-2 px-3 py-2 bg-lime-500 flex items-center hover:bg-white cursor-pointer hover:border-lime-500 hover:border-2 duration-200 hover:text-lime-500"
                                             onClick={() => navigate("/sign-up")}
                                         >
@@ -342,7 +342,7 @@ const Nav = () => {
                                             <h1 className="text-base font-bold text-white hover:text-lime-500 ">
                                                 Sign Up
                                             </h1>
-                                        </div>
+                                        </div> */}
 
                                         <div
                                             className="w-3/4 rounded-full ml-2 px-3 py-2 my-2 border-2 border-zinc-400 flex items-center cursor-pointer hover:shadow-md hover:border-0"

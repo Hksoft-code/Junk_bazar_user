@@ -24,28 +24,29 @@ import SignInTest from "./Auth/Pages/SignInTest.jsx";
 import AddressVerify from "./Auth/Pages/addressVerify.jsx";
 import Profile from "./Pages/Profile.jsx";
 import UnauthorizedAccessPage from "./Common/AuthuserModal.jsx";
+import Protected from "./Components/protected/protectedForComponent.jsx";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact-us" element={<ContactScreen />} />
+        <Route path="/" element={< Protected Component={Homepage} />} />
+        <Route path="/about" element={<Protected Component={AboutUs} />} />
+        <Route path="/contact-us" element={<Protected Component={ContactScreen} />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/request_pickup" element={<RequestPickup />} />
-        <Route path="/cart" element={<CardPage />} />
-        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/request_pickup" element={<Protected Component={RequestPickup} />} />
+        <Route path="/cart" element={<Protected Component={CardPage} />} />
+        <Route path="/pricing" element={<Protected Component={Pricing} />} />
         <Route path="/upload-scrap" element={<UploadScrap />} />
         <Route path="/otp-verify" element={<OtpVerify />} />
-        <Route path="/Success-page" element={<OrderSuccessful />} />
+        <Route path="/Success-page" element={<Protected Component={OrderSuccessful} />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/addressVerify" element={<AddressVerify />} />
-        <Route path="/trackOrder" element={<TrackOrder />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/trackOrderDetails" element={<TrackOrderDetails />} />
-        <Route path="/unauthorized" element={<UnauthorizedAccessPage/>} />
+        <Route path="/trackOrder" element={<Protected Component={TrackOrder} />} />
+        <Route path="/profile" element={<Protected Component={Profile} />} />
+        <Route path="/trackOrderDetails" element={<Protected Component={TrackOrderDetails} />} />
+        <Route path="/unauthorized" element={<UnauthorizedAccessPage />} />
       </Routes>
     </div>
   );
