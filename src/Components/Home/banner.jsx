@@ -44,7 +44,7 @@ const Banner = () => {
               <h1 className="text-4xl lg:text-5xl lg:font-extrabold font-bold">
                 Welcome to
               </h1>
-              <h1 className="text-lime-primary text-5xl lg:text-6xl lg:font-extrabold font-bold">
+              <h1 className="text-[#5DBB63] text-5xl lg:text-6xl lg:font-extrabold font-bold">
                 Junkbazar
               </h1>
               <p className=" w-[300px] md:w-[350px] lg:w-[370px] text-zinc-500 text-base lg:text-lg font-normal font-['Gilroy-Regular'] leading-normal tracking-tight">
@@ -54,11 +54,11 @@ const Banner = () => {
 
             <div className="mt-10">
               <div className="flex items-center justify-center md:justify-start">
-              <img
-                    src={playstore_logo}
-                    alt="playstore-logo"
-                    className="relative w-[130px] h-12 mr-2"
-                  />
+                <img
+                  src={playstore_logo}
+                  alt="playstore-logo"
+                  className="relative w-[130px] h-12 mr-2"
+                />
 
                 {/* <div className="flex justify-between items-center mr-6 bg-black px-2 lg:px-3 py-2 text-white rounded">
                   <img
@@ -76,12 +76,12 @@ const Banner = () => {
           </div>
 
           <div className="mt-16 lg:mt-0">
-          <div className="relative">
-  <img
-    src={phone}
-    alt="junk-bazzar-phone"
-    className="w-[350px] md:w-[400px] lg:w-[520px] lg:h-[543px] rounded-[35px]"
-  />
+            <div className="relative">
+              <img
+                src={phone}
+                alt="junk-bazzar-phone"
+                className="w-[350px] md:w-[400px] lg:w-[520px] lg:h-[543px] rounded-[35px]"
+              />
             </div>
           </div>
         </div>

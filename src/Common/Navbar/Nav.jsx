@@ -84,8 +84,8 @@ const Nav = () => {
     const location = useLocation();
 
     const isActive = (path) => {
-      // Check if the current path matches the link path
-      return location.pathname === path;
+        // Check if the current path matches the link path
+        return location.pathname === path;
     };
     // const handleTrackOut = () => {
     //     console.log("trackorder click")
@@ -97,8 +97,8 @@ const Nav = () => {
     return (
         <nav>
             <div>
-            <div className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-lime-300 duration-700" : "transparent duration-700"
-}`}>
+                <div className={`flex justify-between p-2 px-7 md:px-20 lg:px-0 lg:justify-around items-center fixed top-0 left-0 w-full z-10 ${show ? "bg-[#5DBB63] duration-700" : "transparent duration-700"
+                    }`}>
                     <Link to="/">
                         <img
                             src={junk_logo}
@@ -108,22 +108,22 @@ const Nav = () => {
                     </Link>
 
                     <div className="text-zinc-500 text-center text-base font-semibold tracking-tight hidden lg:flex">
-      <ul className="flex justify-between space-x-4 items-center">
-        <Link to="/">
-          <li className={`cursor-pointer ${isActive('/') && 'text-lime-500 font-bold'}`}>Home</li>
-        </Link>
-        <Link to="/about">
-          <li className={`cursor-pointer ${isActive('/about') && 'text-lime-500 font-bold'}`}>About Us</li>
-        </Link>
-        <Link to="/pricing">
-          <li className={`cursor-pointer ${isActive('/pricing') && 'text-lime-500 font-bold'}`}>Price List</li>
-        </Link>
-        <Link to="/contact-us">
-          <li className={`cursor-pointer ${isActive('/contact-us') && 'text-lime-500 font-bold'}`}>Contact Us</li>
-        </Link>
-        {/* Add more links as needed */}
-      </ul>
-    </div>
+                        <ul className="flex justify-between space-x-4 items-center">
+                            <Link to="/">
+                                <li className={`cursor-pointer ${isActive('/') && 'text-[#5DBB63] font-bold'}`}>Home</li>
+                            </Link>
+                            <Link to="/about">
+                                <li className={`cursor-pointer ${isActive('/about') && 'text-[#5DBB63] font-bold'}`}>About Us</li>
+                            </Link>
+                            <Link to="/pricing">
+                                <li className={`cursor-pointer ${isActive('/pricing') && 'text-[#5DBB63] font-bold'}`}>Price List</li>
+                            </Link>
+                            <Link to="/contact-us">
+                                <li className={`cursor-pointer ${isActive('/contact-us') && 'text-[#5DBB63] font-bold'}`}>Contact Us</li>
+                            </Link>
+                            {/* Add more links as needed */}
+                        </ul>
+                    </div>
 
                     <div className="flex gap-x-4 ">
                         <div className="flex gap-x-4 ">
@@ -151,19 +151,19 @@ const Nav = () => {
                         </div>
                         <div className="hidden lg:flex ">
                             <div className="flex gap-x-3 items-center">
-                            <Link to="/cart">
-        <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]">
-            Request Pickup
-        </button>
-    </Link>
+                                <Link to="/cart">
+                                    <button className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]">
+                                        Request Pickup
+                                    </button>
+                                </Link>
 
                                 {token === "" || token === undefined || token === null ? (
-                                  <button
-                                  className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]"
-                                  onClick={() => navigate("/Sign-Up")}
-                              >
-                                  Sign up / Sign In
-                              </button>
+                                    <button
+                                        className="text-center text-zinc-500 text-base font-semibold tracking-tight border-2 border-zinc-500 hover:bg-lime-600 hover:text-white    shadow-inner rounded-full cursor-pointer px-4 py-[.45rem]"
+                                        onClick={() => navigate("/Sign-Up")}
+                                    >
+                                        Sign up / Sign In
+                                    </button>
                                 ) : (
                                     <div className="relative">
                                         <FaUserCircle
@@ -175,13 +175,13 @@ const Nav = () => {
                                         <ul
                                             className={`absolute right-0 w-40 -m-10 border border-gray-200 bg-white py-2 mt-2 rounded-lg z-50 shadow-xl ${open ? 'block' : 'hidden'}`}
                                         >
-                                            <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
+                                            <Link to="/trackOrder" className="flex w-full items-center px-3 py-2 text-sm hover:bg-[#5DBB63]">
                                                 Track Order
                                             </Link>
-                                            <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
+                                            <Link to="/profile" className="flex w-full items-center px-3 py-2 text-sm hover:bg-[#5DBB63]">
                                                 Profile
                                             </Link>
-                                            <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100">
+                                            <Link onClick={handleLogout} className="flex w-full items-center px-3 py-2 text-sm hover:bg-[#5DBB63]">
                                                 Logout
                                             </Link>
                                         </ul>
@@ -225,14 +225,14 @@ const Nav = () => {
                                     <Link to="/">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <img
                                                 src={home}
                                                 alt="home-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Homepage
                                             </span>
                                         </li>
@@ -240,14 +240,14 @@ const Nav = () => {
                                     <Link to="/about">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <img
                                                 src={about}
                                                 alt="about-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 About Us
                                             </span>
                                         </li>
@@ -255,10 +255,10 @@ const Nav = () => {
                                     <Link to="/contact-us">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <TfiHeadphoneAlt className="mx-3 mr-3 w-6 text-zinc-500" size={22} />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Contact Us
                                             </span>
                                         </li>
@@ -266,14 +266,14 @@ const Nav = () => {
                                     <Link to="/pricing">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <img
                                                 src={price}
                                                 alt="price-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Price List
                                             </span>
                                         </li>
@@ -281,14 +281,14 @@ const Nav = () => {
                                     <Link to="/cart">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <img
                                                 src={carts}
                                                 alt="cart-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Cart
                                             </span>
                                         </li>
@@ -296,14 +296,14 @@ const Nav = () => {
                                     <Link to="/trackOrder">
                                         <li
                                             onClick={() => setMobileNav(false)}
-                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400  duration-500 "
+                                            className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63]  duration-500 "
                                         >
                                             <img
                                                 src={track}
                                                 alt="cart-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                            <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                                 Track Order
                                             </span>
                                         </li>
@@ -314,10 +314,10 @@ const Nav = () => {
                                             setMobileNav(false);
                                             navigate("/faqs");
                                         }}
-                                        className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-lime-400 duration-500 "
+                                        className=" font-bold cursor-pointer py-2 flex items-center hover:border-l-4 hover:border-[#5DBB63] duration-500 "
                                     >
                                         <img src={faq} alt="faq-icon" className="mx-3 mr-3 w-6" />
-                                        <span className="text-base md:text-xl text-zinc-400  hover:text-lime-400 font-normal font-['Gilroy-Medium'] leading-normal">
+                                        <span className="text-base md:text-xl text-zinc-400  hover:text-[#5DBB63] font-normal font-['Gilroy-Medium'] leading-normal">
                                             FAQs
                                         </span>
                                     </li>
@@ -331,7 +331,7 @@ const Nav = () => {
                                 {token === "" || token === undefined || token === null ? (
                                     <div>
                                         <div
-                                            className="w-3/4 rounded-full ml-2 px-3 py-2 bg-lime-500 flex items-center hover:bg-white cursor-pointer hover:border-lime-500 hover:border-2 duration-200 hover:text-lime-500"
+                                            className="w-3/4 rounded-full ml-2 px-3 py-2 bg-[#5DBB63] flex items-center hover:bg-white cursor-pointer hover:border-[#5DBB63] hover:border-2 duration-200 hover:text-[#5DBB63]"
                                             onClick={() => navigate("/sign-up")}
                                         >
                                             <img
@@ -339,7 +339,7 @@ const Nav = () => {
                                                 alt="sign-up-icon"
                                                 className="mx-3 mr-3 w-6"
                                             />
-                                            <h1 className="text-base font-bold text-white hover:text-lime-500 ">
+                                            <h1 className="text-base font-bold text-white hover:text-[#5DBB63] ">
                                                 Sign Up
                                             </h1>
                                         </div>

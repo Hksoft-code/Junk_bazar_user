@@ -40,7 +40,7 @@ const Results = () => {
         </aside>
       </section> */}
 
-      <aside className="lg:mt-16 lg:px-8 flex justify-center items-center bg-lime-400 text-white lg:pb-6">
+      <aside className="lg:mt-16 lg:px-8 flex justify-center items-center bg-[#5DBB63] text-white lg:pb-6">
         <section className="grid grid-cols-1 lg:grid-cols-2 items-start">
           <div className="py-5 order-2 lg:order-1 px-3 lg:px-0">
             <div className="my-2">

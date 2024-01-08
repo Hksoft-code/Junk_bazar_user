@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-lime-400 py-2 md:p-1 mt-10 text-white font-['Gilroy-Medium']">
+    <footer className="bg-[#5DBB63] py-2 md:p-1 mt-10 text-white font-['Gilroy-Medium']">
       <div className="p-0 md:p-2 lg:px-10 ">
         <div className="block md:grid md:grid-cols-2 lg:grid-cols-4 lg:pb-10 p-2">
           <section className="">
@@ -15,7 +15,7 @@ const Footer = () => {
                 alt="junzbazar-logo"
                 className="w-40 my-5"
               />
-              <div className="hidden md:flex flex-row">
+              {/* <div className="hidden md:flex flex-row">
                 <input
                   type="email"
                   name="email"
@@ -25,11 +25,11 @@ const Footer = () => {
                 />
                 <button
                   onClick={() => { }}
-                  className="bg-lime-500 rounded-tr-full rounded-br-full py-[0.6rem] px-2 text-sm text-white"
+                  className="bg-[#5DBB63] rounded-tr-full rounded-br-full py-[0.6rem] px-2 text-sm text-white"
                 >
                   Subscribe
                 </button>
-              </div>
+              </div> */}
             </div>
           </section>
           <section>
@@ -79,7 +79,7 @@ const Footer = () => {
                   <a href="tel:+913496933405">+91 97097 09248</a>
                 </li>
                 <li>
-                  <a href="mailto:info@junkBazar.in">info@junkBazar.in</a>
+                  <a href="mailto:info@junkBazar.com">info@junkBazar.com</a>
                 </li>
                 <li>
                   <a
