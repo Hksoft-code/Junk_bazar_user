@@ -62,7 +62,7 @@ const SignIn = () => {
               Sign In to enjoy exclusive access!.
             </p>
             <img
-              className="w-[886px] mx-auto mt-4 rounded-full"
+              className="max-w-lg mx-auto mt-4 rounded-full"
               src={customer}
               alt=" "
             />
@@ -74,7 +74,7 @@ const SignIn = () => {
             <div class="shadow-xl rounded-lg shadow-[#66666680] p-20 w-[772px]">
               <header class="p-4">
                 <div className="flex flex-col gap-3  items-start">
-                  <div className="text-3xl font-['Gilroy-ExtraBold'] text-[#333333]">
+                  <div className="text-3xl font-bold font-['Gilroy-ExtraBold'] text-[#333333]">
                     Login
                   </div>
                   <div className="text-2xl text-[#707070]">Login into your account</div>
@@ -97,7 +97,7 @@ const SignIn = () => {
                   />
                 </div>
 
-                <div className="mt-40">
+                <div className="mt-20">
 
                 </div>
 

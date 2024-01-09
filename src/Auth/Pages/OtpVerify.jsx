@@ -85,7 +85,7 @@ const OtpVerify = () => {
                             Sign In to enjoy exclusive access!.
                         </p>
                         <img
-                            className="w-[886px] mx-auto mt-4 rounded-full"
+                            className="max-w-lg mx-auto mt-4 rounded-full"
                             src={customer}
                             alt=" "
                         />
@@ -113,7 +113,7 @@ const OtpVerify = () => {
                                         margin: '20px 1rem',
                                         fontSize: '1rem',
                                         borderRadius: 4,
-                                        border: '2px solid rgba(0,0,0,0.3)',
+                                        border: '2px solid #5AB344',
                                     }}
                                     focusedBorderColor='#5ab344'
                                     value={otp}
@@ -133,7 +133,7 @@ const OtpVerify = () => {
                                     </span>
                                     <span onClick={handleResend} className="cursor-pointer  underline text-[#5ab344]">RESEND CODE</span>
                                 </div>
-                                <div className="mt-40">
+                                <div className="mt-20">
 
                                 </div>
                             </section>
@@ -165,10 +165,10 @@ const OtpVerify = () => {
                                     <span className="text-darkslategray-200">
                                         Already have an account?
                                     </span>
-                                    <span className="text-dimgray-200">{" "}</span>
+                                    <span className="curser-pointer text-dimgray-200">{" "}</span>
                                     <span onClick={() => navigate("/sign-in", {
                                         replace: true
-                                    })} className="[text-decoration:underline]">{"Log in  "}</span>
+                                    })} className="[curser-pointer text-decoration:underline]">{"Log in  "}</span>
                                 </div>
                             </footer>
                         </div>
