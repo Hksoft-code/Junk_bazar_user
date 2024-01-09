@@ -20,7 +20,7 @@ const SignIn = () => {
     console.log("checked", checked);
     try {
       if (!checked) {
-        showSuccessMessage("Select Term And Condition", "error");
+        showErrorMessage("Select Term And Condition", "error");
         return;
       }
       console.log("phone number ", phoneNumber.slice(3, 13));
