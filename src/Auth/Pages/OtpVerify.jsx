@@ -7,7 +7,7 @@ import SmallOtpVerify from "./SmallOtpVerify.jsx";
 import OTPInput from "react-otp-input";
 import { IoChevronBackOutline } from "react-icons/io5";
 import showSuccessMessage from "../../utils/SweetAlert.jsx";
-import { resendOtpService } from "../../Services/user.js";
+import { otpVerifyService, resendOtpService } from "../../Services/user.js";
 import showErrorMessage from "../../utils/ErrorAlert.jsx";
 
 const OtpVerify = () => {
@@ -17,7 +17,7 @@ const OtpVerify = () => {
     const location = useLocation();
     console.log("phoneNumberObj", location.state);
 
-    const otpVerifyService = async () => {
+    const otpVerify = async () => {
         try {
             if (!checked) {
                 showSuccessMessage("Select Term And Condition", "error");
@@ -28,7 +28,7 @@ const OtpVerify = () => {
                 otp
             );
             const userResp = JSON.parse(otpVerifyResp.data);
-            console.log("userResp", userResp);
+            console.log("userResp", otpVerifyResp);
             console.log("otpVerifyResp from Service File", userResp);
             console.log("token", userResp.token);
             localStorage.setItem("token", userResp.token);
@@ -159,8 +159,17 @@ const OtpVerify = () => {
                                     label="Continue"
                                     classname="cursor-pointer font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
 
-                                    handleClick={otpVerifyService}
+                                    handleClick={otpVerify}
                                 />
+                                <div className="relative text-center mt-10">
+                                    <span className="text-darkslategray-200">
+                                        Already have an account?
+                                    </span>
+                                    <span className="text-dimgray-200">{" "}</span>
+                                    <span onClick={() => navigate("/sign-in", {
+                                        replace: true
+                                    })} className="[text-decoration:underline]">{"Log in  "}</span>
+                                </div>
                             </footer>
                         </div>
                     </div>
