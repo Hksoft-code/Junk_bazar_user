@@ -20,6 +20,7 @@ const   CartList = () => {
   const [loading, setLoading] = useState(true);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
   // const [addToCard, setAddToCard] = useState();
   // const [scrapPass, setScrapPass] = useState([]);
   const initialScrapState = {

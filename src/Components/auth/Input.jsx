@@ -4,27 +4,60 @@
 const Input = ({
     type,
     name,
-    classname,
+    className,
     handleChange,
     value,
     placeHolder,
     style,
     checked,
-    id
-}) => {
+    id,
+  }) => {
+    console.log("name from", type);
     return (
-        <input
-            type={type}
+      <>
+        {/* <input
+              type={type}
+              name={name}
+              value={value}
+              className={className}
+              onChange={handleChange}
+              placeholder={placeHolder}
+              style={style}
+              checked={checked}
+              id={id}
+          /> */}
+  
+        {type == "checkbox" ? (
+          <label class="checkboxparentdiv">
+            <input
+            type="checkbox"
             name={name}
             value={value}
-            className={classname}
+            className={className}
             onChange={handleChange}
             placeholder={placeHolder}
             style={style}
             checked={checked}
             id={id}
-        />
+          />
+            {type == "checkbox" && <span class="checkboxspan"></span>}
+          </label>
+        ) : (
+          <input
+            type={type}
+            name={name}
+            value={value}
+            className={className}
+            onChange={handleChange}
+            placeholder={placeHolder}
+            style={style}
+            checked={checked}
+            id={id}
+          />
+        )}
+      </>
     );
-};
-
-export default Input;
+  };
+  
+  export default Input;
+  
