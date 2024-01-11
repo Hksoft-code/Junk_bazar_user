@@ -207,7 +207,7 @@ const PriceCardComponent = () => {
                 id="quantity"
                 name="quantity"
                 min="1"
-                className="border-2 border-[#5AB344] rounded-md w-[40px] outline-none pl-1"
+                className="border-2 border-[#3CB043] rounded-md w-[40px] outline-none pl-1"
                 value={quantities[item?.scrapId] || 1}
                 onChange={(e) =>
                   handleQuantityChange(item?.scrapId, parseInt(e.target.value))

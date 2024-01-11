@@ -6,10 +6,11 @@ import card from "../assets/PNG/cart.png";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../redux/user/userSlice";
+import DeleteIcon from "../../src/assets/ICONS/DeleteIcons"
 // import { MdDeleteForever } from "react-icons/md";
 // import PaginationComponent from "../Components/PriceList/utils";
 
-const   CartList = () => {
+const CartList = () => {
   const readCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [scrapList, setScrapList] = useState([]);
@@ -29,12 +30,12 @@ const   CartList = () => {
   };
   async function fetchData(page) {
     try {
-      const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
-
+      const response = await axiosInstance.get(
+        `/getAddToCart?page=${page - 1}&limit=10`
       );
 
       const scrapAll = JSON.parse(response.data.data);
-      console.log('scrapAll', scrapAll);
+      console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
       setTotalPages("1");
 
@@ -156,69 +157,95 @@ const   CartList = () => {
   }, [currentPage]);
 
   return (
-    <div className="w-full mt-5 flex justify-center items-center lg:max-w-[1100px] mx-auto ">
-      <div className="max-w-screen-xl w-full md:px-2 lg:px-4 px-0 flex-col flex justify-center items-center">
+    <div className="w-full mt-5 flex justify-center items-center mx-auto">
+      <div className="w-full px-0 flex-col flex justify-center items-center ">
         {scrapList?.items && scrapList?.items.length > 0 ? (
-          <div class="mx-auto mt-8 max-w-2xl md:mt-12">
-            <div class="bg-white shadow">
-              <div class="px-4 py-6 sm:px-8 sm:py-10">
-                <div class="flow-root">
+          <div class="mx-auto mt-8 md:mt-12 w-full ">
+            <div class="bg-white w-full">
+              <div class="px-2 py-6 sm:px-1 sm:py-10">
+                <div class="">
                   <ul class="-my-8">
                     {scrapList?.items.map((cart, index) => (
                       <li
                         key={index}
-                        class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
+                        class="flex items-center gap-4 sm:gap-4 space-y-3 py-6  px-1 sm:px-6 text-left flex-row border-b-[1px]"
                       >
                         <div class="shrink-0">
                           <img
-                            class="h-24 w-24 max-w-full rounded-lg object-cover"
+                            class="h-28 w-28 sm:h-32 sm:w-32 max-w-full rounded-lg object-cover"
                             src={cart?.scrapInfo.docUrl}
                             alt=""
                           />
                         </div>
 
                         <div class="relative flex flex-1 flex-col justify-between">
-                          <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
-                            <div class="pr-8 sm:pr-5">
-                              <p class="text-base font-semibold text-gray-900">
+                          <div class=" grid grid-cols-2">
+                            <div class="flex flex-col gap-1 justify-center w-fit">
+                              <p class="text-[17px] sm:text-[19px] font-normal text-gray-900 w-fit">
                                 {" "}
                                 {cart?.scrapInfo.scrapName}
+                              </p>
+                              <p class="text-sm font-normal ml-2 text-gray-700">
+                                Delhi, India
+                              </p>
+                              <p class="text-base font-semibold text-gray-900">
+                                {" "}
+                                ₹ {cart?.scrapInfo.price}/KG
                               </p>
                               {/* <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{order?.addressInfo.address}</p> */}
                             </div>
 
-                            <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                              <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
+                            <div class="mt-4 flex items-end justify-end sm:mt-0 sm:items-start sm:justify-end">
+                              {/* <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
                                 ₹ {cart?.scrapInfo.price}
-                              </p>
+                              </p> */}
 
-                              <div class="sm:order-1">
-                                <div class="sm:order-1">
-                                  <div className="flex items-start mt-2">
+                              <div class="flex gap-4 ">
+                                <div class="flex flex-col gap-8">
+                                  <div className="flex items-start mt-2 sm:ml-4">
                                     <button
                                       onClick={() =>
-                                        handleDecrement(cart?.scrapId, cart.quantity)
+                                        handleDecrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
-                                      className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2"
+                                      className="border bg-gray-300 text-white rounded-md py-[4px] sm:py-[5px] px-5 sm:px-5 mr-2 font-semibold"
                                     >
                                       -
                                     </button>
-                                    <span className="text-4xl font-bold mx-4">
+                                    <span className="text-[20px] font-semibold mx-2 mt-1">
                                       {cart.quantity}
                                     </span>
                                     <button
                                       onClick={() =>
-                                        handleIncrement(cart?.scrapId, cart.quantity)
+                                        handleIncrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
-                                      className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2"
+                                      className="border bg-[#3CB043] text-white rounded-md py-[4px] sm:py-[5px] px-5 sm:px-5 font-semibold ml-2"
                                     >
                                       +
                                     </button>
                                   </div>
+                                  <div>
+                                    <button className="w-[150px] sm:w-[180px] h-[40px] rounded-full font-semibold text-white bg-[#3CB043] cursor-pointer  text-[13px] md:text-[15px]">
+                                      Checkout
+                                    </button>
+                                  </div>
+                                </div>
+                                <div
+                                  className={`bg-red-300 flex justify-center items-center cursor-pointer p-7 ${
+                                    cart.quantity < 2 ? "block" : "hidden"
+                                  }`}
+                                  onClick={(e) => removeFromCard(cart.scrapId)}
+                                >
+                                   {<DeleteIcon />}
                                 </div>
                               </div>
 
-                              <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
+                              {/* <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
                                 <button
                                   onClick={(e) => removeFromCard(cart.scrapId)}
                                   type="button"
@@ -240,7 +267,7 @@ const   CartList = () => {
                                     ></path>
                                   </svg>
                                 </button>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -249,7 +276,7 @@ const   CartList = () => {
                   </ul>
                 </div>
 
-                <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
+                {/* <div class="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
                   <div className="flex space-x-4">
                     <button
                       onClick={() => navigate("/pricing", { replace: true })}
@@ -259,12 +286,12 @@ const   CartList = () => {
                     </button>
                     <button
                       onClick={() => handlePickeupRequest(scrapList)}
-                      className="lg:w-[200px] rounded-[30px] h-[50px] font-semibold text-white bg-[#81D742] cursor-pointer max-sm:w-[100px] max-er:text-[10px] lg:text-[15px] max-md:w-[120px] max-er:w-[130px] p-3"
+                      className="lg:w-[200px] rounded-[30px] h-[50px] font-semibold text-white bg-[#3CB043] cursor-pointer max-sm:w-[100px] max-er:text-[10px] lg:text-[15px] max-md:w-[120px] max-er:w-[130px] p-3"
                     >
                       Request Pickup
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
