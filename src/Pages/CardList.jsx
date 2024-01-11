@@ -28,12 +28,12 @@ const CartList = () => {
   };
   async function fetchData(page) {
     try {
-      const response = await axiosInstance.get(`/getAddToCart?page=${page - 1}&limit=10`,
-
+      const response = await axiosInstance.get(
+        `/getAddToCart?page=${page - 1}&limit=10`
       );
 
       const scrapAll = JSON.parse(response.data.data);
-      console.log('scrapAll', scrapAll);
+      console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
       setTotalPages("1");
 
@@ -92,7 +92,7 @@ const CartList = () => {
       scrapId: scrapIdArray.join(", "),
     };
 
-    navigate("/request_pickup", {
+    navigate("/checkoutAddress", {
       state: {
         passData,
       },
@@ -196,7 +196,10 @@ const CartList = () => {
                                   <div className="flex items-start mt-2">
                                     <button
                                       onClick={() =>
-                                        handleDecrement(cart?.scrapId, cart.quantity)
+                                        handleDecrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
                                       className="border bg-lime-500 text-white rounded-md py-2 px-4 mr-2"
                                     >
@@ -207,7 +210,10 @@ const CartList = () => {
                                     </span>
                                     <button
                                       onClick={() =>
-                                        handleIncrement(cart?.scrapId, cart.quantity)
+                                        handleIncrement(
+                                          cart?.scrapId,
+                                          cart.quantity
+                                        )
                                       }
                                       className="border bg-lime-500 text-white rounded-md py-2 px-4 ml-2"
                                     >

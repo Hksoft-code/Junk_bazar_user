@@ -5,14 +5,64 @@ import Confirm from "./PopUp/popup";
 import "../styles/pickupRequest.css";
 import { getAllAddress } from "../../Services/pickupRequest";
 import showErrorMessage from "../../utils/ErrorAlert";
+import { useLocation, useNavigate } from "react-router-dom";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
 const Add_Address = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [addres, setAddress] = useState();
   const [checked, setChecked] = useState(false);
+  const [selectAddress, setSelectAddress] = useState("");
+  const [defaultAddress, setDefault] = useState(true);
+  const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  const location = useLocation();
+  const passData = location.state ? location.state.passData : null;
+
+  function onChange(i) {
+    setSelected((prev) => (i === prev ? null : i));
+    setSelectAddress(addres[selected]);
+    console.log("selected Adddress ", selectAddress);
+  }
 
   const handleClick = () => {
     console.log("open", formOpen);
+  };
+
+  const handleEditAddress = () => {
+    console.log("handle edit address");
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handlePickup = () => {
+    const payLoad = {
+      addToCartId: passData.addToCartId,
+      scrapId: passData.scrapId,
+      stateCode: selectAddress.stateCode,
+      countryCode: selectAddress.countryCode,
+      pincode: selectAddress.pincode,
+      address: selectAddress.address,
+      city: selectAddress.city,
+    };
+
+    navigate("/request_pickup", {
+      state: {
+        payLoad,
+      },
+    });
   };
 
   useEffect(() => {
@@ -24,6 +74,7 @@ const Add_Address = () => {
       const allAddress = await getAllAddress();
       console.log("user login from Service File", allAddress);
       setAddress(allAddress.address);
+      setSelectAddress(addres[0]);
     } catch (error) {
       console.error("error", error);
       const errorMessage = !error.response.data.error.message
@@ -33,22 +84,69 @@ const Add_Address = () => {
     }
   };
 
+  const handleChange = () => {};
+
   return (
     <>
       <div className="">
         <div class="max-w-2xl mx-auto mt-24">
-          {addres?.map((item) => (
-            <div class="flex p-5 mb-5 gap-3 bg-white border border-[#585858] rounded-xl overflow-hidden items-start justify-start">
+          {selectAddress ? (
+            <div class="flex p-3 mb-5 gap-3 bg-white  rounded-xl overflow-hidden items-start justify-start">
               <div class="relative w-10 h-10 flex-shrink-0">
                 <input
-                  value={checked}
+                  checked={defaultAddress}
                   handleChange={() => setChecked((prevState) => !prevState)}
                   type="checkbox"
                   class="checkbox-round"
                 />
               </div>
 
-              <div class="flex flex-col gap-2 py-2">
+              <div class=" gap-2 py-2">
+                {/* <p class="text-xl font-bold">Mercy Johnson</p> */}
+
+                <p class="text-gray-500">
+                  {selectAddress?.address} {selectAddress?.city}{" "}
+                  {selectAddress?.pincode}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+
+          <div class="flex flex-col gap-6 mx-auto mt-10">
+            <div
+              onClick={handlePickup}
+              class="cursor-pointer   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
+            >
+              Deliver to this address
+            </div>
+
+            <div
+              onClick={onOpenModal}
+              class="cursor-pointer text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl"
+            >
+              Edit Address
+            </div>
+            <Modal open={open} onClose={onCloseModal} center>
+              <Add_Address_form data={selectAddress} />
+            </Modal>
+            <div class="cursor-pointer text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
+              Add Delivery Instruction
+            </div>
+          </div>
+          {addres?.map((item, i) => (
+            <div class="flex p-3 gap-3 mt-5 bg-white border border-[#585858]  rounded-xl overflow-hidden items-center justify-start">
+              <div class="relative w-10 h-10 flex-shrink-0 ">
+                <input
+                  checked={i === selected}
+                  onChange={() => onChange(i)}
+                  type="checkbox"
+                  class="checkbox-round"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2 py-2 ">
                 {/* <p class="text-xl font-bold">Mercy Johnson</p> */}
 
                 <p class="text-gray-500">
@@ -57,48 +155,45 @@ const Add_Address = () => {
               </div>
             </div>
           ))}
-          <div class="flex flex-col gap-6 mx-auto mt-10">
-            <div class="text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl">
-              Deliver to this address
-            </div>
+          <details class="p-6 group" open>
+            <summary class="flex items-center justify-between cursor-pointer">
+              <h5 class="text-lg font-medium text-gray-900">Add New Address</h5>
 
-            <div class="text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
-              Edit Address
-            </div>
-            <div class="text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
-              Add Delivery Instruction
-            </div>
-          </div>
-          {/* <div class="flex p-2 gap-3 mt-5 bg-white border border-[#585858]  rounded-xl overflow-hidden items-center justify-start">
-            <div class="relative w-10 h-10 flex-shrink-0 mx-auto">
-              <input type="checkbox" class="checkbox-round" />
-            </div>
+              <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
 
-            <div class="flex flex-col gap-2 py-2 ">
-              <p class="text-xl font-bold">Mercy Johnson</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </span>
+            </summary>
 
-              <p class="text-gray-500">
-                4517 Washington Ave. ManchesterKentucky 39495 Phone Number: +91
-                349045234
-              </p>
-            </div>
-          </div> */}
-          <div class="flex p-2 gap-3 mt-5 bg-white   rounded-xl overflow-hidden items-center justify-start">
-            <div class="flex flex-col gap-2 py-2 ">
-              <p class="text-xl font-bold">Add New Address </p>
-            </div>
-            <div class="relative w-10 h-10 flex-shrink-0 mx-auto text-end">
-              <img
-                onClick={handleClick}
-                handleChange={() => setFormOpen((prevState) => !prevState)}
-                class="absolute right-0 items-end cursor-pointer top-0 w-full h-full object-cover object-center transition duration-50"
-                loading="lazy"
-                src="https://cdn-icons-png.flaticon.com/512/32/32339.png"
-              />
-            </div>
-          </div>
-
-          <Add_Address_form />
+            <Add_Address_form />
+          </details>
         </div>
       </div>
     </>

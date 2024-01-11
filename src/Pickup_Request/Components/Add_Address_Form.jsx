@@ -5,13 +5,15 @@ import { addAddrress } from "../../Services/pickupRequest";
 import showErrorMessage from "../../utils/ErrorAlert";
 import showSuccessMessage from "../../utils/SweetAlert";
 
-const Add_Address_form = () => {
+const Add_Address_form = (props) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [countriesAndStates, setcountriesAndStates] = useState([]);
+
+  console.log("passing data ", props);
 
   const fetchCountry = async () => {
     try {
@@ -59,6 +61,9 @@ const Add_Address_form = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchCountry();
+    setSelectedCountry(props?.countryCode);
+    setSelectedState(props?.stateCode);
+    setSelectedCity(props?.city);
   }, []);
 
   const handleAddAddress = async () => {
@@ -106,6 +111,7 @@ const Add_Address_form = () => {
                   <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                     <input
                       required
+                      defaultValue={props?.address}
                       onChange={(e) => {
                         setAddress(e.target.value);
                       }}
@@ -178,6 +184,7 @@ const Add_Address_form = () => {
                         <input
                           type="number"
                           required
+                          defaultValue={props?.pincode}
                           onChange={(e) => {
                             setPincode(e.target.value);
                           }}
