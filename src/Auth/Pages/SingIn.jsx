@@ -69,9 +69,9 @@ const SignIn = () => {
           </div>
         </div>
 
-        <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
-          <div className="max-w-2xl max-h-screen ">
-            <div class="shadow-xl rounded-lg shadow-[#66666680] p-20 w-[772px]">
+        <div class="flex md:w-1/2  justify-center py-5 items-center bg-white">
+          <div className="max-w-xl max-h-min ">
+            <div class="shadow-xl rounded-lg shadow-[#66666680] p-20 ">
               <header class="p-4">
                 <div className="flex flex-col gap-3  items-start">
                   <div className="text-3xl font-bold font-['Gilroy-ExtraBold'] text-[#333333]">
@@ -97,7 +97,7 @@ const SignIn = () => {
                   />
                 </div>
 
-                <div className="mt-20">
+                <div className="mt-10">
 
                 </div>
 

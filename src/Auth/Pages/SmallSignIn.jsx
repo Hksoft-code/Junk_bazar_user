@@ -59,28 +59,30 @@ const SmallSignIn = () => {
               onChange={setPhoneNumber}
             />
           </div>
-          {/* <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
-            <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
-              <Input
-                type="checkbox"
-                classname="w-[17px] h-[17px] bg-[#5AB344] mr-1 translate-y-1 cursor-pointer mobileotpverification"
-                value={checked}
-                checked={checked}
-                handleChange={() => setChecked((prevState) => !prevState)}
-              />
-              By creating an account, I agree to our{" "}
-              <span className="underline cursor-pointer">Terms of use</span> and{" "}
-              <span className="underline cursor-pointer">Privacy Policy </span>
-            </p>
-          </div> */}
-          <div className="mt-40"></div>
-          <div className="mt-1">
+
+          <footer class="p-4">
+          <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+              <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
+                <Input
+                  type="checkbox"
+                  classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+                  value={checked}
+                  handleChange={() => setChecked((prevState) => !prevState)}
+                />
+                By creating an account, I agree to our{" "}
+                <span className="underline cursor-pointer">Terms of use</span>{" "}
+                and{" "}
+                <span className="underline cursor-pointer">
+                  Privacy Policy{" "}
+                </span>
+              </p>
+            </div>
             <Button
               label="Continue"
-              classname="h-[40px] font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none  hover:opacity-80"
+              classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
               handleClick={SignInService}
             />
-          </div>
+          </footer>
         </form>
       </div>
     </div>

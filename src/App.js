@@ -25,6 +25,7 @@ import AddressVerify from "./Auth/Pages/addressVerify.jsx";
 import Profile from "./Pages/Profile.jsx";
 import UnauthorizedAccessPage from "./Common/AuthuserModal.jsx";
 import Protected from "./Components/protected/protectedForComponent.jsx";
+import CheckoutAdddress from "./Pickup_Request/Multiple_Address/CheckoutAdddress.jsx";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/trackOrder" element={<Protected Component={TrackOrder} />} />
         <Route path="/profile" element={<Protected Component={Profile} />} />
         <Route path="/trackOrderDetails" element={<Protected Component={TrackOrderDetails} />} />
+        <Route path="/checkoutAddress" element={<Protected Component={CheckoutAdddress} />} />
         <Route path="/unauthorized" element={<UnauthorizedAccessPage />} />
       </Routes>
     </div>

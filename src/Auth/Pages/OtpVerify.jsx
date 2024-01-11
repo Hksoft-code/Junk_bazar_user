@@ -84,10 +84,10 @@ const OtpVerify = () => {
             />
           </div>
         </div>
-        <div class="flex md:w-1/2  justify-center py-10 items-center bg-white">
-          <div className="max-w-2xl max-h-screen ">
-            <div class="shadow-xl rounded-lg shadow-[#66666680] p-20 w-[772px]">
-              <header class="p-4">
+        <div class="flex md:w-1/2  justify-center py-5 items-center bg-white">
+          <div className="max-w-xl max-h-screen ">
+            <div class="shadow-xl rounded-lg shadow-[#66666680] p-20 ">
+              <header class="">
                 <div className="flex flex-col gap-3  items-start">
                   <div className="text-3xl font-['Gilroy-ExtraBold'] text-[#333333]">
                     Login
@@ -101,24 +101,25 @@ const OtpVerify = () => {
                 <p className="mt-10 mb-5 leading-8 text-gray-600 font-bold text-xl">
                   Enter OTP
                 </p>
-
-                <OTPInput
-                  inputStyle={{
-                    width: "5rem",
-                    background: "rgba(90,179,68,0.24)",
-                    height: "4rem",
-                    margin: "5px 5px",
-                    fontSize: "1.5rem",
-                    borderRadius: 4,
-                    border: "2px solid #5AB344",
-                  }}
-                  focusedBorderColor="#5ab344"
-                  value={otp}
-                  onChange={setOtp}
-                  numInputs={6}
-                  renderSeparator={<span>-</span>}
-                  renderInput={(props) => <input {...props} />}
-                />
+                <div className=" p-2 max-w-sm">
+                  <OTPInput
+                    inputStyle={{
+                      width: "3.5rem",
+                      background: "rgba(90,179,68,0.24)",
+                      height: "2.5rem",
+                      margin: "5px 5px",
+                      fontSize: "1rem",
+                      borderRadius: 4,
+                      border: "2px solid #5AB344",
+                    }}
+                    focusedBorderColor="#5ab344"
+                    value={otp}
+                    onChange={setOtp}
+                    numInputs={6}
+                    renderSeparator={<span>-</span>}
+                    renderInput={(props) => <input {...props} />}
+                  />
+                </div>
                 <div
                   id="OTPSentToRESENDCODE2"
                   className="mt-5 text-center text-[#707070] ml-16 w-3/4 font-['Gilroy-Bold']"
@@ -162,7 +163,7 @@ const OtpVerify = () => {
                   classname="cursor-pointer font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
                   handleClick={otpVerify}
                 />
-                <div className="relative text-center mt-10">
+                <div className="relative text-center mt-2">
                   <span className="text-darkslategray-200">
                     Already have an account?
                   </span>

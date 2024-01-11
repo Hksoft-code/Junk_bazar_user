@@ -71,78 +71,86 @@ const SmallOtpVerify = () => {
           <div>
             <p className="text-[24px] font-semibold"> Sign In now</p>
           </div>
-          <p className="mt-4 text-sm leading-8 text-gray-600">Enter OTP</p>
-          <OTPInput
-            inputStyle={{
-              width: "2.5rem",
-              background: "rgba(90,179,68,0.24)",
-              height: "2rem",
-              margin: "5px 5px",
-              fontSize: "1rem",
-              borderRadius: 4,
-              border: "2px solid #5AB344",
-            }}
-            focusedBorderColor="#5ab344"
-            value={otp}
-            onChange={setOtp}
-            numInputs={6}
-            renderSeparator={<span>-</span>}
-            renderInput={(props) => <input {...props} />}
-          />
-
-          <div className="mt-20"></div>
-          <div className="flex flex-row items-start justify-start  ">
-            <p className="text-[8px] text-[#666666] font-semibold mt-2 mb-5">
-              We’ve sent a one Time password (OTP to +91
-              {location?.state?.mobile}
-              ). Please enter it to complete verification. Didn’t receive code?
-              RESEND CODE
-            </p>
-          </div>
-          <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
-            {/* <div className="text-[10px] text-[#666666] font-semibold flex items-center justify-center">
-              <div className="flex justify-center items-center">
+          <section className="">
+                <p className="mt-5 mb-5 leading-8 text-gray-600 font-bold text-xl">
+                  Enter OTP
+                </p>
+                <div className=" p-2 max-w-sm mx-auto">
+                  <OTPInput
+                    inputStyle={{
+                      width: "2.3rem",
+                      background: "rgba(90,179,68,0.24)",
+                      height: "2rem",
+                      margin: "5px 5px",
+                      fontSize: "1rem",
+                      borderRadius: 4,
+                      border: "2px solid #5AB344",
+                    }}
+                    focusedBorderColor="#5ab344"
+                    value={otp}
+                    onChange={setOtp}
+                    numInputs={6}
+                    renderSeparator={<span>-</span>}
+                    renderInput={(props) => <input {...props} />}
+                  />
+                </div>
+                <div
+                  id="OTPSentToRESENDCODE2"
+                  className="mx-auto mt-2 text-center text-[#707070]  font-['Gilroy-Bold']"
+                >
+                  OTP sent to{" "}
+                  <span>
+                    +91 {location.state.mobile}
+                    <br />
+                  </span>
+                  <span
+                    onClick={handleResend}
+                    className="cursor-pointer  underline text-[#5ab344]"
+                  >
+                    RESEND CODE
+                  </span>
+                </div>
+                
+              </section>
+          <footer class="p-4">
+            <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+              <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
                 <Input
                   type="checkbox"
-                  classname="w-[17px] h-[17px] bg-[#5AB344] mr-1 translate-y-1 cursor-pointer mobileotpverification"
+                  classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
                   value={checked}
-                  checked={checked}
                   handleChange={() => setChecked((prevState) => !prevState)}
                 />
-              </div>
-              <span className="mt-[8px]">
-                <span>By creating an account, I agree to our </span>
-                <span className="underline cursor-pointer">
-                  Terms of use
-                </span>{" "}
+                By creating an account, I agree to our{" "}
+                <span className="underline cursor-pointer">Terms of use</span>{" "}
                 and{" "}
                 <span className="underline cursor-pointer">
                   Privacy Policy{" "}
                 </span>
+              </p>
+            </div>
+            <Button
+              label="Continue"
+              classname="mt-4 font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
+              handleClick={otpVerify}
+            />
+            <div className="relative text-center mt-2">
+              <span className="text-darkslategray-200">
+                Already have an account?
               </span>
-            </div> */}
-          </div>
-          <Button
-            label="Continue"
-            classname="mt-4 font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
-            handleClick={otpVerify}
-          />
-          <div className="relative text-center mt-2">
-            <span className="text-darkslategray-200">
-              Already have an account?
-            </span>
-            <span className="text-dimgray-200"> </span>
-            <span
-              onClick={() =>
-                navigate("/sign-in", {
-                  replace: true,
-                })
-              }
-              className="[text-decoration:underline]"
-            >
-              {"Log in  "}
-            </span>
-          </div>
+              <span className="text-dimgray-200"> </span>
+              <span
+                onClick={() =>
+                  navigate("/sign-in", {
+                    replace: true,
+                  })
+                }
+                className="[text-decoration:underline]"
+              >
+                {"Log in  "}
+              </span>
+            </div>
+          </footer>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import axiosInstance from "../api-config/axiosInstance";
 import showSuccessMessage from "../utils/SweetAlert";
 
-const getCountries = async () => {
+const getCountriesDetails = async () => {
     try {
         const response = await axiosInstance.get("/getCountries");
 
@@ -194,7 +194,7 @@ export {
     handleOTP,
     signUpUser,
     handlePhoneNumberValidation,
-    getCountries,
+    getCountriesDetails,
     loginUser,
     resendOtpService,
     getCurrentUser,
