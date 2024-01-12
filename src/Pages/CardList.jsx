@@ -136,8 +136,8 @@ const CartList = () => {
 
       const passData = {
         addToCartId: cart.addToCartId,
-        scrapId: scrapIdArray.join(", "),
-        // scrapId:itemsChecked.join(", ")
+        // scrapId: scrapIdArray.join(", "),
+        scrapId:itemsChecked.join(", ")
       };
       navigate("/request_pickup", {
         state: {
