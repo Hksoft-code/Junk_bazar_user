@@ -38,6 +38,30 @@ const addAddrress = async (city, countryCode, stateCode, address, pincode) => {
   }
 };
 
+const editAddrress = async (city, countryCode, stateCode, address, pincode,addressId) => {
+  const payload = {
+    city,
+    countryCode,
+    stateCode,
+    address,
+    pincode,
+    addressId
+  };
+
+  try {
+    const response = await axiosInstance.post("/editAddress", payload);
+
+    const address = JSON.parse(response.data.data);
+
+    console.log("Add Address", address);
+    return address;
+  } catch (error) {
+    console.error("Error Will Adding Address", error);
+
+    throw error; // Rethrow the error to propagate it to the calling code
+  }
+};
+
 const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dialCode,phoneNumber,address,city,addToCartId) => {
   const payload = {
     fullName,
@@ -65,4 +89,4 @@ const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dial
   }
 }
 
-export { getAllAddress, addAddrress ,raisedPickup};
+export { getAllAddress, addAddrress ,raisedPickup,editAddrress};

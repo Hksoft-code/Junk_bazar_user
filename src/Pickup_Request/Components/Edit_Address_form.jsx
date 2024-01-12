@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 
 import { getCountriesDetails } from "../../Services/user";
-import { addAddrress } from "../../Services/pickupRequest";
+import { addAddrress, editAddrress } from "../../Services/pickupRequest";
 import showErrorMessage from "../../utils/ErrorAlert";
 import showSuccessMessage from "../../utils/SweetAlert";
 
-const Add_Address_form = () => {
+const Edit_Address_form = (props) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
+  const [addressId, setAddressId] = useState("");
   const [countriesAndStates, setcountriesAndStates] = useState([]);
+
+  console.log("datat passess", props.data);
+  const setData = props?.data;
 
   const fetchCountry = async () => {
     try {
@@ -38,7 +42,7 @@ const Add_Address_form = () => {
   };
   // Get the list of states based on the selected country
   const states = selectedCountry
-    ? countriesAndStates?.find((country) => country.iso2 === selectedCountry)
+    ? countriesAndStates.find((country) => country.iso2 === selectedCountry)
         ?.states || []
     : [];
   const handleStateChange = (event) => {
@@ -59,30 +63,42 @@ const Add_Address_form = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchCountry();
+    setSelectedCountry(setData.countryCode);
+    setSelectedState(setData.stateCode);
+    setSelectedCity(setData.city);
+    setAddress(setData.address);
+    setPincode(setData.pincode);
+    setAddressId(setData.addressId);
   }, []);
 
   const handleAddAddress = async () => {
     try {
-      const addressRepo = await addAddrress(
+      const addressRepo = await editAddrress(
         selectedCity,
         selectedCountry,
         selectedState,
         address,
-        pincode
+        pincode,
+        addressId
       );
       console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
-      const addresData = addressRepo.dat;
-      if (addresData.statusCode === 200) {
-        setSelectedCountry("");
-        setSelectedState("");
+
+      const addressR = addressRepo.data;
+      if (addressR.statusCode === 200) {
+        setSelectedCountry(" ");
+        setSelectedState(" ");
+        setSelectedCity(" ");
+        setAddress(" ");
+        setPincode(" ");
+        setcountriesAndStates(" ");
       }
     } catch (error) {
       console.error("error", error);
-      // const errorMessage = !error.response.data.error.message
-      //   ? error.response.data.error?._message
-      //   : error.response.data.error.message;
-      // showErrorMessage(error.error.message, "error");
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+      showErrorMessage(errorMessage, "error");
     }
   };
 
@@ -101,6 +117,7 @@ const Add_Address_form = () => {
                   <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                     <input
                       required
+                      defaultValue={setData.address}
                       onChange={(e) => {
                         setAddress(e.target.value);
                       }}
@@ -172,6 +189,7 @@ const Add_Address_form = () => {
                       <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                         <input
                           type="number"
+                          defaultValue={setData.pincode}
                           required
                           onChange={(e) => {
                             setPincode(e.target.value);
@@ -223,4 +241,4 @@ const Add_Address_form = () => {
   );
 };
 
-export default Add_Address_form;
+export default Edit_Address_form;

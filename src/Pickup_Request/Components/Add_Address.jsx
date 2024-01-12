@@ -8,6 +8,7 @@ import showErrorMessage from "../../utils/ErrorAlert";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+import Edit_Address_form from "./Edit_Address_form";
 
 const Add_Address = () => {
   const [formOpen, setFormOpen] = useState(false);
@@ -18,10 +19,8 @@ const Add_Address = () => {
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-
   const location = useLocation();
   const passData = location.state ? location.state.passData : null;
 
@@ -30,22 +29,6 @@ const Add_Address = () => {
     setSelectAddress(addres[selected]);
     console.log("selected Adddress ", selectAddress);
   }
-
-  const handleClick = () => {
-    console.log("open", formOpen);
-  };
-
-  const handleEditAddress = () => {
-    console.log("handle edit address");
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handlePickup = () => {
     const payLoad = {
@@ -67,6 +50,7 @@ const Add_Address = () => {
 
   useEffect(() => {
     getAddress();
+    console.log("set Address");
   }, []);
 
   const getAddress = async () => {
@@ -74,24 +58,46 @@ const Add_Address = () => {
       const allAddress = await getAllAddress();
       console.log("user login from Service File", allAddress);
       setAddress(allAddress.address);
-      setSelectAddress(addres[0]);
+      setSelectAddress(allAddress.address[0]);
     } catch (error) {
       console.error("error", error);
-      const errorMessage = !error.response.data.error.message
-        ? error.response.data.error?._message
-        : error.response.data.error.message;
-      showErrorMessage(errorMessage, "error");
+      // const errorMessage = !error.response?.data.error.message
+      //   ? error.response.data.error?._message
+      //   : error.response.data.error.message;
+      // showErrorMessage(errorMessage, "error");
     }
   };
 
-  const handleChange = () => {};
+  const handleSkip = () => {
+    const payLoad = {
+      addToCartId: passData.addToCartId,
+      scrapId: passData.scrapId,
+    };
+
+    navigate("/request_pickup", {
+      state: {
+        payLoad,
+      },
+    });
+  };
 
   return (
     <>
       <div className="">
         <div class="max-w-2xl mx-auto mt-24">
+          <div
+            onClick={handleSkip}
+            className="cursor-pointer w-full text-right"
+          >
+            Skip
+          </div>
+          <h3 class="flex items-center w-full mb-5">
+            <span class="flex-grow bg-gray-200 rounded h-1"></span>
+            <span class="mx-3 text-lg font-medium"></span>
+            <span class="flex-grow bg-gray-200 rounded h-1"></span>
+          </h3>
           {selectAddress ? (
-            <div class="flex p-3 mb-5 gap-3 bg-white  rounded-xl overflow-hidden items-start justify-start">
+            <div class="flex p-3 mb-5 gap-3 bg-white shadow-xl  rounded-xl overflow-hidden items-start justify-start">
               <div class="relative w-10 h-10 flex-shrink-0">
                 <input
                   checked={defaultAddress}
@@ -117,26 +123,26 @@ const Add_Address = () => {
           <div class="flex flex-col gap-6 mx-auto mt-10">
             <div
               onClick={handlePickup}
-              class="cursor-pointer   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
+              class="cursor-pointer shadow-md   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
             >
               Deliver to this address
             </div>
 
             <div
               onClick={onOpenModal}
-              class="cursor-pointer text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl"
+              class="cursor-pointer text-center shadow-md inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl"
             >
               Edit Address
             </div>
             <Modal open={open} onClose={onCloseModal} center>
-              <Add_Address_form data={selectAddress} />
+              <Edit_Address_form data={selectAddress} />
             </Modal>
-            <div class="cursor-pointer text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
+            <div class="cursor-pointer shadow-md text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
               Add Delivery Instruction
             </div>
           </div>
           {addres?.map((item, i) => (
-            <div class="flex p-3 gap-3 mt-5 bg-white border border-[#585858]  rounded-xl overflow-hidden items-center justify-start">
+            <div class="flex p-3 gap-3 mt-5 bg-white shadow-xl  rounded-xl overflow-hidden items-center justify-start">
               <div class="relative w-10 h-10 flex-shrink-0 ">
                 <input
                   checked={i === selected}

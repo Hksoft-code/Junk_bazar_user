@@ -27,9 +27,13 @@ const RequestPickup = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData();
-    setSelectedCountry(passData?.countryCode);
-    setSelectedState(passData?.stateCode);
-    setSelectedCity(passData?.city);
+    if (passData?.addToCartId !== "" || passData?.addToCartId !== undefined) {
+      setSelectedCountry(passData?.countryCode);
+      setSelectedState(passData?.stateCode);
+      setSelectedCity(passData?.city);
+      setPincode(passData?.pincode);
+      setAddress(passData?.address);
+    }
   }, []);
 
   const fetchData = async () => {
@@ -177,7 +181,7 @@ const RequestPickup = () => {
                 <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                   <input
                     required
-                    defaultValue={passData?.address}
+                    value={address}
                     onChange={(e) => {
                       setAddress(e.target.value);
                     }}
@@ -275,7 +279,7 @@ const RequestPickup = () => {
                   <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                     <input
                       type="number"
-                      defaultValue={passData?.pincode}
+                      value={pincode}
                       required
                       onChange={(e) => {
                         setPincode(e.target.value);
