@@ -7,7 +7,7 @@ import { addToCart, removeFromCart } from "../../redux/user/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import PaginationComponent from "./utils.jsx";
 import Loader from "../../Common/Footer/Loader.jsx";
-import CartIcon from "../../assets/ICONS/CartIcons.jsx"
+import CartIcon from "../../assets/ICONS/CartIcons.jsx";
 
 const PriceCardComponent = () => {
   const dispatch = useDispatch();
@@ -85,6 +85,7 @@ const PriceCardComponent = () => {
     try {
       const AddScrapPayLoad = {
         scrapId,
+        addScrapQuantity:quantities[scrapId]
       };
 
       const token = localStorage.getItem("token");
@@ -123,6 +124,7 @@ const PriceCardComponent = () => {
         `/getAddToCart?page=${1 - 1}&limit=10`
       );
       const scrapAll = JSON.parse(response.data.data);
+      navigate(`/pricing?items=${scrapAll.totalScrapCount}`);
       setCartItems(scrapAll?.cartLists?.items);
       console.log("scrapAll", scrapAll?.cartLists?.items);
     } catch (error) {
@@ -163,15 +165,15 @@ const PriceCardComponent = () => {
     return currentItems?.map((item) => (
       <div
         key={item.scrapId}
-        className="relative  flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white cardshadow"
+        className="relative flex w-full flex-col items-center rounded-lg border border-gray-100  cardshadow"
       >
-        <div className="relative mx-2 sm:mx-3 mt-2 sm:mt-3 flex h-36 sm:h-60 overflow-hidden rounded-xl">
-          <img className="object-cover" src={item?.docUrl} alt="product" />
-          <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+        <div className="relative mx-2 sm:mx-3 mt-2 sm:mt-3 flex h-36 sm:h-60 px-3 rounded-xl w-full">
+          <img className="w-full rounded-xl" src={item?.docUrl} alt="product" />
+          <span className="absolute -top-3 left-0 m-3 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
             39% OFF
           </span>
         </div>
-        <div className="mt-1 sm:mt-4 px-5 pb-3 sm:pb-5">
+        <div className="mt-1 sm:mt-4 px-3 sm:px-5 pb-3 sm:pb-5  w-full">
           <div className="opacity-80 text-[20px] min-xxl:text-[25px] font-['Gilroy-SemiBold'] text-[#4a4a4a] ">
             {item.scrapName}
           </div>
@@ -185,29 +187,30 @@ const PriceCardComponent = () => {
               </span>
             </p>
           </div>
-          <div className="flex flex-col min-md:flex-row items-start min-md:items-center gap-2">
+          <div className="flex flex-row items-center gap-2 ">
             <div
               onClick={() => handleAddToCard(item?.scrapId)}
-              className="w-full cursor-pointer flex items-center justify-center rounded-full bg-[#3CB043] px-2 sm:px-2 md:px-3 lg:px-5 h-8 min-xl:h-9 text-center text-sm min-md:text-[11px] min-xl:text-sm font-medium text-white hover:bg-[#5AB344] focus:outline-none focus:ring-4 focus:ring-blue-300 truncate"
+              className="w-full cursor-pointer flex items-center justify-center rounded-full bg-[#3CB043] px-0 sm:px-2 md:px-3 lg:px-5 h-8 min-xl:h-9 text-center text-sm min-md:text-[11px] min-xl:text-sm font-medium text-white hover:bg-[#5AB344] focus:outline-none focus:ring-4 focus:ring-blue-300 truncate"
             >
               {isItemInCart(item?.scrapId.toString()) ? (
-               <div className="flex gap-1 items-center">
-                 <div className="hidden lg:block">
-                  {<CartIcon/>}
-                 </div>
-                <p>Added to cart</p>
-               </div>
+                <div className="flex gap-1 items-center">
+                  <div className="">{<CartIcon />}</div>
+                  <p className="hidden sm:block">Added to cart</p>
+                </div>
               ) : (
-                "Add to Cart"
+                <div className="flex flex-row">
+                  <div className="block sm:hidden">{<CartIcon />}</div>
+                  <p className="hidden sm:block">Add to Cart</p>
+                </div>
               )}
             </div>
-            <div className="flex items-center flex-nowrap">
+            <div className="flex items-center flex-nowrap ">
               <input
                 type="number"
                 id="quantity"
                 name="quantity"
                 min="1"
-                className="border-2 border-[#3CB043] rounded-md w-[40px] outline-none pl-1"
+                className="border-2 border-[#3CB043] rounded-md w-[30px] min-md:w-[40px] outline-none pl-1"
                 value={quantities[item?.scrapId] || 1}
                 onChange={(e) =>
                   handleQuantityChange(item?.scrapId, parseInt(e.target.value))
@@ -224,13 +227,15 @@ const PriceCardComponent = () => {
   };
 
   return (
-    <>
-      <div className="max-w-screen-xl mx-auto p-5 sm:p-5 md:p-5 flex flex-col items-center justify-center ">
+    
+      <div className="w-full p-2 sm:p-5 md:p-1 flex flex-col items-center ">
         {loading ? (
           <Loader />
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-10 md:gap-10">
+          <div className="w-[97%] sm:w-[95%] lg:w-[92%]">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-8 md:gap-10">
             {renderData()}
+          </div>
           </div>
         )}
         <div className="mt-4">
@@ -241,7 +246,7 @@ const PriceCardComponent = () => {
           />
         </div>
       </div>
-    </>
+    
   );
 };
 

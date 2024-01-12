@@ -114,3 +114,13 @@ like a tickmark */
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 } 
+
+#cardquantity::-webkit-inner-spin-button,
+#cardquantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#cardquantity{
+  -moz-appearance: textfield;
+}
