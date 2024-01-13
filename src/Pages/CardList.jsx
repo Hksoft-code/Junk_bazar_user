@@ -80,6 +80,10 @@ const CartList = () => {
       console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
       setTotalPages("1");
+      if(localStorage.getItem("totalScrapCount")){
+        localStorage.removeItem("totalScrapCount");
+        localStorage.setItem("totalScrapCount",scrapAll.totalScrapCount);
+      }
       navigate(`/cart?items=${scrapAll?.totalScrapCount}`);
 
       setLoading(false);
