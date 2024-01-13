@@ -124,3 +124,5 @@ like a tickmark */
 #cardquantity{
   -moz-appearance: textfield;
 }
+
+iframe#webpack-dev-server-client-overlay{display:none!important}
