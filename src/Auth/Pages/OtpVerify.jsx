@@ -9,6 +9,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import showSuccessMessage from "../../utils/SweetAlert.jsx";
 import { otpVerifyService, resendOtpService } from "../../Services/user.js";
 import showErrorMessage from "../../utils/ErrorAlert.jsx";
+import "../style.css/auth.css";
 
 const OtpVerify = () => {
   const [checked, setChecked] = React.useState(false);
