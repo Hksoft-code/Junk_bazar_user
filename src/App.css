@@ -36,3 +36,91 @@
     transform: rotate(360deg);
   }
 }
+.cardshadow{
+  box-shadow: 0px 0px 9px 0px #a49d9d;
+}
+input[type=number]::-webkit-inner-spin-button {    
+  opacity: 1;
+}
+
+.checkboxparentdiv { 
+  display: block; 
+  position: relative; 
+  padding-left: 35px; 
+  margin-bottom: 15px; 
+  cursor: pointer; 
+  font-size: 20px; 
+} 
+
+/* Hide the default checkbox */ 
+input[type=checkbox] { 
+  visibility: hidden; 
+  display: none;
+} 
+
+/* Creating a custom checkbox 
+based on demand */ 
+.checkboxspan { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  height: 25px; 
+  width: 25px; 
+  background-color: white; 
+  border: 2px solid grey;
+  border-radius: 5px;
+
+} 
+
+/* Specify the background color to be 
+shown when hovering over checkbox */ 
+.checkboxparentdiv:hover input ~ .checkboxspan { 
+  background-color: white; 
+  border: 2px solid grey;
+  border-radius: 5px;
+} 
+
+/* Specify the background color to be 
+shown when checkbox is checked */ 
+.checkboxparentdiv input:checked ~ .checkboxspan { 
+  background-color: #5AB344; 
+  border: none;
+  border-radius: 5px;
+} 
+
+/* Checkmark to be shown in checkbox */ 
+/* It is not be shown when not checked */ 
+.checkboxspan:after { 
+  content: ""; 
+  position: absolute; 
+  display: none; 
+} 
+
+/* Display checkmark when checked */ 
+.checkboxparentdiv input:checked ~ .checkboxspan:after { 
+  display: block; 
+} 
+
+/* Styling the checkmark using webkit */ 
+/* Rotated the rectangle by 45 degree and  
+showing only two border to make it look 
+like a tickmark */ 
+.checkboxparentdiv .checkboxspan:after { 
+  left: 8px;
+  bottom: 5px;
+  width: 7px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+} 
+
+#cardquantity::-webkit-inner-spin-button,
+#cardquantity::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#cardquantity{
+  -moz-appearance: textfield;
+}
