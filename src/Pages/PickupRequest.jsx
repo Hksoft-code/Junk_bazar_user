@@ -96,30 +96,22 @@ const RequestPickup = () => {
         selectedCity,
         passData.addToCartId
       );
-      const dataObj = resp.data;
-      console.log("Received payload:", resp.body);
-      if (dataObj.statusCode === 200) {
-        Swal.fire({
+      Swal.fire({
           icon: "success",
           position: "center",
           showConfirmButton: true,
           timer: 2500,
-          title: dataObj.message,
+          title: "Scrap Saved Successfully",
         });
-        navigate("/Success-page", {
-          replace: true,
-        });
-      }
+      fetchDataForCartQuantity()
+      navigate("/Success-page", {
+        replace: true,
+      });
     } catch (error) {
-      console.log("Data", error.response.data);
-
-      if (error.response) {
-        console.log("Data", error.response.data);
-        const data = error.response.data;
-
-        if (data.error.statusCode === 400) {
+      if (error?.response) {
+        const data = error?.response?.data;
+        if (data?.error?.statusCode === 400) {
           const mess = data.error;
-
           Swal.fire({
             icon: "error",
             position: "center",
@@ -141,6 +133,21 @@ const RequestPickup = () => {
       }
     }
   };
+  async function fetchDataForCartQuantity() {
+    try {
+      const response = await axiosInstance.get(
+        `/getAddToCart?page=${1 - 1}&limit=10`
+      );
+
+      const scrapAll = JSON.parse(response.data.data);
+      if (localStorage.getItem("totalScrapCount")) {
+        localStorage.removeItem("totalScrapCount");
+        localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 
   return (
     <div>
