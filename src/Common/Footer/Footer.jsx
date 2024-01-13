@@ -15,7 +15,7 @@ const Footer = () => {
                 alt="junzbazar-logo"
                 className="w-40 my-5"
               />
-              <div className="hidden md:flex flex-row">
+              {/* <div className="hidden md:flex flex-row">
                 <input
                   type="email"
                   name="email"
@@ -29,7 +29,7 @@ const Footer = () => {
                 >
                   Subscribe
                 </button>
-              </div>
+              </div> */}
             </div>
           </section>
           <section>
@@ -79,7 +79,7 @@ const Footer = () => {
                   <a href="tel:+913496933405">+91 97097 09248</a>
                 </li>
                 <li>
-                  <a href="mailto:info@junkBazar.in">info@junkBazar.in</a>
+                  <a href="mailto:info@junkBazar.com">info@junkBazar.com</a>
                 </li>
                 <li>
                   <a
@@ -121,15 +121,15 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row pb-1 justify-around items-center mt-3">
           <p className=" text-xl mt-4 text-white pb-5">
-            &copy;2023 JunkBazar. All rights reserved
+            &copy;2023 JunkBazar. All rights reserved. Powered by Kjxsoftech
           </p>
           <div className="flex justify-between items-center">
             <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
               <img src={google} alt="google-img" className="w-36" />
             </a>
             {/* <a href="https://www.apple.com" target="_blank" rel="noopener noreferrer">
-        <img src={apple} alt="apple-img" className="w-36 ml-3" />
-    </a> */}
+              <img src={apple} alt="apple-img" className="w-36 ml-3" />
+            </a> */}
           </div>
 
         </div>

@@ -56,7 +56,7 @@ const Treasure = () => {
           </section>
 
           <div className="flex justify-center lg:justify-start items-center">
-            <a href="https://vendor.junkbazar.com/" target="_blank">
+            <a href="https://vendor.junkbazar.com/" target="_blank" rel="noreferrer" >
               <div className="text-center text-white text-base font-normal tracking-tight border-2 border-lime-400 bg-lime-400 hover:bg-transparent hover:border-2 hover:border-zinc-500 hover:text-zinc-500 duration-200 flex items-center justify-center shadow-inner rounded-full mr-4 mt-5 cursor-pointer px-[.5rem] md:px-[1rem] py-[.65rem] md:font-bold">
                 Get Started as Vendor
               </div>
