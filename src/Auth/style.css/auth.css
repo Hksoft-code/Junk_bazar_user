@@ -1,0 +1,17 @@
+input[type="checkbox"] {
+    box-sizing: border-box;
+    color: #fff;
+    padding: 0;
+    accent-color: #5AB344;
+  }
+
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px black solid;
+  }

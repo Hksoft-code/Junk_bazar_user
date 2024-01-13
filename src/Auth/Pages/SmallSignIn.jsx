@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "@mui/material";
 import showErrorMessage from "../../utils/ErrorAlert";
 import { loginUser } from "../../Services/user";
+import "../style.css/auth.css";
 
 const SmallSignIn = () => {
   const navigate = useNavigate();
@@ -61,14 +62,14 @@ const SmallSignIn = () => {
           </div>
 
           <footer class="p-4">
-          <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
-              <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
-                <Input
-                  type="checkbox"
-                  classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-                  value={checked}
-                  handleChange={() => setChecked((prevState) => !prevState)}
-                />
+            <div className="flex flex-row items-start mt-14 justify-start py-2 pr-2 pl-0 gap-[8px]">
+              <Input
+                type="checkbox"
+                classname="w-[18px] h-[18px] bg-[#5AB344]  mr-2 translate-y-1 cursor-pointer"
+                value={checked}
+                handleChange={() => setChecked((prevState) => !prevState)}
+              />
+              <p className="text-[14px] text-[#666666] font-semibold  mb-5">
                 By creating an account, I agree to our{" "}
                 <span className="underline cursor-pointer">Terms of use</span>{" "}
                 and{" "}

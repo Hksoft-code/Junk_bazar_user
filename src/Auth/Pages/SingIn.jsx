@@ -7,9 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import SmallSignIn from "./SmallSignIn.jsx";
-import showSuccessMessage from "../../utils/SweetAlert.jsx";
 import { loginUser } from "../../Services/user.js";
 import showErrorMessage from "../../utils/ErrorAlert.jsx";
+import "../style.css/auth.css";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -25,13 +25,13 @@ const SignIn = () => {
       }
       console.log("phone number ", phoneNumber.slice(3, 13));
       const mobile = phoneNumber.slice(3, 13);
-      const dialCode = phoneNumber.slice(0, 3)
+      const dialCode = phoneNumber.slice(0, 3);
       const userResp = await loginUser(dialCode, mobile);
       console.log("user login from Service File", userResp);
       navigate("/otp-verify", {
         state: {
           mobile,
-          dialCode
+          dialCode,
         },
       });
     } catch (error) {
@@ -77,7 +77,9 @@ const SignIn = () => {
                   <div className="text-3xl font-bold font-['Gilroy-ExtraBold'] text-[#333333]">
                     Login
                   </div>
-                  <div className="text-2xl text-[#707070]">Login into your account</div>
+                  <div className="text-2xl text-[#707070]">
+                    Login into your account
+                  </div>
                 </div>
               </header>
 
@@ -97,10 +99,7 @@ const SignIn = () => {
                   />
                 </div>
 
-                <div className="mt-10">
-
-                </div>
-
+                <div className="mt-10"></div>
               </section>
 
               <footer class="p-4">
@@ -113,7 +112,9 @@ const SignIn = () => {
                       handleChange={() => setChecked((prevState) => !prevState)}
                     />
                     By creating an account, I agree to our{" "}
-                    <span className="underline cursor-pointer">Terms of use</span>{" "}
+                    <span className="underline cursor-pointer">
+                      Terms of use
+                    </span>{" "}
                     and{" "}
                     <span className="underline cursor-pointer">
                       Privacy Policy{" "}
@@ -129,7 +130,7 @@ const SignIn = () => {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 };

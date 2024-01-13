@@ -39,9 +39,9 @@
 .cardshadow{
   box-shadow: 0px 0px 9px 0px #a49d9d;
 }
-input[type=number]::-webkit-inner-spin-button {    
+/* input[type=number]::-webkit-inner-spin-button {    
   opacity: 1;
-}
+} */
 
 .checkboxparentdiv { 
   display: block; 
@@ -53,10 +53,10 @@ input[type=number]::-webkit-inner-spin-button {
 } 
 
 /* Hide the default checkbox */ 
-input[type=checkbox] { 
+/* input[type=checkbox] { 
   visibility: hidden; 
   display: none;
-} 
+}  */
 
 /* Creating a custom checkbox 
 based on demand */ 

@@ -7,6 +7,7 @@ import OTPInput from "react-otp-input";
 import showErrorMessage from "../../utils/ErrorAlert";
 import showSuccessMessage from "../../utils/SweetAlert";
 import { otpVerifyService, resendOtpService } from "../../Services/user";
+import "../style.css/auth.css";
 
 const SmallOtpVerify = () => {
   const [checked, setChecked] = React.useState(false);
@@ -72,46 +73,45 @@ const SmallOtpVerify = () => {
             <p className="text-[24px] font-semibold"> Sign In now</p>
           </div>
           <section className="">
-                <p className="mt-5 mb-5 leading-8 text-gray-600 font-bold text-xl">
-                  Enter OTP
-                </p>
-                <div className=" p-2 max-w-sm mx-auto">
-                  <OTPInput
-                    inputStyle={{
-                      width: "2.3rem",
-                      background: "rgba(90,179,68,0.24)",
-                      height: "2rem",
-                      margin: "5px 5px",
-                      fontSize: "1rem",
-                      borderRadius: 4,
-                      border: "2px solid #5AB344",
-                    }}
-                    focusedBorderColor="#5ab344"
-                    value={otp}
-                    onChange={setOtp}
-                    numInputs={6}
-                    renderSeparator={<span>-</span>}
-                    renderInput={(props) => <input {...props} />}
-                  />
-                </div>
-                <div
-                  id="OTPSentToRESENDCODE2"
-                  className="mx-auto mt-2 text-center text-[#707070]  font-['Gilroy-Bold']"
-                >
-                  OTP sent to{" "}
-                  <span>
-                    +91 {location.state.mobile}
-                    <br />
-                  </span>
-                  <span
-                    onClick={handleResend}
-                    className="cursor-pointer  underline text-[#5ab344]"
-                  >
-                    RESEND CODE
-                  </span>
-                </div>
-                
-              </section>
+            <p className="mt-5 mb-5 leading-8 text-gray-600 font-bold text-xl">
+              Enter OTP
+            </p>
+            <div className=" p-2 max-w-sm mx-auto">
+              <OTPInput
+                inputStyle={{
+                  width: "2.3rem",
+                  background: "rgba(90,179,68,0.24)",
+                  height: "2rem",
+                  margin: "5px 5px",
+                  fontSize: "1rem",
+                  borderRadius: 4,
+                  border: "2px solid #5AB344",
+                }}
+                focusedBorderColor="#5ab344"
+                value={otp}
+                onChange={setOtp}
+                numInputs={6}
+                renderSeparator={<span>-</span>}
+                renderInput={(props) => <input {...props} />}
+              />
+            </div>
+            <div
+              id="OTPSentToRESENDCODE2"
+              className="mx-auto mt-2 text-center text-[#707070]  font-['Gilroy-Bold']"
+            >
+              OTP sent to{" "}
+              <span>
+                +91 {location.state.mobile}
+                <br />
+              </span>
+              <span
+                onClick={handleResend}
+                className="cursor-pointer  underline text-[#5ab344]"
+              >
+                RESEND CODE
+              </span>
+            </div>
+          </section>
           <footer class="p-4">
             <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
               <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
