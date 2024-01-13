@@ -145,7 +145,7 @@ const Nav = () => {
                     className="w-10 cursor-pointer relative"
                   />
                   <div className="absolute top-[30px] ml-[30px] bg-black w-[20px] h-[20px] flex justify-center items-center rounded-full text-white font-extrabold">
-                  {cartQuantity ? cartQuantity : 0}
+                  {cartQuantity ? cartQuantity : localStorage.getItem("totalScrapCount")?localStorage.getItem("totalScrapCount"):0}
                   </div>
                 </div>
               </Link>
@@ -199,12 +199,12 @@ const Nav = () => {
                       >
                         Profile
                       </Link>
-                      <Link
+                      <div
                         onClick={handleLogout}
                         className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100"
                       >
                         Logout
-                      </Link>
+                      </div>
                     </ul>
                   </div>
                 )}

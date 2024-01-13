@@ -125,6 +125,7 @@ const PriceCardComponent = () => {
       );
       const scrapAll = JSON.parse(response.data.data);
       navigate(`/pricing?items=${scrapAll.totalScrapCount}`);
+      localStorage.setItem("totalScrapCount",scrapAll.totalScrapCount);
       setCartItems(scrapAll?.cartLists?.items);
       console.log("scrapAll", scrapAll?.cartLists?.items);
     } catch (error) {
