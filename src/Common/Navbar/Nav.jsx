@@ -63,6 +63,8 @@ const Nav = () => {
   };
 
   const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const cartQuantity = queryParams.get("items");
 
   const isActive = (path) => {
     // Check if the current path matches the link path
@@ -73,7 +75,7 @@ const Nav = () => {
   //     navigate("/TrackOrder", { replace: true })
   // }
 
-  const readCartQuantity = useSelector((state) => state.totalQuantity);
+  // const readCartQuantity = useSelector((state) => state.totalQuantity);
 
   return (
     <nav>
@@ -143,7 +145,7 @@ const Nav = () => {
                     className="w-10 cursor-pointer relative"
                   />
                   <div className="absolute top-[30px] ml-[30px] bg-black w-[20px] h-[20px] flex justify-center items-center rounded-full text-white font-extrabold">
-                    {readCartQuantity}
+                  {cartQuantity ? cartQuantity : 0}
                   </div>
                 </div>
               </Link>

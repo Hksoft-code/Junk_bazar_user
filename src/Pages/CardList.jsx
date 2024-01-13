@@ -58,14 +58,14 @@ const CartList = () => {
   const [itemsChecked, setItemsChecked] = useState([]);
   const handleQuantityCheckBox = (productId) => {
     const isPresent = itemsChecked.some((items) => {
-      return items == productId;
+      return items === productId;
     });
     console.log("isPresent", isPresent);
     if (!isPresent) {
       setItemsChecked([...itemsChecked, productId]);
     } else {
       const result = itemsChecked?.filter((items) => {
-        return items != productId;
+        return items !== productId;
       });
       setItemsChecked(result);
     }
@@ -139,7 +139,7 @@ const CartList = () => {
         // scrapId: scrapIdArray.join(", "),
         scrapId:itemsChecked.join(", ")
       };
-      navigate("/request_pickup", {
+      navigate("/checkoutAddress", {
         state: {
           passData,
         },

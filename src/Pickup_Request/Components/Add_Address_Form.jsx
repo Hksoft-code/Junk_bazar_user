@@ -90,7 +90,7 @@ const Add_Address_form = () => {
     <>
       <div class="">
         <div class="w-full max-w-3xl mx-auto p-2">
-          <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border dark:border-gray-700">
+          <div class="bg-white:bg-gray-800 p-8 rounded-lg shadow-md border white:border-gray-700">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
               Add New Address
             </h1>
