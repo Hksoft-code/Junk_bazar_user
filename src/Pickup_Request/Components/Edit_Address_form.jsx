@@ -12,6 +12,9 @@ const Edit_Address_form = (props) => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [addressId, setAddressId] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [selectedDialCode, setDialCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [countriesAndStates, setcountriesAndStates] = useState([]);
 
   console.log("datat passess", props.data);
@@ -69,17 +72,22 @@ const Edit_Address_form = (props) => {
     setAddress(setData.address);
     setPincode(setData.pincode);
     setAddressId(setData.addressId);
+
+    setDialCode(setData.dialCode);
   }, []);
 
   const handleAddAddress = async () => {
     try {
       const addressRepo = await editAddrress(
+        fullName,
         selectedCity,
         selectedCountry,
         selectedState,
         address,
         pincode,
-        addressId
+        addressId,
+        phoneNumber,
+        selectedDialCode
       );
       console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
@@ -110,6 +118,22 @@ const Edit_Address_form = (props) => {
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
               Add New Address
             </h1>
+            <div className="col-span-6 sm:col-span-3">
+              <div>
+                <label className="block py-3 text-black">Enter Full Name</label>
+                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                  <input
+                    required
+                    defaultValue={setData.fullName}
+                    onChange={(e) => {
+                      setFullName(e.target.value);
+                    }}
+                    placeholder="Enter Full Name"
+                    className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                  />
+                </div>
+              </div>
+            </div>
             <div class="mt-4">
               <div className="col-span-6 sm:col-span-3">
                 <div>
@@ -178,7 +202,41 @@ const Edit_Address_form = (props) => {
                   </div>
                 </div>
               </div>
-
+              <div className="col-span-6 sm:col-span-3">
+                <div className="grid  grid-cols-3 gap-6">
+                  <div>
+                    <label className="block py-3 text-black">DialCode</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        defaultValue={selectedDialCode}
+                        placeholder="Select DialCode"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block py-3 text-black">
+                      Enter Phone Number
+                    </label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxlength="10"
+                        required
+                        defaultValue={setData.phoneNumber}
+                        onChange={(e) => {
+                          setPhoneNumber(e.target.value);
+                        }}
+                        placeholder="Enter Phone Number"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="mt-4">
                 <div className="col-span-6 sm:col-span-3">
                   <div className="grid  grid-cols-2 gap-6">

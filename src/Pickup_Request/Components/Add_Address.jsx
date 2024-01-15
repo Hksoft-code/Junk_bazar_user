@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import addressDot from "../../assets/PNG/addressDot.png";
-import Add_Address_form from "./Add_Address_Form";
-import Confirm from "./PopUp/popup";
 import "../styles/pickupRequest.css";
-import { getAllAddress } from "../../Services/pickupRequest";
-import showErrorMessage from "../../utils/ErrorAlert";
+import { getAllAddress, raisedPickup } from "../../Services/pickupRequest";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
+
 import Edit_Address_form from "./Edit_Address_form";
+import ChangeAddress from "./ChangeAdddress";
+import Swal from "sweetalert2";
 
 const Add_Address = () => {
   const [formOpen, setFormOpen] = useState(false);
@@ -30,18 +29,13 @@ const Add_Address = () => {
     console.log("selected Adddress ", selectAddress);
   }
 
-  const handlePickup = () => {
+  const ChangeAddress = () => {
     const payLoad = {
       addToCartId: passData.addToCartId,
       scrapId: passData.scrapId,
-      stateCode: selectAddress.stateCode,
-      countryCode: selectAddress.countryCode,
-      pincode: selectAddress.pincode,
-      address: selectAddress.address,
-      city: selectAddress.city,
     };
 
-    navigate("/request_pickup", {
+    navigate("/changeAddress", {
       state: {
         payLoad,
       },
@@ -59,6 +53,7 @@ const Add_Address = () => {
       console.log("user login from Service File", allAddress);
       setAddress(allAddress.address);
       setSelectAddress(allAddress.address[0]);
+      console.log("selected Address", selectAddress);
     } catch (error) {
       console.error("error", error);
       // const errorMessage = !error.response?.data.error.message
@@ -68,17 +63,51 @@ const Add_Address = () => {
     }
   };
 
-  const handleSkip = () => {
-    const payLoad = {
-      addToCartId: passData.addToCartId,
-      scrapId: passData.scrapId,
-    };
+  const handlePickup = async () => {
+    try {
+      const resp = await raisedPickup(
+        selectAddress.fullName,
+        passData.scrapId,
+        selectAddress.stateCode,
+        selectAddress.countryCode,
+        selectAddress.pincode,
+        selectAddress.dialCode,
+        selectAddress.phoneNumber,
+        selectAddress.address,
+        selectAddress.city,
+        passData.addToCartId
+      );
 
-    navigate("/request_pickup", {
-      state: {
-        payLoad,
-      },
-    });
+      if (resp.statusCode === 200) {
+        navigate("/Success-page", {
+          replace: true,
+        });
+      }
+    } catch (error) {
+      if (error?.response) {
+        const data = error?.response?.data;
+        if (data?.error?.statusCode === 400) {
+          const mess = data.error;
+          Swal.fire({
+            icon: "error",
+            position: "center",
+            showConfirmButton: false,
+            timer: 2500,
+            title: mess._message,
+          });
+        }
+
+        console.log("Status", error.response.status);
+        console.log("Headers", error.response.headers);
+      } else if (error.request) {
+        // Client made a request but response is not received
+        console.log("<<<<<<<Response Not Received>>>>>>>>");
+        console.log(error.request);
+      } else {
+        // Other case
+        console.log("Error", error.message);
+      }
+    }
   };
 
   return (
@@ -86,18 +115,19 @@ const Add_Address = () => {
       <div className="">
         <div class="max-w-2xl mx-auto mt-24">
           <div
-            onClick={handleSkip}
+            onClick={ChangeAddress}
             className="cursor-pointer w-full text-right"
           >
-            Skip
+            Change
           </div>
+
           <h3 class="flex items-center w-full mb-5">
             <span class="flex-grow bg-gray-200 rounded h-1"></span>
             <span class="mx-3 text-lg font-medium"></span>
             <span class="flex-grow bg-gray-200 rounded h-1"></span>
           </h3>
           {selectAddress ? (
-            <div class="flex p-3 mb-5 gap-3 bg-white shadow-xl  rounded-xl overflow-hidden items-start justify-start">
+            <div class="flex p-3 mb-5 gap-3 bg-white shadow-xl border-l-8 border-[#3CB043]  rounded-xl overflow-hidden items-start justify-start">
               <div class="relative w-10 h-10 flex-shrink-0">
                 <input
                   checked={defaultAddress}
@@ -108,11 +138,14 @@ const Add_Address = () => {
               </div>
 
               <div class=" gap-2 py-2">
-                {/* <p class="text-xl font-bold">Mercy Johnson</p> */}
+                <p class="text-xl font-bold">{selectAddress?.fullName}</p>
 
                 <p class="text-gray-500">
                   {selectAddress?.address} {selectAddress?.city}{" "}
                   {selectAddress?.pincode}
+                </p>
+                <p class="text-gray-500">
+                  {selectAddress?.dialCode} {selectAddress?.phoneNumber}
                 </p>
               </div>
             </div>
@@ -137,69 +170,10 @@ const Add_Address = () => {
             <Modal open={open} onClose={onCloseModal} center>
               <Edit_Address_form data={selectAddress} />
             </Modal>
-            <div class="cursor-pointer shadow-md text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
+            {/* <div class="cursor-pointer shadow-md text-center inline-block px-12 border border-[#585858] py-3 text-sm font-medium text-[#585858]  focus:outline-none focus:ring rounded-3xl">
               Add Delivery Instruction
-            </div>
+            </div> */}
           </div>
-          {addres?.map((item, i) => (
-            <div class="flex p-3 gap-3 mt-5 bg-white shadow-xl  rounded-xl overflow-hidden items-center justify-start">
-              <div class="relative w-10 h-10 flex-shrink-0 ">
-                <input
-                  checked={i === selected}
-                  onChange={() => onChange(i)}
-                  type="checkbox"
-                  class="checkbox-round"
-                />
-              </div>
-
-              <div class="flex flex-col gap-2 py-2 ">
-                {/* <p class="text-xl font-bold">Mercy Johnson</p> */}
-
-                <p class="text-gray-500">
-                  {item.address} {item.city} {item.pincode}
-                </p>
-              </div>
-            </div>
-          ))}
-          <details class="p-6 group" open>
-            <summary class="flex items-center justify-between cursor-pointer">
-              <h5 class="text-lg font-medium text-gray-900">Add New Address</h5>
-
-              <span class="relative flex-shrink-0 ml-1.5 w-5 h-5">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="absolute inset-0 w-5 h-5 opacity-100 group-open:opacity-0"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="absolute inset-0 w-5 h-5 opacity-0 group-open:opacity-100"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </span>
-            </summary>
-
-            <Add_Address_form />
-          </details>
         </div>
       </div>
     </>

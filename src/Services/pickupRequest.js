@@ -15,13 +15,16 @@ const getAllAddress = async () => {
   }
 };
 
-const addAddrress = async (city, countryCode, stateCode, address, pincode) => {
+const addAddrress = async (city, countryCode, stateCode, address, pincode, fullName,dialCode,phoneNumber) => {
   const payload = {
     city,
     countryCode,
     stateCode,
     address,
     pincode,
+    fullName,
+    dialCode,
+    phoneNumber
   };
 
   try {
@@ -38,14 +41,18 @@ const addAddrress = async (city, countryCode, stateCode, address, pincode) => {
   }
 };
 
-const editAddrress = async (city, countryCode, stateCode, address, pincode,addressId) => {
+const editAddrress = async (fullName,city,countryCode,stateCode,address,pincode,addressId,phoneNumber,dialCode) => {
+
   const payload = {
+    fullName,
     city,
     countryCode,
     stateCode,
     address,
     pincode,
-    addressId
+    addressId,
+    phoneNumber,
+    dialCode
   };
 
   try {
@@ -78,7 +85,7 @@ const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dial
   try {
     const response = await axiosInstance.post("/raisePickUp", payload);
 
-    const pickupRequest = JSON.parse(response.data.data);
+    const pickupRequest = response.data;
 
     console.log("Rise Pickup Request", pickupRequest);
     return pickupRequest;

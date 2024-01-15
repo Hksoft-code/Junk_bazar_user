@@ -12,6 +12,9 @@ const Add_Address_form = () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [countriesAndStates, setcountriesAndStates] = useState([]);
+  const [fullName, setFullName] = useState("");
+  const [selectedDialCode, setDialCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const fetchCountry = async () => {
     try {
@@ -68,7 +71,10 @@ const Add_Address_form = () => {
         selectedCountry,
         selectedState,
         address,
-        pincode
+        pincode,
+        fullName,
+        selectedDialCode,
+        phoneNumber
       );
       console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
@@ -94,6 +100,21 @@ const Add_Address_form = () => {
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
               Add New Address
             </h1>
+            <div className="col-span-6 sm:col-span-3">
+              <div>
+                <label className="block py-3 text-black">Enter Full Name</label>
+                <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                  <input
+                    required
+                    onChange={(e) => {
+                      setFullName(e.target.value);
+                    }}
+                    placeholder="Enter Full Name"
+                    className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                  />
+                </div>
+              </div>
+            </div>
             <div class="mt-4">
               <div className="col-span-6 sm:col-span-3">
                 <div>
@@ -161,7 +182,40 @@ const Add_Address_form = () => {
                   </div>
                 </div>
               </div>
-
+              <div className="col-span-6 sm:col-span-3">
+                <div className="grid  grid-cols-3 gap-6">
+                  <div>
+                    <label className="block py-3 text-black">DialCode</label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        required
+                        defaultValue={selectedDialCode}
+                        placeholder="Select DialCode"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-span-2">
+                    <label className="block py-3 text-black">
+                      Enter Phone Number
+                    </label>
+                    <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
+                      <input
+                        type="number"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxlength="10"
+                        required
+                        onChange={(e) => {
+                          setPhoneNumber(e.target.value);
+                        }}
+                        placeholder="Enter Phone Number"
+                        className="w-full p-1 ml-3 text-black outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="mt-4">
                 <div className="col-span-6 sm:col-span-3">
                   <div className="grid  grid-cols-2 gap-6">
