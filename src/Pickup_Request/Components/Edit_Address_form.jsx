@@ -93,14 +93,14 @@ const Edit_Address_form = (props) => {
       showSuccessMessage("Add Address Successfully", "success");
 
       const addressR = addressRepo.data;
-      if (addressR.statusCode === 200) {
-        setSelectedCountry(" ");
-        setSelectedState(" ");
-        setSelectedCity(" ");
-        setAddress(" ");
-        setPincode(" ");
-        setcountriesAndStates(" ");
-      }
+      setSelectedCountry(" ");
+      setSelectedState(" ");
+      setSelectedCity(" ");
+      setAddress(" ");
+      setPincode(" ");
+      setcountriesAndStates(" ");
+      window.location.reload(true)
+     
     } catch (error) {
       console.error("error", error);
       const errorMessage = !error.response.data.error.message

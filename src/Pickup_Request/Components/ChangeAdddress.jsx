@@ -23,6 +23,7 @@ const ChangeAddress = () => {
   useEffect(() => {
     getAddress();
     console.log("set Address");
+   
   }, []);
 
   const getAddress = async () => {
@@ -59,6 +60,8 @@ const ChangeAddress = () => {
         selectAddress.city,
         passData.addToCartId
       );
+
+      console.log("pickup request",resp)
 
       if (resp.statusCode === 200) {
         navigate("/Success-page", {
