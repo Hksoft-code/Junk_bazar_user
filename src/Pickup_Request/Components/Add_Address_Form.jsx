@@ -15,6 +15,8 @@ const Add_Address_form = () => {
   const [fullName, setFullName] = useState("");
   const [selectedDialCode, setDialCode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [seed, setSeed] = useState(1);
+
 
   const fetchCountry = async () => {
     try {
@@ -38,6 +40,10 @@ const Add_Address_form = () => {
     console.log("selectedCountry", selectedCountry);
     setSelectedCountry(selectedCountry);
     setSelectedState("");
+    for (let i = 0; countriesAndStates.length > i; i++) {
+      console.log("dial Code", countriesAndStates[0].phone_code);
+      setDialCode(`${countriesAndStates[0].phone_code}`);
+    }
   };
   // Get the list of states based on the selected country
   const states = selectedCountry
@@ -79,22 +85,23 @@ const Add_Address_form = () => {
       console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
       const addresData = addressRepo.dat;
-      if (addresData.statusCode === 200) {
-        setSelectedCountry("");
-        setSelectedState("");
-      }
+      setSeed(Math.random());
+      setSelectedCountry("");
+      setSelectedState("");
+      setDialCode("")
+      window.location.reload(true)
     } catch (error) {
       console.error("error", error);
-      // const errorMessage = !error.response.data.error.message
-      //   ? error.response.data.error?._message
-      //   : error.response.data.error.message;
-      // showErrorMessage(error.error.message, "error");
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+      showErrorMessage(errorMessage, "error");
     }
   };
 
   return (
     <>
-      <div class="">
+      <div class="" key={seed}>
         <div class="w-full max-w-3xl mx-auto p-2">
           <div class="bg-white:bg-gray-800 p-8 rounded-lg shadow-md border white:border-gray-700">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
