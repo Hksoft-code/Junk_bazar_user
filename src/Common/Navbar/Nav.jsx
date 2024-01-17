@@ -42,6 +42,21 @@ const Nav = () => {
       window.removeEventListener("scroll", () => {});
     };
   }, []);
+  let cardquantityValue = "";
+  const[cardQuantityValue,setCardQuantityValue]=useState("");
+  useEffect(() => {
+    console.log("hello nav bar",localStorage.getItem("totalScrapCount"))
+    if (localStorage.getItem("totalScrapCount")) {
+      console.log("if")
+      setCardQuantityValue(localStorage.getItem("totalScrapCount").toString());
+    } else {
+      console.log("else block")
+      cardquantityValue = "";
+      setCardQuantityValue("")
+
+    }
+  }, []);
+console.log("cardquantityValue",cardquantityValue)
   useParams();
 
   const handleLogout = () => {
@@ -63,8 +78,10 @@ const Nav = () => {
   };
 
   const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const cartQuantity = queryParams.get("items");
+  const queryParams = new URLSearchParams(location.search);
+  const cartQuantity = queryParams.get("items");
+  console.log("cartQuantity", cartQuantity);
+  console.log("localStorage.getItem", localStorage.getItem("totalScrapCount"));
 
   const isActive = (path) => {
     // Check if the current path matches the link path
@@ -145,7 +162,11 @@ const Nav = () => {
                     className="w-10 cursor-pointer relative"
                   />
                   <div className="absolute top-[30px] ml-[30px] bg-black w-[20px] h-[20px] flex justify-center items-center rounded-full text-white font-extrabold">
-                  {cartQuantity ? cartQuantity : localStorage.getItem("totalScrapCount")?localStorage.getItem("totalScrapCount"):0}
+                    {cartQuantity
+                      ? cartQuantity
+                      : cardQuantityValue
+                      ? cardQuantityValue
+                      : 0}
                   </div>
                 </div>
               </Link>

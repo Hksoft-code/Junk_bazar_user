@@ -129,7 +129,7 @@ const CartList = () => {
 
   const handlePickeupRequest = async (cart) => {
     console.log("itemsChecked",itemsChecked)
-    if (itemsChecked.length > 0) {
+    // if (itemsChecked.length > 0) {
       const cartItems = cart.items;
       console.log("card dat ", cartItems);
 
@@ -140,23 +140,23 @@ const CartList = () => {
 
       const passData = {
         addToCartId: cart.addToCartId,
-        // scrapId: scrapIdArray.join(", "),
-        scrapId:itemsChecked.join(", ")
+        scrapId: scrapIdArray.join(", "),
+        // scrapId:itemsChecked.join(", ")
       };
       navigate("/checkoutAddress", {
         state: {
           passData,
         },
       });
-    } else {
-      Swal.fire({
-        icon: "error",
-        position: "center",
-        showConfirmButton: false,
-        timer: 2500,
-        text: "Please select atleast one item",
-      });
-    }
+    // } else {
+    //   Swal.fire({
+    //     icon: "error",
+    //     position: "center",
+    //     showConfirmButton: false,
+    //     timer: 2500,
+    //     text: "Please select atleast one item",
+    //   });
+    // }
   };
 
   const triggerAddQuantity = async (scrapId, quantity) => {
@@ -243,7 +243,7 @@ const CartList = () => {
                         key={index}
                         class="flex items-center gap-4 sm:gap-4 space-y-3 py-3 sm:py-3  px-1 sm:px-6 text-left flex-row border-b-[1px] "
                       >
-                        <div>
+                        {/* <div>
                           <Input
                             type="checkbox"
                             classname="w-[17px] h-[17px] bg-[#5AB344] mr-1 translate-y-1 cursor-pointer mobileotpverification"
@@ -254,7 +254,7 @@ const CartList = () => {
                               handleQuantityCheckBox(cart.scrapId);
                             }}
                           />
-                        </div>
+                        </div> */}
                         <div class="shrink-0 flex justify-center items-center pb-3">
                           <img
                             class="h-28 w-28 sm:h-36 sm:w-32 max-w-full rounded-lg object-cover"
@@ -279,7 +279,7 @@ const CartList = () => {
                                   ₹ {cart?.scrapInfo.price}/KG
                                 </p>
                               </div>
-                              {/* <div
+                              <div
                                 className={`bg-red-300 justify-center items-center flex sm:hidden  cursor-pointer px-7 py-5 min-xl:py-5 min-xl:px-10 w-fit ${
                                   cart.quantity < 2 && width < 640
                                     ? "block"
@@ -288,8 +288,8 @@ const CartList = () => {
                                 onClick={(e) => removeFromCard(cart.scrapId)}
                               >
                                 {<DeleteIcon />}
-                              </div> */}
-                               <>
+                              </div>
+                               {/* <>
                                   {showDeleteItems.map((data) => {
                                     return (
                                       <div
@@ -308,7 +308,7 @@ const CartList = () => {
                                       </div>
                                     );
                                   })}
-                                </>
+                                </> */}
                               {/* <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{order?.addressInfo.address}</p> */}
                             </div>
 
@@ -369,7 +369,7 @@ const CartList = () => {
                                     </button>
                                   </div> */}
                                 </div>
-                                {/* <div
+                                <div
                                   className={`hidden bg-red-300 justify-center items-center sm:block cursor-pointer p-10 ${
                                     cart.quantity < 2 ? "block" : "hidden"
                                   }`}
@@ -378,8 +378,8 @@ const CartList = () => {
                                   <span className="flex justify-center items-center">
                                     {<DeleteIcon />}
                                   </span>
-                                </div> */}
-                                <>
+                                </div>
+                                {/* <>
                                   {showDeleteItems.map((data) => {
                                     return (
                                       <div
@@ -398,7 +398,7 @@ const CartList = () => {
                                       </div>
                                     );
                                   })}
-                                </>
+                                </> */}
                               </div>
 
                               {/* <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
