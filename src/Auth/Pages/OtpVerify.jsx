@@ -113,6 +113,7 @@ const OtpVerify = () => {
                       borderRadius: 4,
                       border: "2px solid #5AB344",
                     }}
+                    inputType="number"
                     focusedBorderColor="#5ab344"
                     value={otp}
                     onChange={setOtp}

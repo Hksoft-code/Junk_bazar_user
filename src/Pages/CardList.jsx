@@ -80,9 +80,9 @@ const CartList = () => {
       console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
       setTotalPages("1");
-      if(localStorage.getItem("totalScrapCount")){
+      if (localStorage.getItem("totalScrapCount")) {
         localStorage.removeItem("totalScrapCount");
-        localStorage.setItem("totalScrapCount",scrapAll.totalScrapCount);
+        localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
       }
       navigate(`/cart?items=${scrapAll?.totalScrapCount}`);
 
@@ -128,26 +128,27 @@ const CartList = () => {
   };
 
   const handlePickeupRequest = async (cart) => {
-    console.log("itemsChecked",itemsChecked)
+    console.log("itemsChecked", itemsChecked);
     // if (itemsChecked.length > 0) {
-      const cartItems = cart.items;
-      console.log("card dat ", cartItems);
+    const cartItems = cart.items;
+    console.log("card dat ", cartItems);
 
-      const scrapIdArray = [];
-      for (let cartItem of cartItems) {
-        scrapIdArray.push(cartItem.scrapId);
-      }
+    const scrapIdArray = [];
+    for (let cartItem of cartItems) {
+      scrapIdArray.push(cartItem.scrapId);
+    }
 
-      const passData = {
-        addToCartId: cart.addToCartId,
-        scrapId: scrapIdArray.join(", "),
-        // scrapId:itemsChecked.join(", ")
-      };
-      navigate("/checkoutAddress", {
-        state: {
-          passData,
-        },
-      });
+    const passData = {
+      addToCartId: cart.addToCartId,
+      scrapList: scrapList,
+      scrapId: scrapIdArray.join(", "),
+      // scrapId:itemsChecked.join(", ")
+    };
+    navigate("/checkoutAddress", {
+      state: {
+        passData,
+      },
+    });
     // } else {
     //   Swal.fire({
     //     icon: "error",
@@ -289,7 +290,7 @@ const CartList = () => {
                               >
                                 {<DeleteIcon />}
                               </div>
-                               {/* <>
+                              {/* <>
                                   {showDeleteItems.map((data) => {
                                     return (
                                       <div

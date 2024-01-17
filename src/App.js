@@ -28,6 +28,7 @@ import Protected from "./Components/protected/protectedForComponent.jsx";
 import CheckoutAdddress from "./Pickup_Request/Multiple_Address/CheckoutAdddress.jsx";
 import ChangeAddress from "./Pickup_Request/Components/ChangeAdddress.jsx";
 import ChangeAdddressPage from "./Pickup_Request/Multiple_Address/ChangeAddressPage.jsx";
+import Summary from "./Module/summary/Summary.jsx";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/checkoutAddress" element={<Protected Component={CheckoutAdddress} />} />
         <Route path="/unauthorized" element={<UnauthorizedAccessPage />} />
         <Route path="/changeAddress" element={<ChangeAdddressPage />} />
+        <Route path="/summaryOrder" element={<Summary />}/>
       </Routes>
     </div>
   );
