@@ -144,6 +144,7 @@ const RequestPickup = () => {
         localStorage.removeItem("totalScrapCount");
         localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
       }
+      navigate(`/Success-page?items=${scrapAll?.totalScrapCount}`);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

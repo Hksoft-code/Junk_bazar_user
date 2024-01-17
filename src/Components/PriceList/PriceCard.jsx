@@ -47,14 +47,16 @@ const PriceCardComponent = () => {
       console.error("Response not received:", error.request);
     else console.error("Other error:", error.message);
   };
-  async function fetchData(page) {
+  async function fetchData(page, name) {
     try {
-      setLoading(true);
-
+      if(name==""){
+        setLoading(true);
+      }
       const response = await axiosInstance.get("/getScrap", {
         params: {
           page: page - 1,
           limit: itemsPerPage,
+          scrapName: name,
         },
       });
 
@@ -85,7 +87,7 @@ const PriceCardComponent = () => {
     try {
       const AddScrapPayLoad = {
         scrapId,
-        addScrapQuantity:quantities[scrapId]
+        addScrapQuantity: quantities[scrapId],
       };
 
       const token = localStorage.getItem("token");
@@ -125,7 +127,7 @@ const PriceCardComponent = () => {
       );
       const scrapAll = JSON.parse(response.data.data);
       navigate(`/pricing?items=${scrapAll.totalScrapCount}`);
-      localStorage.setItem("totalScrapCount",scrapAll.totalScrapCount);
+      localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
       setCartItems(scrapAll?.cartLists?.items);
       console.log("scrapAll", scrapAll?.cartLists?.items);
     } catch (error) {
@@ -133,7 +135,7 @@ const PriceCardComponent = () => {
     }
   };
   useEffect(() => {
-    fetchData(currentPage);
+    fetchData(currentPage, "");
     fetchDataForCartList(0);
   }, []);
   console.log("cartItems", cartItems);
@@ -226,28 +228,47 @@ const PriceCardComponent = () => {
       </div>
     ));
   };
+  const filetrOrderBySearch = async (event) => {
+    console.log("serach event", event.target.value);
+    var scrapName = event.target.value;
+    await fetchData(currentPage, scrapName);
+  };
 
   return (
-    
-      <div className="w-full p-2 sm:p-5 md:p-1 flex flex-col items-center ">
-        {loading ? (
-          <Loader />
-        ) : (
-          <div className="w-[97%] sm:w-[95%] lg:w-[92%]">
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-8 md:gap-10">
+    <div className="w-full p-2 sm:p-5 md:p-1 flex flex-col items-center ">
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="w-[97%] sm:w-[95%] lg:w-[92%] flex flex-col">
+          <div className="flex flex-col sm:flex-row  justify-center items-center mt-0 sm:mt-14 mb-8 sm:mb-0">
+            <div class="text-center">
+              <h1 class="font-bold text-[25px] sm:text-4xl mb-4">Rates Of JunkBazar Scraps</h1>
+            </div>
+          </div>
+          <div className="flex justify-end mb-10">
+          <div className="flex items-center h-12 p-2 border  w-[250px] min-md:w-[350px] rounded-md bg-[#80d7421c]">
+              <input
+                onChange={(e) => {
+                  filetrOrderBySearch(e);
+                }}
+                placeholder="Search"
+                className="p-1 ml-3 text-black w-full outline-none bg-transparent"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-8 md:gap-10">
             {renderData()}
           </div>
-          </div>
-        )}
-        <div className="mt-4">
-          <PaginationComponent
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
         </div>
+      )}
+      <div className="mt-4">
+        <PaginationComponent
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
       </div>
-    
+    </div>
   );
 };
 
