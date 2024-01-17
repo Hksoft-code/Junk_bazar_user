@@ -8,7 +8,8 @@ const ChangeAddress = () => {
   const [formOpen, setFormOpen] = useState(false);
   const [addres, setAddress] = useState();
   const [checked, setChecked] = useState(false);
-  const [selectAddress, setSelectAddress] = useState("");
+  const [selectAddress, setSelectAddress] = useState();
+  const [Address, settedAddres] = useState();
   const [defaultAddress, setDefault] = useState(true);
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
@@ -17,13 +18,12 @@ const ChangeAddress = () => {
   const onCloseModal = () => setOpen(false);
 
   const location = useLocation();
-  const passData = location.state ? location.state.payLoad : null;
-  console.log("phoneNumberObj", passData);
+  const passData = location.state ? location.state.payload : null;
+  console.log("change Address", passData);
 
   useEffect(() => {
     getAddress();
     console.log("set Address");
-   
   }, []);
 
   const getAddress = async () => {
@@ -40,59 +40,85 @@ const ChangeAddress = () => {
       // showErrorMessage(errorMessage, "error");
     }
   };
-  function onChange(i) {
+  const onChange = (i) => {
     setSelected((prev) => (i === prev ? null : i));
     setSelectAddress(addres[selected]);
     console.log("selected Adddress ", selectAddress);
-  }
+    settedAddres(selectAddress);
+  };
 
   const handlePickup = async () => {
-    try {
-      const resp = await raisedPickup(
-        selectAddress.fullName,
-        passData.scrapId,
-        selectAddress.stateCode,
-        selectAddress.countryCode,
-        selectAddress.pincode,
-        selectAddress.dialCode,
-        selectAddress.phoneNumber,
-        selectAddress.address,
-        selectAddress.city,
-        passData.addToCartId
-      );
+    console.log("pickup payload", Address);
+    console.log("scraplist", passData.scraplist);
+    const scraplist = passData.scraplist;
+    const payload = {
+      fullName: Address.fullName,
+      scrapId: passData.scrapId,
+      stateCode: Address.stateCode,
+      countryCode: Address.countryCode,
+      pincode: Address.pincode,
+      dialCode: Address.dialCode,
+      phoneNumber: Address.phoneNumber,
+      address: Address.address,
+      city: Address.city,
+      addToCartId: passData.addToCartId,
+      scraplist: scraplist,
+    };
 
-      console.log("pickup request",resp)
+    console.log("pass pickup data ", payload);
+    navigate("/summaryOrder", {
+      state: {
+        payload,
+      },
+    });
 
-      if (resp.statusCode === 200) {
-        navigate("/Success-page", {
-          replace: true,
-        });
-      }
-    } catch (error) {
-      if (error?.response) {
-        const data = error?.response?.data;
-        if (data?.error?.statusCode === 400) {
-          const mess = data.error;
-          Swal.fire({
-            icon: "error",
-            position: "center",
-            showConfirmButton: false,
-            timer: 2500,
-            title: mess._message,
-          });
-        }
+    // try {
+    //   navigate("/summaryOrder", {
+    //     replace: true,
+    //   });
+    //   const resp = await raisedPickup(
+    //     Address.fullName,
+    //     passData.scrapId,
+    //     Address.stateCode,
+    //     Address.countryCode,
+    //     Address.pincode,
+    //     Address.dialCode,
+    //     Address.phoneNumber,
+    //     Address.address,
+    //     Address.city,
+    //     passData.addToCartId
+    //   );
 
-        console.log("Status", error.response.status);
-        console.log("Headers", error.response.headers);
-      } else if (error.request) {
-        // Client made a request but response is not received
-        console.log("<<<<<<<Response Not Received>>>>>>>>");
-        console.log(error.request);
-      } else {
-        // Other case
-        console.log("Error", error.message);
-      }
-    }
+    //   console.log("pickup request", resp);
+
+    //   if (resp.statusCode === 200) {
+
+    //   }
+    // } catch (error) {
+    //   if (error?.response) {
+    //     const data = error?.response?.data;
+    //     if (data?.error?.statusCode === 400) {
+    //       const mess = data.error;
+    //       Swal.fire({
+    //         icon: "error",
+    //         position: "center",
+    //         showConfirmButton: false,
+    //         timer: 2500,
+    //         title: mess._message,
+    //       });
+    //     }
+
+    //     console.log("Status", error.response.status);
+    //     console.log("Headers", error.response.headers);
+    //   } else if (error.request) {
+    //     // Client made a request but response is not received
+    //     console.log("<<<<<<<Response Not Received>>>>>>>>");
+    //     console.log(error.request);
+    //   } else {
+    //     // Other case
+    //     console.log("Error", error.message);
+    //   }
+    // }
   };
 
   return (

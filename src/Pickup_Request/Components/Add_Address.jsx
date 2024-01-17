@@ -28,16 +28,17 @@ const Add_Address = () => {
     setSelectAddress(addres[selected]);
     console.log("selected Adddress ", selectAddress);
   }
+  console.log("card data list", passData);
 
   const ChangeAddress = () => {
-    const payLoad = {
-      addToCartId: passData.addToCartId,
+    const payload = {
       scrapId: passData.scrapId,
+      addToCartId: passData.addToCartId,
+      scraplist: passData.scrapList,
     };
-
     navigate("/changeAddress", {
       state: {
-        payLoad,
+        payload,
       },
     });
   };
@@ -64,50 +65,68 @@ const Add_Address = () => {
   };
 
   const handlePickup = async () => {
-    try {
-      const resp = await raisedPickup(
-        selectAddress.fullName,
-        passData.scrapId,
-        selectAddress.stateCode,
-        selectAddress.countryCode,
-        selectAddress.pincode,
-        selectAddress.dialCode,
-        selectAddress.phoneNumber,
-        selectAddress.address,
-        selectAddress.city,
-        passData.addToCartId
-      );
+    const payload = {
+      fullName: selectAddress.fullName,
+      scrapId: passData.scrapId,
+      stateCode: selectAddress.stateCode,
+      countryCode: selectAddress.countryCode,
+      pincode: selectAddress.pincode,
+      dialCode: selectAddress.dialCode,
+      phoneNumber: selectAddress.phoneNumber,
+      address: selectAddress.address,
+      city: selectAddress.city,
+      addToCartId: passData.addToCartId,
+      scraplist: passData.scrapList,
+    };
+    navigate("/summaryOrder", {
+      state: {
+        payload,
+      },
+    });
+    // try {
+    //   const resp = await raisedPickup(
+    //     selectAddress.fullName,
+    //     passData.scrapId,
+    //     selectAddress.stateCode,
+    //     selectAddress.countryCode,
+    //     selectAddress.pincode,
+    //     selectAddress.dialCode,
+    //     selectAddress.phoneNumber,
+    //     selectAddress.address,
+    //     selectAddress.city,
+    //     passData.addToCartId
+    //   );
 
-      if (resp.statusCode === 200) {
-        navigate("/Success-page", {
-          replace: true,
-        });
-      }
-    } catch (error) {
-      if (error?.response) {
-        const data = error?.response?.data;
-        if (data?.error?.statusCode === 400) {
-          const mess = data.error;
-          Swal.fire({
-            icon: "error",
-            position: "center",
-            showConfirmButton: false,
-            timer: 2500,
-            title: mess._message,
-          });
-        }
+    //   if (resp.statusCode === 200) {
+    //     navigate("/Success-page", {
+    //       replace: true,
+    //     });
+    //   }
+    // } catch (error) {
+    //   if (error?.response) {
+    //     const data = error?.response?.data;
+    //     if (data?.error?.statusCode === 400) {
+    //       const mess = data.error;
+    //       Swal.fire({
+    //         icon: "error",
+    //         position: "center",
+    //         showConfirmButton: false,
+    //         timer: 2500,
+    //         title: mess._message,
+    //       });
+    //     }
 
-        console.log("Status", error.response.status);
-        console.log("Headers", error.response.headers);
-      } else if (error.request) {
-        // Client made a request but response is not received
-        console.log("<<<<<<<Response Not Received>>>>>>>>");
-        console.log(error.request);
-      } else {
-        // Other case
-        console.log("Error", error.message);
-      }
-    }
+    //     console.log("Status", error.response.status);
+    //     console.log("Headers", error.response.headers);
+    //   } else if (error.request) {
+    //     // Client made a request but response is not received
+    //     console.log("<<<<<<<Response Not Received>>>>>>>>");
+    //     console.log(error.request);
+    //   } else {
+    //     // Other case
+    //     console.log("Error", error.message);
+    //   }
+    // }
   };
 
   return (
