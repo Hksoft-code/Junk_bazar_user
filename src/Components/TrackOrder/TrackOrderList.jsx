@@ -20,6 +20,12 @@ const TrackOrderList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const placeholderImage =
+    "https://play-lh.googleusercontent.com/93TI5hqzUF7_i61dah3PexL9DktIgsExTutymOXUkd7hdjlSx1P-3ZE0T-uZ2bnF5MXq";
+  const onImageError = (e) => {
+    e.target.src = placeholderImage;
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchData(currentPage);
@@ -80,10 +86,18 @@ const TrackOrderList = () => {
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
                   <div class="flow-root">
                     <ul class="-my-8">
-                      <p class="text-sm font-semibold text-slate-500">
-                        {" "}
-                        Order ID - {order?.orderId}
-                      </p>
+                      <div class="flex flex-col items-start justify-start gap-5 mt-6 md:flex-row">
+                        <p class="text-sm font-semibold text-slate-500">
+                          {" "}
+                          Order ID - {order?.orderId}
+                        </p>
+
+                        <div class="sm:order-1">
+                          <span className="font-bold text-[10px] max-er:text-[12px] md:text-[9px] bg-[#81D742] mb-5 rounded-lg text-black p-2">
+                            {OrdersRespEnum[order?.orderStatus]}
+                          </span>
+                        </div>
+                      </div>
 
                       {order.items.map((scrapInfo, index) => (
                         <li
@@ -92,9 +106,14 @@ const TrackOrderList = () => {
                         >
                           <div class="shrink-0">
                             <img
-                              class="h-24 w-24 max-w-full rounded-lg object-cover"
-                              src={scrapInfo?.scrapInfo.docUrl}
+                              class="h-24  w-24 max-w-full rounded-lg object-cover"
+                              src={
+                                scrapInfo?.scrapInfo.docUrl
+                                  ? scrapInfo?.scrapInfo.docUrl
+                                  : placeholderImage
+                              }
                               alt=""
+                              onError={onImageError}
                             />
                           </div>
 
@@ -114,12 +133,6 @@ const TrackOrderList = () => {
                                 <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
                                   ₹ {scrapInfo?.amount}
                                 </p>
-
-                                <div class="sm:order-1">
-                                  <span className="font-bold text-[10px] max-er:text-[12px] md:text-[9px] bg-[#81D742] mb-5 rounded-lg text-black p-2">
-                                    {OrdersRespEnum[order?.orderStatus]}
-                                  </span>
-                                </div>
                               </div>
                             </div>
                           </div>

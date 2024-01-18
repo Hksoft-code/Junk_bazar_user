@@ -25,6 +25,12 @@ const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showDeleteItems, setShowDeleteItems] = useState([]);
   const [width, setWidth] = useState(0);
+
+  const placeholderImage =
+    "https://play-lh.googleusercontent.com/93TI5hqzUF7_i61dah3PexL9DktIgsExTutymOXUkd7hdjlSx1P-3ZE0T-uZ2bnF5MXq";
+  const onImageError = (e) => {
+    e.target.src = placeholderImage;
+  };
   // const [addToCard, setAddToCard] = useState();
   // const [scrapPass, setScrapPass] = useState([]);
   const initialScrapState = {
@@ -259,8 +265,13 @@ const CartList = () => {
                         <div class="shrink-0 flex justify-center items-center pb-3">
                           <img
                             class="h-28 w-28 sm:h-36 sm:w-32 max-w-full rounded-lg object-cover"
-                            src={cart?.scrapInfo.docUrl}
+                            src={
+                              cart?.scrapInfo.docUrl
+                                ? cart?.scrapInfo.docUrl
+                                : placeholderImage
+                            }
                             alt=""
+                            onError={onImageError}
                           />
                         </div>
 
