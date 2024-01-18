@@ -296,45 +296,58 @@ const TrackOrderDetails = () => {
             />
           </div> */}
         </div>
-        <div class="py-3 justify-center sm:max-w-xl sm:mx-auto">
-          <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
-            <div class="px-12 py-5 text-center justify-center">
-              <h2 class="text-gray-800 text-3xl font-semibold">
-                Your opinion matters to us!
-              </h2>
-            </div>
-            <div class="bg-gray-200 w-full flex flex-col items-center">
-              <div class="flex flex-col items-center py-6 space-y-3">
-                {/* <span class="text-lg text-gray-800">
-                  How was quality of the call?
-                </span> */}
-                <StarRatingComponent
-                  className="w-20"
-                  name="rate1"
-                  starCount={5}
-                  value={rating}
-                  onStarClick={handleRating}
-                />
+
+        {!orderDetail.comment ? (
+          <div class="py-3 justify-center sm:max-w-xl sm:mx-auto">
+            <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
+              <div class="px-12 py-5 text-center justify-center">
+                <h2 class="text-gray-800 text-3xl font-semibold">
+                  Your opinion matters to us!
+                </h2>
               </div>
-              <div class="w-3/4 flex flex-col">
-                <textarea
-                  onChange={(e) => {
-                    setReview(e.target.value);
-                  }}
-                  rows="3"
-                  class="p-4 text-gray-500 rounded-xl resize-none"
-                  placeholder="Leave a message, if you want"
-                ></textarea>
-                <button
-                  onClick={handleReview}
-                  class="py-3 my-8 text-lg bg-[#5AB344] rounded-xl text-white"
-                >
-                  Rate now
-                </button>
+              <div class="bg-gray-200 w-full flex flex-col items-center">
+                <div class="flex flex-col items-center py-6 space-y-3">
+                  {/* <span class="text-lg text-gray-800">
+         How was quality of the call?
+       </span> */}
+                  <StarRatingComponent
+                    className="w-20"
+                    name="rate1"
+                    starCount={5}
+                    value={rating}
+                    onStarClick={handleRating}
+                  />
+                </div>
+                <div class="w-3/4 flex flex-col">
+                  <textarea
+                    onChange={(e) => {
+                      setReview(e.target.value);
+                    }}
+                    rows="3"
+                    class="p-4 text-gray-500 rounded-xl resize-none"
+                    placeholder="Leave a message, if you want"
+                  ></textarea>
+                  <button
+                    onClick={handleReview}
+                    class="py-3 my-8 text-lg bg-[#5AB344] rounded-xl text-white"
+                  >
+                    Rate now
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div class="py-3 justify-center sm:max-w-xl sm:mx-auto">
+            <div class="bg-white max-w-2xl flex flex-col border-l-8 border-[#3CB043] rounded-xl shadow-lg">
+              <div class="px-12 py-5 text-center justify-center">
+                <h2 class="text-gray-800 text-3xl font-semibold">
+                  You Have Already Given Your Feedback!
+                </h2>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
