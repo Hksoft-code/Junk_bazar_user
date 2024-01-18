@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { raisedPickup } from "../../../Services/pickupRequest";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 
 const Summary_component = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [totalPrice, setTotalPrice] = useState();
   const passData = location.state ? location.state.payload : null;
   console.log("Summary Data ", passData);
 
@@ -12,6 +14,24 @@ const Summary_component = () => {
     "https://play-lh.googleusercontent.com/93TI5hqzUF7_i61dah3PexL9DktIgsExTutymOXUkd7hdjlSx1P-3ZE0T-uZ2bnF5MXq";
   const onImageError = (e) => {
     e.target.src = placeholderImage;
+  };
+
+  useEffect(() => {
+    handleTotal();
+    console.log("set Address");
+  }, []);
+
+  const handleTotal = () => {
+    const scrapIdArray = [];
+    const scraplist = passData.scraplist;
+    let valueAdded = 0;
+
+    for (let cartItem of scraplist.items) {
+      scrapIdArray.push(cartItem.amount);
+      valueAdded += cartItem.amount;
+    }
+    setTotalPrice(valueAdded);
+    console.log("price list", scrapIdArray, " value" + valueAdded);
   };
 
   const handlePickup = async () => {
@@ -64,9 +84,9 @@ const Summary_component = () => {
   return (
     <div className="mx-auto mt-8 max-w-2xl md:mt-12 shadow-lg border-t-8 rounded-xl border-[#3CB043]">
       <div className="bg-white ">
-        <div className="flex flex-col justify-between ml-4 flex-grow">
+        <div className="flex flex-col justify-between mt-5 ml-4 flex-grow">
           <span className="font-bold text-sm">{passData.fullName}</span>
-          <span className="text-red-500 text-sm">
+          <span className="text-red-500 mt-2 text-sm">
             {passData.dialCode} {passData.phoneNumber}
           </span>
         </div>
@@ -133,10 +153,10 @@ const Summary_component = () => {
                       {scrapDat?.quantity}
                     </div>
                     <span className="text-center w-1/5 font-semibold text-sm">
-                      ₹{scrapDat?.scrapInfo.price}
+                      ₹{scrapDat?.price}
                     </span>
                     <span className="text-center w-1/5 font-semibold text-sm">
-                      ₹{scrapDat?.scrapInfo.price}
+                      ₹{scrapDat?.amount}
                     </span>
                   </div>
                 ))}
@@ -144,9 +164,9 @@ const Summary_component = () => {
             </ul>
           </div>
           <div className="mt-6 flex text-center justify-end  space-x-4 border-t border-b py-5">
-            {/* <p className="flex text-center absolute right-30  space-x-4">
-              Total - ₹
-            </p> */}
+            <p className="flex text-center absolute right-30  space-x-4">
+              Total - ₹ {totalPrice}
+            </p>
             <div className="my-6 flex space-x-4">
               <button
                 onClick={handlePickup}
