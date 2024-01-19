@@ -33,6 +33,8 @@ module.exports = {
         "min-xl": {min:"520px"},
         "max-er": { max: "768px" },
         "min-er": { min: "768px" },
+        "min-small":{min:"920px"},
+        "min-large":{min:"1180px"},
       },
     },
   },

@@ -172,6 +172,13 @@ const CartList = () => {
 
       if (data.statusCode === 200) {
         fetchData(currentPage); // Refresh the data after updating quantity
+        Swal.fire({
+          icon: "success",
+          position: "center",
+          showConfirmButton: false,
+          timer: 1500,
+          title: "Quantity updated Successfully",
+        });
       }
     } catch (error) {
       console.error("Error updating scrap quantity:", error);
@@ -265,20 +272,20 @@ const CartList = () => {
                         </div>
 
                         <div class="relative flex flex-1 flex-col justify-between h-full">
-                          <div class="flex flex-row items-center justify-between min-md:grid min-md:grid-cols-2 h-full">
-                            <div class="flex flex-col w-fit h-full">
-                              <div className="flex flex-col gap-1 justify-center w-fit h-full">
+                          <div class="flex flex-row items-center justify-start h-full">
+                            <div class="flex flex-col w-fit h-full ">
+                              <div className="flex flex-col gap-1 justify-center w-[150px] h-full">
                                 <p class="text-[17px] sm:text-[19px] font-normal text-gray-900 w-fit">
                                   {" "}
                                   {cart?.scrapInfo.scrapName}
                                 </p>
-                                <p class="text-sm font-normal ml-2 text-gray-700">
+                                <p class="text-sm font-normal text-gray-700">
                                   Delhi, India
                                 </p>
-                                <p class="text-base font-semibold text-gray-900">
+                                {/* <p class="text-base font-semibold text-gray-900">
                                   {" "}
                                   ₹ {cart?.scrapInfo.price}/KG
-                                </p>
+                                </p> */}
                               </div>
                               <div
                                 className={`bg-red-300 justify-center items-center flex sm:hidden  cursor-pointer px-7 py-5 min-xl:py-5 min-xl:px-10 w-fit ${
@@ -313,14 +320,14 @@ const CartList = () => {
                               {/* <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">{order?.addressInfo.address}</p> */}
                             </div>
 
-                            <div class="mt-0 flex items-end justify-end sm:mt-0 sm:items-start sm:justify-end h-full">
+                            <div class="mt-0 flex items-end justify-end sm:mt-0 sm:items-start sm:justify-end h-full ">
                               {/* <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
                                 ₹ {cart?.scrapInfo.price}
                               </p> */}
 
-                              <div class="flex flex-col sm:flex-row  gap-4 h-full ">
-                                <div class="flex flex-col gap-8 h-full items-center justify-center ">
-                                  <div className="flex items-start mt-2 sm:ml-4 ">
+                              <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-10 h-full ">
+                                <div class="flex flex-col gap-8 h-full  justify-end w-[150px] lg:w-[200px] min-large:w-[300px] ">
+                                  <div className="flex justify-end sm:ml-4 ">
                                     <button
                                       onClick={() =>
                                         handleDecrement(
@@ -370,15 +377,27 @@ const CartList = () => {
                                     </button>
                                   </div> */}
                                 </div>
-                                <div
-                                  className={`hidden bg-red-300 justify-center items-center sm:block cursor-pointer p-10 ${
-                                    cart.quantity < 2 ? "block" : "hidden"
-                                  }`}
-                                  onClick={(e) => removeFromCard(cart.scrapId)}
-                                >
-                                  <span className="flex justify-center items-center">
-                                    {<DeleteIcon />}
-                                  </span>
+                                <div>
+                                  <p class="text-base font-semibold text-gray-900 flex flex-row gap-3 w-[100px] lg:w-[100px] min-large:w-[150px]">
+                                    ₹{cart?.scrapInfo.price}/KG
+                                  </p>
+                                </div>
+                                <div className="flex flex-col min-small:flex-row ">
+                                  <div
+                                    className={`hidden bg-red-300 justify-center items-center sm:block cursor-pointer p-10 ${
+                                      cart.quantity < 2 ? "block" : "hidden"
+                                    }`}
+                                    onClick={(e) =>
+                                      removeFromCard(cart.scrapId)
+                                    }
+                                  >
+                                    <span className="flex justify-center items-center">
+                                      {<DeleteIcon />}
+                                    </span>
+                                  </div>
+                                  <div className="ml-[30px] order-first min-small:order-last min-large:ml-[65px] h-full mb-4 min-small:mb-16 text-black font-semibold">
+                                    Total Amount: {cart?.amount}
+                                  </div>
                                 </div>
                                 {/* <>
                                   {showDeleteItems.map((data) => {
