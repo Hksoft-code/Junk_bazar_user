@@ -25,6 +25,7 @@ const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showDeleteItems, setShowDeleteItems] = useState([]);
   const [width, setWidth] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const placeholderImage =
     "https://play-lh.googleusercontent.com/93TI5hqzUF7_i61dah3PexL9DktIgsExTutymOXUkd7hdjlSx1P-3ZE0T-uZ2bnF5MXq";
@@ -76,6 +77,7 @@ const CartList = () => {
       setItemsChecked(result);
     }
   };
+
   async function fetchData(page) {
     try {
       const response = await axiosInstance.get(
@@ -85,10 +87,24 @@ const CartList = () => {
       const scrapAll = JSON.parse(response.data.data);
       console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
+
       setTotalPages("1");
       if (localStorage.getItem("totalScrapCount")) {
         localStorage.removeItem("totalScrapCount");
         localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
+      }
+      let amount=0;
+      if (response.data.data) {
+        console.log("if........");
+        JSON.parse(response.data.data)?.cartLists?.items?.map((data) => {
+          console.log("data from if......", data);
+          if (data.amount) {
+            amount=amount+data.amount
+          }
+          setTotalPrice(amount)
+        });
+      } else {
+        console.log("heloo else....");
       }
       navigate(`/cart?items=${scrapAll?.totalScrapCount}`);
 
@@ -97,6 +113,7 @@ const CartList = () => {
       console.error("Error fetching data:", error);
     }
   }
+  console.log("totalPrice from state is",totalPrice)
 
   const removeFromCard = async (scrapId) => {
     const payload = {
@@ -227,7 +244,17 @@ const CartList = () => {
     }
     triggerAddQuantity(scrapId, quantityNumber - 1);
   };
-  console.log("setShowDeleteItems", showDeleteItems);
+
+  // let totalPriceArray=[];
+  // const totalPriceFunction=(price)=>{
+  //   console.log("price is",price)
+  //   totalPriceArray.push(price)
+
+  //   // setTotalPrice(totalPrice+price)
+  //   console.log("totalPrice is",totalPriceArray)
+  // }
+
+  console.log("totalPrice", totalPrice);
   // const handlePageChange = (pageNumber) => {
   //   if (pageNumber !== currentPage) {
   //     console.log("Changing page to:", pageNumber);
@@ -336,7 +363,7 @@ const CartList = () => {
                                 ₹ {cart?.scrapInfo.price}
                               </p> */}
 
-                              <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-10 h-full ">
+                              <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-20 h-full ">
                                 <div class="flex flex-col gap-8 h-full  justify-end w-[150px] lg:w-[200px] min-large:w-[300px] ">
                                   <div className="flex justify-end sm:ml-4 ">
                                     <button
@@ -389,25 +416,26 @@ const CartList = () => {
                                   </div> */}
                                 </div>
                                 <div>
-                                  <p class="text-base font-semibold text-gray-900 flex flex-row gap-3 w-[100px] lg:w-[100px] min-large:w-[150px]">
+                                  <p class="text-base font-semibold text-gray-900 flex flex-row gap-3 w-[100px] lg:w-[100px] min-large:w-[100px]">
                                     ₹{cart?.scrapInfo.price}/KG
                                   </p>
                                 </div>
-                                <div className="flex flex-col min-small:flex-row ">
+                                <div className="flex flex-col min-small:flex-row gap-20 items-center">
                                   <div
-                                    className={`hidden bg-red-300 justify-center items-center sm:block cursor-pointer p-10 ${
+                                    className={`hidden  justify-end items-center sm:block cursor-pointer w-[100px]  ${
                                       cart.quantity < 2 ? "block" : "hidden"
                                     }`}
                                     onClick={(e) =>
                                       removeFromCard(cart.scrapId)
                                     }
                                   >
-                                    <span className="flex justify-center items-center">
+                                    <span className="flex justify-end items-center">
                                       {<DeleteIcon />}
                                     </span>
                                   </div>
-                                  <div className="ml-[30px] order-first min-small:order-last min-large:ml-[65px] h-full mb-4 min-small:mb-16 text-black font-semibold">
-                                    Total Amount: {cart?.amount}
+                                  <div className=" order-first min-small:order-first h-full  text-black font-semibold w-[150px]">
+                                    Amount: {cart?.amount}
+                                    {/* {totalPriceFunction(cart?.amount)} */}
                                   </div>
                                 </div>
                                 {/* <>
@@ -463,8 +491,11 @@ const CartList = () => {
                   </ul>
                 </div>
 
-                <div class="mt-6 flex text-center justify-end  space-x-4 py-5">
-                  <div className="flex space-x-4">
+                <div class="mt-6 flex flex-col items-end justify-end space-x-4 py-5">
+                  <div className="font-bold">
+                    <span>Gross Amount :{totalPrice}</span>
+                  </div>
+                  <div className="flex space-x-4 justify-end mt-3">
                     <button
                       onClick={() => navigate("/pricing", { replace: true })}
                       className="lg:w-[200px] h-[40px] sm:h-[50px] font-semibold bg-transparent border border-black rounded-[30px] cursor-pointer max-sm:w-[100px] max-er:text-[10px] text-[13px] lg:text-[15px] max-md:w-[120px] max-er:w-[130px] p-3"
