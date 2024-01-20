@@ -296,8 +296,11 @@ const TrackOrderDetails = () => {
             />
           </div> */}
         </div>
+{console.log("dhfhsdfghjasgdhjgasjdhgsjhfgj",orderDetail.orderStatus, orderDetail)}
+        {(!orderDetail.comment && orderDetail.orderStatus === 3) ? (
 
-        {!orderDetail.comment ? (
+
+
           <div class="py-3 justify-center sm:max-w-xl sm:mx-auto">
             <div class="bg-white min-w-1xl flex flex-col rounded-xl shadow-lg">
               <div class="px-12 py-5 text-center justify-center">
@@ -337,7 +340,7 @@ const TrackOrderDetails = () => {
               </div>
             </div>
           </div>
-        ) : (
+        ) : orderDetail.comment ?(
           <div class="py-3 justify-center sm:max-w-xl sm:mx-auto">
             <div class="bg-white max-w-2xl flex flex-col border-l-8 border-[#3CB043] rounded-xl shadow-lg">
               <div class="px-12 py-5 text-center justify-center">
@@ -347,7 +350,7 @@ const TrackOrderDetails = () => {
               </div>
             </div>
           </div>
-        )}
+        ):null}
       </div>
       <Footer />
     </div>
