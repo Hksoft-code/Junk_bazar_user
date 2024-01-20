@@ -5,7 +5,7 @@ import Loader from "../../Common/Footer/Loader";
 import PaginationComponent from "../PriceList/utils";
 
 const OrdersRespEnum = {
-  0: "Order In Pending",
+  0: "Order In Process",
   1: "Orders Accepted",
   2: "Vendor On the Way",
   3: "Vendor Arrived",
