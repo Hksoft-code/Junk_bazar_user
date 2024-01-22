@@ -46,7 +46,8 @@ const Summary_component = () => {
         passData.phoneNumber,
         passData.address,
         passData.city,
-        passData.addToCartId
+        passData.addToCartId,
+        passData.addressId
       );
 
       if (resp.statusCode === 200) {

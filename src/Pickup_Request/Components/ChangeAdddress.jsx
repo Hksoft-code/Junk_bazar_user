@@ -1,25 +1,18 @@
 import { useEffect, useState } from "react";
-import { getAllAddress, raisedPickup } from "../../Services/pickupRequest";
+import { getAllAddress } from "../../Services/pickupRequest";
 import Add_Address_form from "./Add_Address_Form";
 import { useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 
 const ChangeAddress = () => {
-  const [formOpen, setFormOpen] = useState(false);
   const [addres, setAddress] = useState();
-  const [checked, setChecked] = useState(false);
   const [selectAddress, setSelectAddress] = useState();
   const [Address, settedAddres] = useState();
-  const [defaultAddress, setDefault] = useState(true);
+  const [newOnchangeItem ,setNewOnchangeItem] = useState()
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
 
   const location = useLocation();
   const passData = location.state ? location.state.payload : null;
-  console.log("change Address", passData);
 
   useEffect(() => {
     getAddress();
@@ -40,85 +33,41 @@ const ChangeAddress = () => {
       // showErrorMessage(errorMessage, "error");
     }
   };
-  const onChange = (i) => {
-    setSelected((prev) => (i === prev ? null : i));
-    setSelectAddress(addres[selected]);
-    console.log("selected Adddress ", selectAddress);
+  
+  const onChange = (item) => {
+    setNewOnchangeItem(item)
+    setSelected((prev) => (item === prev ? null : item));
     settedAddres(selectAddress);
+    setSelectAddress(item);
   };
+  
+  console.log("selected Adddress ", selectAddress);
 
+// console.log('====================================');
+// console.log("setNewOnchangeItem",newOnchangeItem);
+// console.log('====================================');
   const handlePickup = async () => {
-    console.log("pickup payload", Address);
-    console.log("scraplist", passData.scraplist);
-    const scraplist = passData.scraplist;
+    console.log("pickup payload", newOnchangeItem);
+    const scraplist = passData?.scraplist;
     const payload = {
-      fullName: Address.fullName,
+      fullName: newOnchangeItem.fullName,
       scrapId: passData.scrapId,
-      stateCode: Address.stateCode,
-      countryCode: Address.countryCode,
-      pincode: Address.pincode,
-      dialCode: Address.dialCode,
-      phoneNumber: Address.phoneNumber,
-      address: Address.address,
-      city: Address.city,
+      stateCode: newOnchangeItem.stateCode,
+      countryCode: newOnchangeItem.countryCode,
+      pincode: newOnchangeItem.pincode,
+      dialCode: newOnchangeItem.dialCode,
+      phoneNumber: newOnchangeItem.phoneNumber,
+      address: newOnchangeItem.address,
+      addressId: newOnchangeItem.addressId, // addressId
+      city: newOnchangeItem.city,
       addToCartId: passData.addToCartId,
       scraplist: scraplist,
     };
-
-    console.log("pass pickup data ", payload);
     navigate("/summaryOrder", {
       state: {
         payload,
       },
     });
-
-    // try {
-    //   navigate("/summaryOrder", {
-    //     replace: true,
-    //   });
-    //   const resp = await raisedPickup(
-    //     Address.fullName,
-    //     passData.scrapId,
-    //     Address.stateCode,
-    //     Address.countryCode,
-    //     Address.pincode,
-    //     Address.dialCode,
-    //     Address.phoneNumber,
-    //     Address.address,
-    //     Address.city,
-    //     passData.addToCartId
-    //   );
-
-    //   console.log("pickup request", resp);
-
-    //   if (resp.statusCode === 200) {
-
-    //   }
-    // } catch (error) {
-    //   if (error?.response) {
-    //     const data = error?.response?.data;
-    //     if (data?.error?.statusCode === 400) {
-    //       const mess = data.error;
-    //       Swal.fire({
-    //         icon: "error",
-    //         position: "center",
-    //         showConfirmButton: false,
-    //         timer: 2500,
-    //         title: mess._message,
-    //       });
-    //     }
-
-    //     console.log("Status", error.response.status);
-    //     console.log("Headers", error.response.headers);
-    //   } else if (error.request) {
-    //     // Client made a request but response is not received
-    //     console.log("<<<<<<<Response Not Received>>>>>>>>");
-    //     console.log(error.request);
-    //   } else {
-    //     // Other case
-    //     console.log("Error", error.message);
-    //   }
-    // }
   };
 
   return (
@@ -166,8 +115,8 @@ const ChangeAddress = () => {
           <div class=" border-l-8 border-[#3CB043] flex p-3 gap-3 mt-5 bg-white shadow-xl  rounded-xl overflow-hidden items-center justify-start">
             <div class="relative w-10 h-10 flex-shrink-0 ">
               <input
-                checked={i === selected}
-                onChange={() => onChange(i)}
+                checked={item === selected}
+                onChange={() => onChange(item)}
                 type="checkbox"
                 class="checkbox-round"
               />

@@ -69,7 +69,7 @@ const editAddrress = async (fullName,city,countryCode,stateCode,address,pincode,
   }
 };
 
-const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dialCode,phoneNumber,address,city,addToCartId) => {
+const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dialCode,phoneNumber,address,city,addToCartId,addressId) => {
   const payload = {
     fullName,
     scrapIds,
@@ -81,6 +81,7 @@ const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dial
     address,
     city,
     addToCartId,
+    addressId
   };
   try {
     const response = await axiosInstance.post("/raisePickUp", payload);
