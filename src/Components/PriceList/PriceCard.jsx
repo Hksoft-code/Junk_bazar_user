@@ -240,12 +240,12 @@ const PriceCardComponent = () => {
         <Loader />
       ) : (
         <div className="w-[97%] sm:w-[95%] lg:w-[92%] flex flex-col">
-          <div className="flex flex-col sm:flex-row  justify-center items-center mt-0 sm:mt-14 mb-8 sm:mb-0">
+          <div className="flex flex-col sm:flex-row  justify-center items-center mt-0 sm:mt-10 mb-4 sm:mb-0">
             <div class="text-center">
-              <h1 class="font-bold text-[25px] sm:text-4xl mb-4">Rates Of JunkBazar Scraps</h1>
+              <h1 class="font-bold text-[25px] sm:text-4xl sm:mb-4">Rates Of JunkBazar Scraps</h1>
             </div>
           </div>
-          <div className="flex justify-end mb-10">
+          <div className="flex justify-center sm:justify-end mb-8 sm:mb-10">
           <div className="flex items-center h-12 p-2 border  w-[250px] min-md:w-[350px] rounded-md bg-[#80d7421c]">
               <input
                 onChange={(e) => {

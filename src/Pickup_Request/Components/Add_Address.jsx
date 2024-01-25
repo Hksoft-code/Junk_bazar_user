@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import "../styles/pickupRequest.css";
-import { getAllAddress, raisedPickup } from "../../Services/pickupRequest";
+import { getAllAddress } from "../../Services/pickupRequest";
 import { useLocation, useNavigate } from "react-router-dom";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 
 import Edit_Address_form from "./Edit_Address_form";
-import ChangeAddress from "./ChangeAdddress";
-import Swal from "sweetalert2";
 
 const Add_Address = () => {
-  const [formOpen, setFormOpen] = useState(false);
   const [addres, setAddress] = useState();
   const [checked, setChecked] = useState(false);
   const [selectAddress, setSelectAddress] = useState("");
   const [defaultAddress, setDefault] = useState(true);
-  const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
@@ -23,11 +19,7 @@ const Add_Address = () => {
   const location = useLocation();
   const passData = location.state ? location.state.passData : null;
 
-  function onChange(i) {
-    setSelected((prev) => (i === prev ? null : i));
-    setSelectAddress(addres[selected]);
-    console.log("selected Adddress ", selectAddress);
-  }
+
   console.log("card data list", passData);
 
   const ChangeAddress = () => {
@@ -70,6 +62,7 @@ const Add_Address = () => {
       scrapId: passData.scrapId,
       stateCode: selectAddress.stateCode,
       countryCode: selectAddress.countryCode,
+      addressId:selectAddress.addressId,  // addressId
       pincode: selectAddress.pincode,
       dialCode: selectAddress.dialCode,
       phoneNumber: selectAddress.phoneNumber,

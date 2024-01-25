@@ -22,7 +22,7 @@ const RequestPickup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const passData = location.state ? location.state.payLoad : null;
-  console.log("phoneNumberObj", passData);
+  console.log("passData", location.state);
 
   useEffect(() => {
     window.scrollTo(0, 0);

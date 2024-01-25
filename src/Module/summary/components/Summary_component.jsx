@@ -46,7 +46,8 @@ const Summary_component = () => {
         passData.phoneNumber,
         passData.address,
         passData.city,
-        passData.addToCartId
+        passData.addToCartId,
+        passData.addressId
       );
 
       if (resp.statusCode === 200) {
@@ -105,7 +106,7 @@ const Summary_component = () => {
             <span className="h-1 w-full bg-slate-400 lg:w-1/3"></span>
             <ul className="-my-8">
               <span className="mt-10 font-bold text-slate-400 text-sm">
-                Order ID:- #{passData.addToCartId}
+                Cart ID:- #{passData.addToCartId}
               </span>
               <div>
                 <div className="flex mt-2  mb-5">
