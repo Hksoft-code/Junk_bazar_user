@@ -128,7 +128,7 @@ const OtpVerify = () => {
                 >
                   OTP sent to{" "}
                   <span>
-                    +91 {location.state.mobile}
+                    +91 {location?.state?.mobile}
                     <br />
                   </span>
                   <span
@@ -151,11 +151,29 @@ const OtpVerify = () => {
                       handleChange={() => setChecked((prevState) => !prevState)}
                     />
                     By creating an account, I agree to our{" "}
-                    <span className="underline cursor-pointer">
+                    <span
+                      className="underline cursor-pointer"
+                      onClick={() => {
+                        navigate("/terms-condition", {
+                          state: {
+                            from_page: "otp-verify",
+                          },
+                        });
+                      }}
+                    >
                       Terms of use
                     </span>{" "}
                     and{" "}
-                    <span className="underline cursor-pointer">
+                    <span
+                      className="underline cursor-pointer"
+                      onClick={() => {
+                        navigate("/terms-condition", {
+                          state: {
+                            from_page: "otp-verify",
+                          },
+                        });
+                      }}
+                    >
                       Privacy Policy{" "}
                     </span>
                   </p>

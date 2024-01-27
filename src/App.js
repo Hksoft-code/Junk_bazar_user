@@ -29,6 +29,7 @@ import CheckoutAdddress from "./Pickup_Request/Multiple_Address/CheckoutAdddress
 import ChangeAddress from "./Pickup_Request/Components/ChangeAdddress.jsx";
 import ChangeAdddressPage from "./Pickup_Request/Multiple_Address/ChangeAddressPage.jsx";
 import Summary from "./Module/summary/Summary.jsx";
+import TermsCondition from "./Auth/Pages/TermsCondition.jsx";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/contact-us" element={<Protected Component={ContactScreen} />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/terms-condition" element={<TermsCondition/>} />
         <Route path="/request_pickup" element={<Protected Component={RequestPickup} />} />
         <Route path="/cart" element={<Protected Component={CardPage} />} />
         <Route path="/pricing" element={<Protected Component={Pricing} />} />

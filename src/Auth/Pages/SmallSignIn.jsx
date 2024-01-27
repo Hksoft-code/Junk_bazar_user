@@ -71,9 +71,29 @@ const SmallSignIn = () => {
               />
               <p className="text-[14px] text-[#666666] font-semibold  mb-5">
                 By creating an account, I agree to our{" "}
-                <span className="underline cursor-pointer">Terms of use</span>{" "}
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "signIn",
+                      },
+                    });
+                  }}
+                >
+                  Terms of use
+                </span>{" "}
                 and{" "}
-                <span className="underline cursor-pointer">
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => {
+                    navigate("/terms-condition", {
+                      state: {
+                        from_page: "signIn",
+                      },
+                    });
+                  }}
+                >
                   Privacy Policy{" "}
                 </span>
               </p>
