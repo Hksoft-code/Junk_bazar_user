@@ -38,7 +38,7 @@ const usersSlice = createSlice({
         
         loginUser: (state, action) => {
             state.user = action.payload;
-            console.log(action.payload, ">>>");
+            // console.log(action.payload, ">>>");
         },
 
         // eslint-disable-next-line no-unused-vars

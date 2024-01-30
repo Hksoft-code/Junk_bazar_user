@@ -36,7 +36,7 @@ const SignInTest = () => {
     };
 
     const SignInService = async () => {
-        console.log("phone number ", phoneNumber.slice(3, 13))
+        // console.log("phone number ", phoneNumber.slice(3, 13))
         const mobile = phoneNumber.slice(3, 13)
         try {
             const payLoad = {
@@ -48,7 +48,7 @@ const SignInTest = () => {
 
             const dataObj = response.data;
 
-            console.log("sign in resp dataObj", dataObj);
+            // console.log("sign in resp dataObj", dataObj);
 
             if (dataObj.statusCode === 200) {
                 Swal.fire({

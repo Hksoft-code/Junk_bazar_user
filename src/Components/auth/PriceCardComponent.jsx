@@ -26,7 +26,7 @@ const PriceCardComponent = () => {
     const itemsInCart = useSelector((state) => state.cart);
     const singleItem = itemsInCart.filter((el) => el._id === id);
 
-    console.log(singleItem[0]?.cartQuantity);
+    // console.log(singleItem[0]?.cartQuantity);
     const [ response,
         setResponse ] = React.useState(null);
 

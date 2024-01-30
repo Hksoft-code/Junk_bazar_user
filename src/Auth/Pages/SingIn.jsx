@@ -17,17 +17,17 @@ const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const SignInService = async () => {
-    console.log("checked", checked);
+    // console.log("checked", checked);
     try {
       if (!checked) {
         showErrorMessage("Select Term And Condition", "error");
         return;
       }
-      console.log("phone number ", phoneNumber.slice(3, 13));
+      // console.log("phone number ", phoneNumber.slice(3, 13));
       const mobile = phoneNumber.slice(3, 13);
       const dialCode = phoneNumber.slice(0, 3);
       const userResp = await loginUser(dialCode, mobile);
-      console.log("user login from Service File", userResp);
+      // console.log("user login from Service File", userResp);
       navigate("/otp-verify", {
         state: {
           mobile,

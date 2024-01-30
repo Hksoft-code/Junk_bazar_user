@@ -26,14 +26,14 @@ const AddressVerify = () => {
   const [addressError, setAddressError] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-  console.log("userId", location.state.userId);
+  // console.log("userId", location.state.userId);
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get("/getCountries");
 
       const countriesAndStatesData = JSON.parse(response.data.data);
 
-      console.log("countriesAndStatesData", countriesAndStatesData);
+      // console.log("countriesAndStatesData", countriesAndStatesData);
 
       setcountriesAndStates(countriesAndStatesData);
     } catch (error) {
@@ -49,16 +49,16 @@ const AddressVerify = () => {
     // Check if the input is not composed entirely of zeros or whitespaces
     return value.trim() !== "0" && value.trim() !== "";
   };
-  console.log("countriesAndStates", countriesAndStates);
+  // console.log("countriesAndStates", countriesAndStates);
 
   const handleCountryChange = (event) => {
     const selectedCountry = event.target.value;
 
-    console.log("selectedCountry", selectedCountry);
+    // console.log("selectedCountry", selectedCountry);
     setSelectedCountry(selectedCountry);
     setSelectedState("");
     for (let i = 0; countriesAndStates.length > i; i++) {
-      console.log("dial Code", countriesAndStates[0].phone_code);
+      // console.log("dial Code", countriesAndStates[0].phone_code);
       setDialCode(`${countriesAndStates[0].phone_code}`);
     }
   };
@@ -106,7 +106,7 @@ const AddressVerify = () => {
           timer: 2500,
           title: dataObject.message,
         });
-        console.log("token store ", localStorage.getItem("token"));
+        // console.log("token store ", localStorage.getItem("token"));
 
         navigate("/pricing", {
           replace: true,
@@ -125,7 +125,7 @@ const AddressVerify = () => {
           title: error.response.data.error._message,
         });
 
-        console.log("Status :" + error.response.status);
+        // console.log("Status :" + error.response.status);
       } else if (error.request) {
         // The request was made but no response was received
         console.log(error.request);

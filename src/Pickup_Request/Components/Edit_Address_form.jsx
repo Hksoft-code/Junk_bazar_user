@@ -17,7 +17,7 @@ const Edit_Address_form = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [countriesAndStates, setcountriesAndStates] = useState([]);
 
-  console.log("datat passess", props.data);
+  // console.log("datat passess", props.data);
   const setData = props?.data;
 
   const fetchCountry = async () => {
@@ -26,7 +26,7 @@ const Edit_Address_form = (props) => {
 
       const countriesAndStatesData = response;
 
-      console.log("countriesAndStatesData", countriesAndStatesData);
+      // console.log("countriesAndStatesData", countriesAndStatesData);
 
       setcountriesAndStates(countriesAndStatesData);
     } catch (error) {
@@ -34,12 +34,12 @@ const Edit_Address_form = (props) => {
     }
   };
 
-  console.log("countriesAndStates", countriesAndStates);
+  // console.log("countriesAndStates", countriesAndStates);
 
   const handleCountryChange = (event) => {
     const selectedCountry = event.target.value;
 
-    console.log("selectedCountry", selectedCountry);
+    // console.log("selectedCountry", selectedCountry);
     setSelectedCountry(selectedCountry);
     setSelectedState("");
   };
@@ -89,7 +89,7 @@ const Edit_Address_form = (props) => {
         phoneNumber,
         selectedDialCode
       );
-      console.log("Add Address Response", addressRepo);
+      // console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
 
       const addressR = addressRepo.data;

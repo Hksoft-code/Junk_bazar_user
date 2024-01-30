@@ -6,7 +6,7 @@ const getAllAddress = async () => {
 
     const address = JSON.parse(response.data.data);
 
-    console.log("getAddress", address);
+    // console.log("getAddress", address);
     return address;
   } catch (error) {
     console.error("Error Will getting All Address", error);
@@ -32,7 +32,7 @@ const addAddrress = async (city, countryCode, stateCode, address, pincode, fullN
 
     const address = JSON.parse(response.data.data);
 
-    console.log("Add Address", address);
+    // console.log("Add Address", address);
     return address;
   } catch (error) {
     console.error("Error Will Adding Address", error);
@@ -60,7 +60,7 @@ const editAddrress = async (fullName,city,countryCode,stateCode,address,pincode,
 
     const address = JSON.parse(response.data.data);
 
-    console.log("Add Address", address);
+    // console.log("Add Address", address);
     return address;
   } catch (error) {
     console.error("Error Will Adding Address", error);
@@ -88,7 +88,7 @@ const raisedPickup = async (fullName,scrapIds,stateCode,countryCode,pincode,dial
 
     const pickupRequest = response.data;
 
-    console.log("Rise Pickup Request", pickupRequest);
+    // console.log("Rise Pickup Request", pickupRequest);
     return pickupRequest;
   } catch (error) {
     console.error("Error Will Adding Address", error);

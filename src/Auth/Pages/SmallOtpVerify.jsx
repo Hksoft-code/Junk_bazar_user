@@ -14,7 +14,7 @@ const SmallOtpVerify = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("phoneNumberObj", location.state);
+  // console.log("phoneNumberObj", location.state);
 
   const otpVerify = async () => {
     try {
@@ -24,9 +24,9 @@ const SmallOtpVerify = () => {
       // }
       const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
       const userResp = JSON.parse(otpVerifyResp.data);
-      console.log("userResp", otpVerifyResp);
-      console.log("otpVerifyResp from Service File", userResp);
-      console.log("token", userResp.token);
+      // console.log("userResp", otpVerifyResp);
+      // console.log("otpVerifyResp from Service File", userResp);
+      // console.log("token", userResp.token);
       localStorage.setItem("token", userResp.token);
       showSuccessMessage(otpVerifyResp.message, "success");
       navigate("/pricing", {});

@@ -18,12 +18,12 @@ const SmallSignUp = () => {
     const phoneRegex = /^\d{10}$/;
     const isValid = phoneRegex.test(value);
 
-    console.log("isValid", isValid);
+    // console.log("isValid", isValid);
     setPhoneNumber(value);
     setIsValidPhoneNumber(isValid);
   };
   const signUpService = async () => {
-    console.log("phone number ", phoneNumber.slice(3, 13));
+    // console.log("phone number ", phoneNumber.slice(3, 13));
     const mobile = phoneNumber.slice(3, 13);
     const payload = {
       dialCode: "+91",

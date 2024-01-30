@@ -25,16 +25,16 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("axios response ", response);
+    // console.log("axios response ", response);
 
     return response;
   },
   (error) => {
-    console.log("axiosInstance response error", error);
+    // console.log("axiosInstance response error", error);
 
     if (error.response && error.response.status === 401) {
       // Handle unauthorized access, e.g., redirect to sign-in page
-      console.log("Unauthorized access. Redirecting to sign-in page.");
+      // console.log("Unauthorized access. Redirecting to sign-in page.");
       window.location.href = "/sign-in";
     }
 

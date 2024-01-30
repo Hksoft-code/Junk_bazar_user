@@ -85,7 +85,7 @@ const CartList = () => {
       );
 
       const scrapAll = JSON.parse(response.data.data);
-      console.log("scrapAll", scrapAll);
+      // console.log("scrapAll", scrapAll);
       setScrapList(scrapAll.cartLists);
 
       setTotalPages("1");
@@ -154,7 +154,7 @@ const CartList = () => {
     console.log("itemsChecked", itemsChecked);
     // if (itemsChecked.length > 0) {
     const cartItems = cart.items;
-    console.log("card dat ", cartItems);
+    // console.log("card dat ", cartItems);
 
     const scrapIdArray = [];
     for (let cartItem of cartItems) {
@@ -317,9 +317,9 @@ const CartList = () => {
                                   {" "}
                                   {cart?.scrapInfo.scrapName}
                                 </p>
-                                <p class="text-sm font-normal text-gray-700">
+                                {/* <p class="text-sm font-normal text-gray-700">
                                   Delhi, India
-                                </p>
+                                </p> */}
                                 {/* <p class="text-base font-semibold text-gray-900">
                                   {" "}
                                   ₹ {cart?.scrapInfo.price}/KG

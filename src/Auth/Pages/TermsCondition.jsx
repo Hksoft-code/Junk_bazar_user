@@ -4,7 +4,7 @@ const TermsCondition = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const passData = location.state ? location.state.from_page : null;
-  console.log("passData", passData);
+  // console.log("passData", passData);
   return (
     <div className="w-full h-screen overflow-hidden flex flex-col font-['Gilroy-Medium']">
       <div className="w-full">

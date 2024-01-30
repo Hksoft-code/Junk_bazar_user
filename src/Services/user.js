@@ -29,7 +29,7 @@ const getCountriesDetails = async () => {
 };
 
 const handleOTP = (otp) => {
-    console.log("handle Otp", otp);
+    // console.log("handle Otp", otp);
     const phoneRegex = /^\d{6}$/;
     const isValid = phoneRegex.test(otp);
     return isValid;
@@ -41,10 +41,10 @@ const otpVerifyService = async (phoneNumber, otp) => {
     };
 
     try {
-        console.log("payload", payload);
+        // console.log("payload", payload);
         const resp = await axiosInstance.post("/otpVerify", payload);
         const dataObject = resp.data;
-        console.log("response from api", dataObject);
+        // console.log("response from api", dataObject);
 
         return dataObject;
     } catch (error) {
@@ -64,11 +64,11 @@ const otpVerifyService = async (phoneNumber, otp) => {
 };
 
 const handlePhoneNumberValidation = (phoneNumber) => {
-    console.log("handlePhoneNumberValidation working", phoneNumber);
+    // console.log("handlePhoneNumberValidation working", phoneNumber);
     const phoneRegex = /^\d{10}$/;
     const isValid = phoneRegex.test(phoneNumber);
 
-    console.log("isValid", isValid);
+    // console.log("isValid", isValid);
     return isValid;
 };
 
@@ -79,12 +79,12 @@ const loginUser = async (dialCode, phoneNumber) => {
     };
 
     try {
-        console.log("payload", payload);
+        // console.log("payload", payload);
         const resp = await axiosInstance.post("/login", payload);
         const dataObject = resp.data;
-        console.log("response from api", dataObject);
+        // console.log("response from api", dataObject);
         const userResp = JSON.parse(dataObject.data);
-        console.log("userResp", userResp);
+        // console.log("userResp", userResp);
         showSuccessMessage(dataObject.message, "success");
         return userResp;
     } catch (error) {
@@ -110,13 +110,13 @@ const signUpUser = async (dialCode, phoneNumber) => {
     };
 
     try {
-        console.log("payload", payload);
+        // console.log("payload", payload);
         const resp = await axiosInstance.post("/register", payload);
         const dataObject = resp.data;
-        console.log("response from api", dataObject);
+        // console.log("response from api", dataObject);
 
         const userResp = JSON.parse(dataObject.data);
-        console.log("userResp", userResp);
+        // console.log("userResp", userResp);
         return userResp;
     } catch (error) {
         console.error("Error While Otp Verify", error);
@@ -141,10 +141,10 @@ const resendOtpService = async (dialCode, phoneNumber) => {
     };
 
     try {
-        console.log("payload", payload);
+        // console.log("payload", payload);
         const otpResp = await axiosInstance.post("/resendOtp", payload);
 
-        console.log("userResp", otpResp);
+        // console.log("userResp", otpResp);
         return otpResp.data;
     } catch (error) {
         console.error("Error While Otp Verify", error);
@@ -165,7 +165,7 @@ const resendOtpService = async (dialCode, phoneNumber) => {
 const getCurrentUser = async () => {
     try {
         const response = await axiosInstance.get("/getCurrentUser");
-        console.log("get User data", response);
+        // console.log("get User data", response);
         const user = JSON.parse(response.data.data);
         return user
     }
@@ -180,7 +180,7 @@ const changeUserActiveStatusTogggleButtonService = async (userActiveStatus) => {
     }
     try {
         const response = await axiosInstance.post("/updateActiveStatus", payload);
-        console.log("get User data", response);
+        // console.log("get User data", response);
         const user = JSON.parse(response.data.data);
         return user
     }

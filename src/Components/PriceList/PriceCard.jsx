@@ -60,12 +60,12 @@ const PriceCardComponent = () => {
         },
       });
 
-      console.log("Fetching data for page:", page);
+      // console.log("Fetching data for page:", page);
 
       const responseData = JSON.parse(response.data.data);
       const { scraps, totalScrapCount } = responseData;
 
-      console.log(scraps, totalScrapCount, "getdatas");
+      // console.log(scraps, totalScrapCount, "getdatas");
 
       setTotalItems(totalScrapCount);
 
@@ -118,7 +118,7 @@ const PriceCardComponent = () => {
       handleApiError(error);
     }
   };
-  console.log("setCartItems", cartItems);
+  // console.log("setCartItems", cartItems);
 
   const fetchDataForCartList = async (page) => {
     try {
@@ -129,7 +129,7 @@ const PriceCardComponent = () => {
       navigate(`/pricing?items=${scrapAll.totalScrapCount}`);
       localStorage.setItem("totalScrapCount", scrapAll.totalScrapCount);
       setCartItems(scrapAll?.cartLists?.items);
-      console.log("scrapAll", scrapAll?.cartLists?.items);
+      // console.log("scrapAll", scrapAll?.cartLists?.items);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -138,13 +138,13 @@ const PriceCardComponent = () => {
     fetchData(currentPage, "");
     fetchDataForCartList(0);
   }, []);
-  console.log("cartItems", cartItems);
+  // console.log("cartItems", cartItems);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     fetchData(pageNumber);
 
-    console.log("Page changed to:", pageNumber);
+    // console.log("Page changed to:", pageNumber);
   };
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -158,10 +158,10 @@ const PriceCardComponent = () => {
     const handleQuantityChange = (productId, quantity) => {
       setQuantities({ ...quantities, [productId]: quantity });
     };
-    console.log("quantities", quantities);
+    // console.log("quantities", quantities);
 
     const isItemInCart = (productId) => {
-      console.log("cartItems in ", cartItems, productId);
+      // console.log("cartItems in ", cartItems, productId);
       return cartItems?.some((item) => item.scrapId === productId);
     };
 

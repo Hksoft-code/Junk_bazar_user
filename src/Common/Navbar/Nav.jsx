@@ -45,22 +45,22 @@ const Nav = () => {
   let cardquantityValue = "";
   const[cardQuantityValue,setCardQuantityValue]=useState("");
   useEffect(() => {
-    console.log("hello nav bar",localStorage.getItem("totalScrapCount"))
+    // console.log("hello nav bar",localStorage.getItem("totalScrapCount"))
     if (localStorage.getItem("totalScrapCount")) {
-      console.log("if")
+      // console.log("if")
       setCardQuantityValue(localStorage.getItem("totalScrapCount").toString());
     } else {
-      console.log("else block")
+      // console.log("else block")
       cardquantityValue = "";
       setCardQuantityValue("")
 
     }
   }, []);
-console.log("cardquantityValue",cardquantityValue)
+// console.log("cardquantityValue",cardquantityValue)
   useParams();
 
   const handleLogout = () => {
-    console.log("logout click");
+    // console.log("logout click");
     localStorage.clear();
     // navigate("/sign-in", { replace: true })
     setOpen(false);
@@ -80,8 +80,8 @@ console.log("cardquantityValue",cardquantityValue)
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const cartQuantity = queryParams.get("items");
-  console.log("cartQuantity", cartQuantity);
-  console.log("localStorage.getItem", localStorage.getItem("totalScrapCount"));
+  // console.log("cartQuantity", cartQuantity);
+  // console.log("localStorage.getItem", localStorage.getItem("totalScrapCount"));
 
   const isActive = (path) => {
     // Check if the current path matches the link path
@@ -222,7 +222,7 @@ console.log("cardquantityValue",cardquantityValue)
                       </Link>
                       <div
                         onClick={handleLogout}
-                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100"
+                        className="flex w-full items-center px-3 py-2 text-sm hover:bg-lime-100 cursor-pointer"
                       >
                         Logout
                       </div>

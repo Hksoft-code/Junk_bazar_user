@@ -28,14 +28,14 @@ const SmallAddressVerify = () => {
 
     const location = useLocation();
 
-    console.log("userId", location.state.userId);
+    // console.log("userId", location.state.userId);
     const fetchData = async () => {
         try {
             const response = await axiosInstance.get("/getCountries");
 
             const countriesAndStatesData = JSON.parse(response.data.data);
 
-            console.log("countriesAndStatesData", countriesAndStatesData);
+            // console.log("countriesAndStatesData", countriesAndStatesData);
 
             setcountriesAndStates(countriesAndStatesData);
         }
@@ -48,16 +48,16 @@ const SmallAddressVerify = () => {
         window.scrollTo(0, 0);
         fetchData();
     }, []);
-    console.log("countriesAndStates", countriesAndStates);
+    // console.log("countriesAndStates", countriesAndStates);
 
     const handleCountryChange = (event) => {
         const selectedCountry = event.target.value;
 
-        console.log("selectedCountry", selectedCountry);
+        // console.log("selectedCountry", selectedCountry);
         setSelectedCountry(selectedCountry);
         setSelectedState("");
         for (let i = 0; countriesAndStates.length > i; i++) {
-            console.log("dial Code", countriesAndStates[0].phone_code);
+            // console.log("dial Code", countriesAndStates[0].phone_code);
             setDialCode(`${countriesAndStates[0].phone_code}`);
         }
     };
@@ -98,7 +98,7 @@ const SmallAddressVerify = () => {
             const resp = await axiosInstance.post("/addUserDetail", payload);
             const dataObject = resp.data;
             const tokenParse = JSON.parse(dataObject.data);
-            console.log("token", tokenParse.token);
+            // console.log("token", tokenParse.token);
             localStorage.setItem("token", tokenParse.token);
             if (dataObject.statusCode === 200) {
                 Swal.fire({
