@@ -417,7 +417,7 @@ const CartList = () => {
                                 </div>
                                 <div>
                                   <p class="text-base font-semibold text-gray-900 flex flex-row gap-3 w-[100px] lg:w-[100px] min-large:w-[100px]">
-                                    ₹{cart?.scrapInfo.price}/KG
+                                    ₹{cart?.scrapInfo.price}-{cart?.scrapInfo.quantityType}
                                   </p>
                                 </div>
                                 <div className="flex flex-col min-small:flex-row gap-20 items-center">
