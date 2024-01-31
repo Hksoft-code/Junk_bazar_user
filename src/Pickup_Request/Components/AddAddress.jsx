@@ -20,7 +20,6 @@ const AddAddress = () => {
   const location = useLocation();
   const passData = location.state ? location.state.passData : null;
 
-
   console.log("card data list", passData);
 
   // const ChangeAddress = () => {
@@ -59,7 +58,7 @@ const AddAddress = () => {
       scrapId: passData.scrapId,
       stateCode: selectAddress.stateCode,
       countryCode: selectAddress.countryCode,
-      addressId:selectAddress.addressId,  // addressId
+      addressId: selectAddress.addressId, // addressId
       pincode: selectAddress.pincode,
       dialCode: selectAddress.dialCode,
       phoneNumber: selectAddress.phoneNumber,
@@ -69,6 +68,27 @@ const AddAddress = () => {
       scraplist: passData.scrapList,
     };
     navigate("/summaryOrder", {
+      state: {
+        payload,
+      },
+    });
+  };
+  const AdAddress = async () => {
+    const payload = {
+      fullName: selectAddress.fullName,
+      scrapId: passData.scrapId,
+      stateCode: selectAddress.stateCode,
+      countryCode: selectAddress.countryCode,
+      addressId: selectAddress.addressId, // addressId
+      pincode: selectAddress.pincode,
+      dialCode: selectAddress.dialCode,
+      phoneNumber: selectAddress.phoneNumber,
+      address: selectAddress.address,
+      city: selectAddress.city,
+      addToCartId: passData.addToCartId,
+      scraplist: passData.scrapList,
+    };
+    navigate("/addAddress", {
       state: {
         payload,
       },
@@ -119,15 +139,13 @@ const AddAddress = () => {
           )}
 
           <div className="flex flex-col gap-6 mx-auto mt-10">
-            <Link to="/addAddress">
-
-            <div 
+            <div
               className="cursor-pointer shadow-md  w-full text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
-            
+              onClick={AdAddress}
             >
-               Add New Address
+              Add New Address
             </div>
-            </Link>
+
             <div
               onClick={handlePickup}
               className="cursor-pointer shadow-md   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"

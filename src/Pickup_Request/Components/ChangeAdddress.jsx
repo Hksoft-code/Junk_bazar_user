@@ -13,6 +13,7 @@ const ChangeAddress = () => {
 
   const location = useLocation();
   const passData = location.state ? location.state.payload : null;
+  console.log("passdata is",passData)
 
   useEffect(() => {
     getAddress();
@@ -51,7 +52,7 @@ const ChangeAddress = () => {
     const scraplist = passData?.scraplist;
     const payload = {
       fullName: newOnchangeItem.fullName,
-      scrapId: passData.scrapId,
+      scrapId: passData?.scrapId,
       stateCode: newOnchangeItem.stateCode,
       countryCode: newOnchangeItem.countryCode,
       pincode: newOnchangeItem.pincode,
@@ -60,9 +61,10 @@ const ChangeAddress = () => {
       address: newOnchangeItem.address,
       addressId: newOnchangeItem.addressId, // addressId
       city: newOnchangeItem.city,
-      addToCartId: passData.addToCartId,
+      addToCartId: passData?.addToCartId,
       scraplist: scraplist,
     };
+    console.log("payload",payload)
     navigate("/summaryOrder", {
       state: {
         payload,

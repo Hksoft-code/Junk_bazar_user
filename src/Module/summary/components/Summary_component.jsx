@@ -23,13 +23,14 @@ const Summary_component = () => {
 
   const handleTotal = () => {
     const scrapIdArray = [];
-    const scraplist = passData.scraplist;
+    const scraplist = passData?.scraplist;
     let valueAdded = 0;
-
-    for (let cartItem of scraplist.items) {
-      scrapIdArray.push(cartItem.amount);
-      valueAdded += cartItem.amount;
-    }
+     if(scraplist){
+      for (let cartItem of scraplist?.items) {
+        scrapIdArray.push(cartItem.amount);
+        valueAdded += cartItem.amount;
+      }
+     }
     setTotalPrice(valueAdded);
     console.log("price list", scrapIdArray, " value" + valueAdded);
   };
@@ -123,7 +124,7 @@ const Summary_component = () => {
                     Total
                   </h3>
                 </div>
-                {passData?.scraplist.items.map((scrapDat, index) => (
+                {passData?.scraplist?.items?.map((scrapDat, index) => (
                   <div
                     key={index}
                     className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
