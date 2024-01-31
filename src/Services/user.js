@@ -18,10 +18,13 @@ const getCountriesDetails = async () => {
             const errorMessage = !error.response.data.error.message
                 ? error.response.data.error?._message
                 : error.response.data.error.message;
-            showSuccessMessage(errorMessage, "error");
+            // showSuccessMessage(errorMessage, "error");
+            console.log("error",errorMessage)
         } else {
             // Handle other types of errors
-            showSuccessMessage("An error occurred", "error");
+            // showSuccessMessage("An error occurred", "error");
+            console.log("An error occurred")
+
         }
         throw error; // Rethrow the error to propagate it to the calling code
 
