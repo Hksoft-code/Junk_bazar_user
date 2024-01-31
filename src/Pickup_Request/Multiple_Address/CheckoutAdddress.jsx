@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Footer from "../../Common/Footer/Footer";
 import Nav from "../../Common/Navbar/Nav";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Add_Address from "../Components/Add_Address";
+import AddAddress from "../Components/AddAddress";
 
 const CheckoutAdddress = () => {
   return (
@@ -17,7 +17,7 @@ const CheckoutAdddress = () => {
             Checkout
           </h2>
           <div className="pricing-lists p-2">
-            <Add_Address />
+            <AddAddress />
           </div>
         </div>
         <Footer />

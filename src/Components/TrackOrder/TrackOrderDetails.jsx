@@ -296,7 +296,6 @@ const TrackOrderDetails = () => {
             />
           </div> */}
         </div>
-{console.log("dhfhsdfghjasgdhjgasjdhgsjhfgj",orderDetail.orderStatus, orderDetail)}
         {(!orderDetail.comment && orderDetail.orderStatus === 3) ? (
 
 

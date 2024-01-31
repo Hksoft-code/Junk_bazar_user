@@ -5,7 +5,7 @@ import { addAddrress } from "../../Services/pickupRequest";
 import showErrorMessage from "../../utils/ErrorAlert";
 import showSuccessMessage from "../../utils/SweetAlert";
 
-const Add_Address_form = () => {
+const AddAddressForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -84,7 +84,7 @@ const Add_Address_form = () => {
       );
       console.log("Add Address Response", addressRepo);
       showSuccessMessage("Add Address Successfully", "success");
-      const addresData = addressRepo.dat;
+      // const addresData = addressRepo.dat;
       setSeed(Math.random());
       setSelectedCountry("");
       setSelectedState("");
@@ -284,4 +284,4 @@ const Add_Address_form = () => {
   );
 };
 
-export default Add_Address_form;
+export default AddAddressForm;

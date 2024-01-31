@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllAddress } from "../../Services/pickupRequest";
-import Add_Address_form from "./Add_Address_Form";
+import AddAddressForm from "./AddAddressForm";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const ChangeAddress = () => {
@@ -109,7 +109,7 @@ const ChangeAddress = () => {
             </span>
           </summary>
 
-          <Add_Address_form />
+          <AddAddressForm />
         </details>
         {addres?.map((item, i) => (
           <div class=" border-l-8 border-[#3CB043] flex p-3 gap-3 mt-5 bg-white shadow-xl  rounded-xl overflow-hidden items-center justify-start">
@@ -139,7 +139,7 @@ const ChangeAddress = () => {
           onClick={handlePickup}
           class="cursor-pointer mt-20 w-full shadow-md text-center inline-block px-12 bg-[#3CB043] py-3 text-sm font-medium text-white  focus:outline-none focus:ring rounded-3xl"
         >
-          DELIVER HERE
+          PICKUP FROM HERE
         </div>
       </div>
     </>
