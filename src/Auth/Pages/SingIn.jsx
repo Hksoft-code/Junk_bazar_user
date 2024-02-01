@@ -112,16 +112,7 @@ const SignIn = () => {
                       handleChange={() => setChecked((prevState) => !prevState)}
                     />
                     By creating an account, I agree to our{" "}
-                    <span
-                      className="underline cursor-pointer"
-                      onClick={() => {
-                        navigate("/terms-condition", {
-                          state: {
-                            from_page: "signIn",
-                          },
-                        });
-                      }}
-                    >
+                    <span className="underline cursor-pointer">
                       Terms of use
                     </span>{" "}
                     and{" "}
