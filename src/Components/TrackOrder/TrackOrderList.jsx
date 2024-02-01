@@ -10,7 +10,17 @@ const OrdersRespEnum = {
   2: "Vendor On the Way",
   3: "Vendor Arrived",
   4: "Vendor Picked The Scrap",
-  5: "Vendor rejected Your Order",
+  5: "Order rejected",
+};
+const OrdersEnum = {
+  ACCEPTED: 1,
+  ARRVIED: 3,
+  ASSIGN_TO_ADMIN: 6,
+  ON_THE_WAY: 2,
+  PENDING: 0,
+  REASSIGNED_TO_VENDOR: 7,
+  REJECTED: 5,
+  SCRAP_PICKED: 4,
 };
 
 const TrackOrderList = () => {
@@ -69,6 +79,7 @@ const TrackOrderList = () => {
       },
     });
   };
+  console.log("order?.orderStatus", orderList);
 
   return (
     <div className="w-full mt-32 flex justify-center items-center lg:max-w-[1100px] mx-auto">
@@ -86,17 +97,38 @@ const TrackOrderList = () => {
                 <div class="px-4 py-6 sm:px-8 sm:py-10">
                   <div class="flow-root">
                     <ul class="-my-8">
-                      <div class="flex flex-col items-start justify-start gap-5 mt-6 md:flex-row">
+                      <div class="flex flex-col items-center justify-start gap-5 mt-6 md:flex-row">
                         <p class="text-sm font-semibold text-slate-500">
                           {" "}
                           Order ID - {order?.orderId}
                         </p>
 
                         <div class="sm:order-1">
-                          <span className="font-bold text-[10px] max-er:text-[12px] md:text-[9px] bg-[#81D742] mb-5 rounded-lg text-black p-2">
+                          <span
+                            className={`${
+                              OrdersEnum.REJECTED == order?.orderStatus
+                                ? "bg-red-500"
+                                : "bg-[#81D742]"
+                            } font-bold text-[10px] max-er:text-[12px] md:text-[12px] mb-5 rounded-lg text-white p-3`}
+                          >
                             {OrdersRespEnum[order?.orderStatus]}
                           </span>
                         </div>
+                      </div>
+                      <div
+                        className={`${
+                          OrdersEnum.REJECTED == order?.orderStatus
+                            ? "block"
+                            : "hidden"
+                        } mt-3 flex flex-row items-center gap-2`}
+                      >
+                        <p className="text-[15px]">Rejection Reason: </p>
+                        <p className="text-red-500 text-[15px] font-bold">
+                          {" "}
+                          {order?.rejectionReason
+                            ? order?.rejectionReason
+                            : "NA"}
+                        </p>
                       </div>
 
                       {order.items.map((scrapInfo, index) => (

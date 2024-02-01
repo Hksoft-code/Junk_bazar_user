@@ -75,16 +75,16 @@ const AddAddress = () => {
   };
   const AdAddress = async () => {
     const payload = {
-      fullName: selectAddress.fullName,
+      fullName: selectAddress?.fullName?selectAddress?.fullName:"",
       scrapId: passData.scrapId,
-      stateCode: selectAddress.stateCode,
-      countryCode: selectAddress.countryCode,
-      addressId: selectAddress.addressId, // addressId
-      pincode: selectAddress.pincode,
-      dialCode: selectAddress.dialCode,
-      phoneNumber: selectAddress.phoneNumber,
-      address: selectAddress.address,
-      city: selectAddress.city,
+      stateCode: selectAddress?.stateCode?selectAddress.stateCode:"",
+      countryCode: selectAddress?.countryCode?selectAddress?.countryCode:"",
+      addressId: selectAddress?.addressId?selectAddress?.addressId:"", // addressId
+      pincode: selectAddress?.pincode?selectAddress?.pincode:"",
+      dialCode: selectAddress?.dialCode?selectAddress?.dialCode:"",
+      phoneNumber: selectAddress?.phoneNumber?selectAddress?.phoneNumber:"",
+      address: selectAddress?.address?selectAddress?.address:"",
+      city: selectAddress?.city?selectAddress?.city:"",
       addToCartId: passData.addToCartId,
       scraplist: passData.scrapList,
     };
