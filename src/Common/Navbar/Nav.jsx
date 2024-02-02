@@ -1,32 +1,28 @@
-/* eslint-disable react/prop-types */
 import junk_logo from "../../assets/PNG/junk bazar logo 1.png";
 import cart from "../../assets/SVG/solar_cart-plus-bold.svg";
 import menu from "../../assets/SVG/jam_menu.svg";
 import close from "../../assets/SVG/mobile-icon/close.svg";
 import home from "../../assets/SVG/mobile-icon/home.svg";
 import about from "../../assets/SVG/mobile-icon/about.svg";
-// import contact from "../../assets/SVG/mobile-icon/contact.svg";
 import price from "../../assets/SVG/mobile-icon/price.svg";
 import carts from "../../assets/SVG/mobile-icon/cart.svg";
 import faq from "../../assets/SVG/mobile-icon/faq.svg";
 import sign_in from "../../assets/SVG/mobile-icon/sign-in.svg";
-import sign_up from "../../assets/SVG/mobile-icon/sign-up.svg";
 import logout from "../../assets/SVG/mobile-icon/logout.svg";
 import track from "../../assets/PNG/track.png";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 
 import { TfiHeadphoneAlt } from "react-icons/tfi";
-
+import {logOut} from "../../Services/user"
+import showSuccessMessage from "../../utils/SweetAlert"
 const Nav = () => {
   const token = localStorage.getItem("token");
   const [mobileNav, setMobileNav] = useState(false);
   const [show, handleShow] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
@@ -42,58 +38,44 @@ const Nav = () => {
       window.removeEventListener("scroll", () => {});
     };
   }, []);
-  let cardquantityValue = "";
   const[cardQuantityValue,setCardQuantityValue]=useState("");
   useEffect(() => {
-    // console.log("hello nav bar",localStorage.getItem("totalScrapCount"))
     if (localStorage.getItem("totalScrapCount")) {
-      // console.log("if")
       setCardQuantityValue(localStorage.getItem("totalScrapCount").toString());
     } else {
-      // console.log("else block")
-      cardquantityValue = "";
       setCardQuantityValue("")
 
     }
   }, []);
-// console.log("cardquantityValue",cardquantityValue)
   useParams();
 
-  const handleLogout = () => {
-    // console.log("logout click");
-    localStorage.clear();
-    // navigate("/sign-in", { replace: true })
-    setOpen(false);
-    navigate("/");
+  const handleLogout = async () => {    
+    try {
+    const response = await logOut()
+      localStorage.clear();
+      setOpen(false);
+      navigate("/");
+      showSuccessMessage(response.message, "success");
+    } catch (error) {
+      console.error("error", error);
+      const errorMessage = !error.response.data.error.message
+        ? error.response.data.error?._message
+        : error.response.data.error.message;
+
+      showSuccessMessage(errorMessage, "error");
+    }
   };
 
-  const handleTrack = () => {
-    setOpen(false);
-    navigate("/trackOrder", { replace: true });
-  };
-
-  const handleProfile = () => {
-    setOpen(false);
-    navigate("/profile");
-  };
-
+ 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const cartQuantity = queryParams.get("items");
-  // console.log("cartQuantity", cartQuantity);
-  // console.log("localStorage.getItem", localStorage.getItem("totalScrapCount"));
-
+  
   const isActive = (path) => {
     // Check if the current path matches the link path
     return location.pathname === path;
   };
-  // const handleTrackOut = () => {
-  //     console.log("trackorder click")
-  //     navigate("/TrackOrder", { replace: true })
-  // }
-
-  // const readCartQuantity = useSelector((state) => state.totalQuantity);
-
+ 
   return (
     <nav>
       <div>
