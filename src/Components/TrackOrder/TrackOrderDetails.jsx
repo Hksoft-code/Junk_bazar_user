@@ -296,7 +296,7 @@ const TrackOrderDetails = () => {
             />
           </div> */}
         </div>
-        {(!orderDetail.comment && orderDetail.orderStatus === 3) ? (
+        {(!orderDetail.comment && orderDetail.orderStatus === 4) ? (
 
 
 
