@@ -42,11 +42,6 @@ const ChangeAddress = () => {
     setSelectAddress(item);
   };
   
-  console.log("selected Adddress ", selectAddress);
-
-// console.log('====================================');
-// console.log("setNewOnchangeItem",newOnchangeItem);
-// console.log('====================================');
   const handlePickup = async () => {
     console.log("pickup payload", newOnchangeItem);
     const scraplist = passData?.scraplist;

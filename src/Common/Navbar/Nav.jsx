@@ -143,7 +143,7 @@ const Nav = () => {
                     alt="cart-img"
                     className="w-10 cursor-pointer relative"
                   />
-                  <div className="absolute top-[30px] ml-[30px] bg-black w-[20px] h-[20px] flex justify-center items-center rounded-full text-white font-extrabold">
+                  <div className="absolute top-[30px] ml-[30px] h-[20px] flex justify-center items-center rounded-full text-red-500 font-extrabold">
                     {cartQuantity
                       ? cartQuantity
                       : cardQuantityValue

@@ -49,7 +49,7 @@ const PriceCardComponent = () => {
   };
   async function fetchData(page, name) {
     try {
-      if(name==""){
+      if(name===""){
         setLoading(true);
       }
       const response = await axiosInstance.get("/getScrap", {
@@ -104,13 +104,13 @@ const PriceCardComponent = () => {
       const { statusCode } = response.data;
 
       if (statusCode === 200) {
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: false,
-          timer: 2000,
-          title: "Add To Cart Successful",
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   position: "center",
+        //   showConfirmButton: false,
+        //   timer: 2000,
+        //   title: "Add To Cart Successful",
+        // });
         dispatch(addToCart(scrapId));
         fetchDataForCartList(0);
       }

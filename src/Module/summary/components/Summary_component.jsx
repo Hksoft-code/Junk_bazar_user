@@ -52,6 +52,7 @@ const Summary_component = () => {
       );
 
       if (resp.statusCode === 200) {
+        localStorage.removeItem("totalScrapCount");
         navigate("/Success-page", {
           replace: true,
         });
