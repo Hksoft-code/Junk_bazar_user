@@ -1,6 +1,6 @@
-import junk_bazar from "../../assets/PNG/junk bazar logo2 1.png";
+import junk_logo from "../../assets/PNG/junk bazar logo 1.png";
+
 import google from "../../assets/SVG/Google play.svg";
-import apple from "../../assets/SVG/Apple store.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -11,25 +11,10 @@ const Footer = () => {
           <section className="">
             <div className="">
               <img
-                src={junk_bazar}
+                src={junk_logo}
                 alt="junzbazar-logo"
                 className="w-40 my-5"
               />
-              {/* <div className="hidden md:flex flex-row">
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Newsletter"
-                  className="py-2 rounded-tl-full rounded-bl-full bg-white text-black px-3"
-                />
-                <button
-                  onClick={() => { }}
-                  className="bg-lime-500 rounded-tr-full rounded-br-full py-[0.6rem] px-2 text-sm text-white"
-                >
-                  Subscribe
-                </button>
-              </div> */}
             </div>
           </section>
           <section>
@@ -37,7 +22,7 @@ const Footer = () => {
               <h1 className="lg:text-center font-bold tracking-widest">
                 Quicklinks
               </h1>
-              <ul className="underline lg:flex flex-col justify-center items-center leading-loose">
+              <ul className="no-underline lg:flex flex-col justify-center items-center leading-loose">
                 <li>
                   <Link to="/">Home</Link>
                 </li>
@@ -47,25 +32,22 @@ const Footer = () => {
                 <li>
                   <Link to="/contact-us">Contact US</Link>
                 </li>
-                <li className="cursor-pointer">Price List</li>
+                <Link to="/pricing">Price List</Link>
               </ul>
             </div>
           </section>
           <section>
             <div className="mt-5 lg:mt-0">
               <h1 className="font-bold tracking-widest">Company</h1>
-              <ul className="underline leading-loose">
+              <ul className="no-underline leading-loose">
                 <li>
-                  <Link to="/support">Support</Link>
+                  <Link to="#">Support</Link>
                 </li>
                 <li>
-                  <Link to="/terms-and-conditions">Terms and Conditions</Link>
+                  <Link to="/terms-condition">Terms and Conditions</Link>
                 </li>
                 <li>
-                  <Link to="/support">Support</Link>
-                </li>
-                <li>
-                  <Link to="/privacy-policy">Privacy Policy</Link>
+                  <Link to="#">Privacy Policy</Link>
                 </li>
               </ul>
             </div>
@@ -74,21 +56,21 @@ const Footer = () => {
           <section>
             <div className="mt-5 lg:mt-0">
               <h1 className="font-bold tracking-widest">Reach Us</h1>
-              <ul className="underline leading-loose">
+              <ul className="no-underline leading-loose">
                 <li>
-                  <a href="tel:+913496933405">+91 97097 09248</a>
+                  <Link  to="tel:+91 97097 09248">+91 97097 09248</Link>
                 </li>
                 <li>
-                  <a href="mailto:info@junkBazar.com">info@junkBazar.com</a>
+                  <Link  to="mailto:info@junkBazar.com">info@junkBazar.com</Link>
                 </li>
                 <li>
-                  <a
-                    href="https://www.google.com/maps/place/12+Dariyapur+Ahmedabad"
+                  <Link 
+                    to="https://maps.app.goo.gl/reA58BrXWAxRkBaH7"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Kankarbagh Main Rd, Kumhar Toli, Ghrounda, Patna, Bihar 800020
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -124,12 +106,9 @@ const Footer = () => {
             &copy;2023 JunkBazar. All rights reserved. Powered by Kjxsoftech
           </p>
           <div className="flex justify-between items-center">
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+            <Link to="https://play.google.com/store/apps/details?id=com.junkbazar.com" target="_blank" rel="noopener noreferrer">
               <img src={google} alt="google-img" className="w-36" />
-            </a>
-            {/* <a href="https://www.apple.com" target="_blank" rel="noopener noreferrer">
-              <img src={apple} alt="apple-img" className="w-36 ml-3" />
-            </a> */}
+            </Link>
           </div>
 
         </div>

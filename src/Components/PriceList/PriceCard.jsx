@@ -172,9 +172,9 @@ const PriceCardComponent = () => {
       >
         <div className="relative mx-2 sm:mx-3 mt-2 sm:mt-3 flex h-36 sm:h-60 px-3 rounded-xl w-full">
           <img className="w-full rounded-xl" src={item?.docUrl} alt="product" />
-          <span className="absolute -top-3 left-0 m-3 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+          {/* <span className="absolute -top-3 left-0 m-3 rounded-full bg-black px-2 text-center text-sm font-medium text-white">
             39% OFF
-          </span>
+          </span> */}
         </div>
         <div className="mt-1 sm:mt-4 px-3 sm:px-5 pb-3 sm:pb-5  w-full">
           <div className="opacity-80 text-[20px] min-xxl:text-[25px] font-['Gilroy-SemiBold'] text-[#4a4a4a] ">

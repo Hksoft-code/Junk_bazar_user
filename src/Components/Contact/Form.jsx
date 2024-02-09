@@ -22,7 +22,7 @@ const Form = () => {
     const { fullName, phoneNumber, pincode, address, message } = formData;
     const whatsappMessage = `Hi, I would like to inquire:\n\nFull Name: ${fullName}\nPhone Number: ${phoneNumber}\nPincode: ${pincode}\nAddress: ${address}\nMessage: ${message}`;
     
-    const whatsappLink = `https://wa.me/+916374380946?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappLink = `https://wa.me/+919709709248?text=${encodeURIComponent(whatsappMessage)}`;
     
     window.open(whatsappLink, '_blank');
   };

@@ -22,7 +22,7 @@ const Contactus = () => {
           </h1>
           <p className="text-lg font-medium text-center text-gray-600">
             You can reach us via a phone call: <br />
-            91 9709709248
+            +91 9709709248
           </p>
         </div>
         <div className="flex justify-center items-center flex-col w-full md:w-1/3 p-4">
@@ -31,8 +31,8 @@ const Contactus = () => {
             Visit Us
           </h1>
           <p className="text-lg font-medium text-center text-gray-600">
-            234, Knight St Cedar Lake, <br />
-            Groove Estate, Mumbai, India
+           Kankarbagh Main Rd, Kumhar Toli,  <br />
+           Ghrounda, Patna, Bihar India 800020
           </p>
         </div>
       </div>

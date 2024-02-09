@@ -5,6 +5,7 @@ import user from "../../assets/SVG/User Icon.svg";
 import phone from "../../assets/PNG/APP 1.png";
 import phone_2 from "../../assets/PNG/APP 2.png";
 import { Link } from "react-router-dom";
+// href="https://play.google.com/store/apps/details?id=com.whatsapp&hl=en&gl=US"
 
 const Results = () => {
   return (
@@ -59,14 +60,14 @@ const Results = () => {
               </p>
             </div>
             <div className="flex items-center mt-4">
-              <a
-                href="https://play.google.com/store/apps/details?id=com.whatsapp&hl=en&gl=US"
+              <Link
+                to="#"
                 className="text-center text-white text-base font-semibold tracking-tight bg-transparent border-white border-2 hover:bg-white hover:text-lime-500 duration-200 flex items-center justify-center shadow-inner rounded-full mt-5 cursor-pointer px-4 py-[.40rem]"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Click here to download
-              </a>
+              </Link>
             </div>
           </div>
 
