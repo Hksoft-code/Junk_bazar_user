@@ -125,13 +125,13 @@ const CartList = () => {
 
       if (data.statusCode === 200) {
         fetchData(); // Refresh the data after updating quantity
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: false,
-          timer: 1500,
-          title: "Quantity updated Successfully",
-        });
+        // Swal.fire({
+        //   icon: "success",
+        //   position: "center",
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   title: "Quantity updated Successfully",
+        // });
       }
     } catch (error) {
       console.error("Error updating scrap quantity:", error);

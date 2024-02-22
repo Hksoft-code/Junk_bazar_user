@@ -107,14 +107,14 @@ const SmallOtpVerify = () => {
               </span>
               <span
                 onClick={handleResend}
-                className="cursor-pointer  underline text-[#5ab344]"
+                className="cursor-pointer  text-[#5ab344]"
               >
                 RESEND CODE
               </span>
             </div>
           </section>
           <footer class="p-4">
-            <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+            {/* <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
               <p className="text-[14px] text-[#666666] font-semibold mt-10 mb-5">
                 <Input
                   type="checkbox"
@@ -149,7 +149,7 @@ const SmallOtpVerify = () => {
                   Privacy Policy{" "}
                 </span>
               </p>
-            </div>
+            </div> */}
             <Button
               label="Continue"
               classname="mt-4 font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
@@ -166,7 +166,7 @@ const SmallOtpVerify = () => {
                     replace: true,
                   })
                 }
-                className="[text-decoration:underline]"
+                className="font-semibold cursor-pointer none hover:text-[#5AB344]"
               >
                 {"Log in  "}
               </span>

@@ -62,7 +62,7 @@ const SmallSignIn = () => {
           </div>
 
           <footer class="p-4">
-            <div className="flex flex-row items-start mt-14 justify-start py-2 pr-2 pl-0 gap-[8px]">
+            {/* <div className="flex flex-row items-start mt-14 justify-start py-2 pr-2 pl-0 gap-[8px]">
               <Input
                 type="checkbox"
                 classname="w-[18px] h-[18px] bg-[#5AB344]  mr-2 translate-y-1 cursor-pointer"
@@ -97,12 +97,21 @@ const SmallSignIn = () => {
                   Privacy Policy{" "}
                 </span>
               </p>
-            </div>
+            </div> */}
             <Button
               label="Continue"
               classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
               handleClick={SignInService}
             />
+            <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">
+                  Don't have an account?{" "}
+                  <span
+                    onClick={() => navigate("/sign-up")}
+                    className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer"
+                  >
+                    Sign Up
+                  </span>
+                </p>
           </footer>
         </form>
       </div>

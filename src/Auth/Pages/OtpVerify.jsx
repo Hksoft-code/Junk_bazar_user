@@ -12,7 +12,7 @@ import showErrorMessage from "../../utils/ErrorAlert.jsx";
 import "../style.css/auth.css";
 
 const OtpVerify = () => {
-  const [checked, setChecked] = React.useState(false);
+  // const [checked, setChecked] = React.useState(false);
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,10 +20,10 @@ const OtpVerify = () => {
 
   const otpVerify = async () => {
     try {
-      if (!checked) {
-        showErrorMessage("Select Term And Condition", "error");
-        return;
-      }
+      // if (!checked) {
+      //   showErrorMessage("Select Term And Condition", "error");
+      //   return;
+      // }
       const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
       const userResp = JSON.parse(otpVerifyResp.data);
       // console.log("userResp", otpVerifyResp);
@@ -91,11 +91,11 @@ const OtpVerify = () => {
               <header class="">
                 <div className="flex flex-col gap-3  items-start">
                   <div className="text-3xl font-['Gilroy-ExtraBold'] text-[#333333]">
-                    Login
+                     Sign In now
                   </div>
-                  <div className="text-2xl text-[#707070]">
-                    Login into your account
-                  </div>
+                  {/* <div className="text-2xl text-[#707070]">
+                  Please Enter OTP 
+                  </div> */}
                 </div>
               </header>
               <section className="">
@@ -133,7 +133,7 @@ const OtpVerify = () => {
                   </span>
                   <span
                     onClick={handleResend}
-                    className="cursor-pointer  underline text-[#5ab344]"
+                    className="cursor-pointer  text-[#5ab344]"
                   >
                     RESEND CODE
                   </span>
@@ -141,7 +141,7 @@ const OtpVerify = () => {
                 <div className="mt-20"></div>
               </section>
               <footer class="p-4">
-                <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+                {/* <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
                   <p className="text-[14px] text-[#666666] font-semibold  mb-1">
                     <Input
                       type="checkbox"
@@ -177,7 +177,7 @@ const OtpVerify = () => {
                       Privacy Policy{" "}
                     </span>
                   </p>
-                </div>
+                </div> */}
                 <Button
                   label="Continue"
                   classname="cursor-pointer font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"

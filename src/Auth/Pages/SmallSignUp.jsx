@@ -5,24 +5,25 @@ import Button from "../../Components/auth/Button";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../api-config/axiosInstance";
 import Swal from "sweetalert2";
+import Input from "../../Components/auth/Input.jsx";
 
 const SmallSignUp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
 
-  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
-
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    const phoneRegex = /^\d{10}$/;
-    const isValid = phoneRegex.test(value);
-
-    // console.log("isValid", isValid);
-    setPhoneNumber(value);
-    setIsValidPhoneNumber(isValid);
-  };
+ 
   const signUpService = async () => {
+    console.log("checked",checked);
+    if(!checked){
+     return Swal.fire({
+        icon: "error",
+        position: "center",
+        showConfirmButton: false,
+        timer: 2500,
+        title: "Select Term And Condition",
+      });
+    }
     // console.log("phone number ", phoneNumber.slice(3, 13));
     const mobile = phoneNumber.slice(3, 13);
     const payload = {
@@ -96,13 +97,30 @@ const SmallSignUp = () => {
           </div>
 
           <div className="mt-20">
+          <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+                <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
+                  <Input
+                    type="checkbox"
+                    classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+                    value={checked}
+                    checked={checked}
+                    handleChange={() => setChecked((prevState) => !prevState)}
+                  />
+                  By creating an account, I agree to our{" "}
+                  <span className="underline cursor-pointer">Terms of use</span>{" "}
+                  and{" "}
+                  <span className="underline cursor-pointer">
+                    Privacy Policy{" "}
+                  </span>
+                </p>
+              </div>
             <Button
               label="Continue"
               classname="h-[40px]  font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none  hover:opacity-80"
               handleClick={signUpService}
             />
             <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">
-              Don't have an account?{" "}
+            Already have an account?{" "}
               <span
                 onClick={() => navigate("/sign-in")}
                 className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer"
