@@ -45,11 +45,11 @@ const ChangeAddress = () => {
   };
 
   const handlePickup = async () => {
-    // if (!selected) {
-    //   toast.success("Please Select Address", {
-    //     autoClose: 2000, // Adjust the duration in milliseconds
-    //   });
-    // }
+    if (!selected) {
+      toast.success("Please Select Address", {
+        autoClose: 3000, // Adjust the duration in milliseconds
+      });
+    }
     console.log("pickup payload", newOnchangeItem);
     const scraplist = passData?.scraplist;
     const payload = {
@@ -145,6 +145,7 @@ const ChangeAddress = () => {
         >
           PICKUP FROM HERE
         </div>
+        <ToastContainer />
       </div>
     </>
   );
