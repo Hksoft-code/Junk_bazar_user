@@ -49,7 +49,7 @@ const PriceCardComponent = () => {
   };
   async function fetchData(page, name) {
     try {
-      if(name===""){
+      if (name === "") {
         setLoading(true);
       }
       const response = await axiosInstance.get("/getScrap", {
@@ -191,22 +191,52 @@ const PriceCardComponent = () => {
             </p>
           </div>
           <div className="flex flex-row items-center gap-2 ">
-            <div
-              onClick={() => handleAddToCard(item?.scrapId)}
-              className="w-full cursor-pointer flex items-center justify-center rounded-full bg-[#3CB043] px-0 sm:px-2 md:px-3 lg:px-5 h-8 min-xl:h-9 text-center text-sm min-md:text-[11px] min-xl:text-sm font-medium text-white hover:bg-[#5AB344] focus:outline-none focus:ring-4 focus:ring-blue-300 truncate"
-            >
+            <div>
               {isItemInCart(item?.scrapId.toString()) ? (
-                <div className="flex gap-1 items-center">
-                  <div className="">{<CartIcon />}</div>
-                  <p className="hidden sm:block">Added to cart</p>
-                </div>
+                <div
+                  onClick={() => handleAddToCard(item?.scrapId)}
+                  className="w-full bg-amber-500 cursor-pointer flex items-center justify-center rounded-full  px-0 sm:px-2 md:px-3 lg:px-5 h-8 min-xl:h-9 text-center text-sm min-md:text-[11px] min-xl:text-sm font-medium text-white hover:bg-[#5AB344] focus:outline-none focus:ring-4 focus:ring-blue-300 truncate"
+                >
+                  <div className="flex gap-1  items-center">
+                    <div className="">{<CartIcon />}</div>
+                    <p className="hidden sm:block">Added to cart</p>
+                  </div>
+                  {/* {isItemInCart(item?.scrapId.toString()) ? (
+                <div className="flex gap-1  items-center">
+                <div className="">{<CartIcon />}</div>
+                <p className="hidden sm:block">Added to cart</p>
+              </div>
               ) : (
                 <div className="flex flex-row">
                   <div className="block sm:hidden">{<CartIcon />}</div>
                   <p className="hidden sm:block">Add to Cart</p>
                 </div>
+              )} */}
+                </div>
+              ) : (
+                <div
+                  onClick={() => handleAddToCard(item?.scrapId)}
+                  className="w-full bg-[#5AB344] cursor-pointer flex items-center justify-center rounded-full  px-0 sm:px-2 md:px-3 lg:px-5 h-8 min-xl:h-9 text-center text-sm min-md:text-[11px] min-xl:text-sm font-medium text-white hover:bg-[#5AB344] focus:outline-none focus:ring-4 focus:ring-blue-300 truncate"
+                >
+                  <div className="flex flex-row">
+                    <div className="block sm:hidden">{<CartIcon />}</div>
+                    <p className="hidden sm:block">Add to Cart</p>
+                  </div>
+                  {/* {isItemInCart(item?.scrapId.toString()) ? (
+              <div className="flex gap-1  items-center">
+              <div className="">{<CartIcon />}</div>
+              <p className="hidden sm:block">Added to cart</p>
+            </div>
+            ) : (
+              <div className="flex flex-row">
+                <div className="block sm:hidden">{<CartIcon />}</div>
+                <p className="hidden sm:block">Add to Cart</p>
+              </div>
+            )} */}
+                </div>
               )}
             </div>
+
             <div className="flex items-center flex-nowrap ">
               <input
                 type="number"
@@ -242,11 +272,13 @@ const PriceCardComponent = () => {
         <div className="w-[97%] sm:w-[95%] lg:w-[92%] flex flex-col">
           <div className="flex flex-col sm:flex-row  justify-center items-center mt-0 sm:mt-10 mb-4 sm:mb-0">
             <div class="text-center">
-              <h1 class="font-bold text-[25px] sm:text-4xl sm:mb-4">Rates Of JunkBazar Scraps</h1>
+              <h1 class="font-bold text-[25px] sm:text-4xl sm:mb-4">
+                Rates Of JunkBazar Scraps
+              </h1>
             </div>
           </div>
           <div className="flex justify-center sm:justify-end mb-8 sm:mb-10">
-          <div className="flex items-center h-12 p-2 border  w-[250px] min-md:w-[350px] rounded-md bg-[#80d7421c]">
+            <div className="flex items-center h-12 p-2 border  w-[250px] min-md:w-[350px] rounded-md bg-[#80d7421c]">
               <input
                 onChange={(e) => {
                   filetrOrderBySearch(e);

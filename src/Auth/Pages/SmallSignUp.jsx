@@ -12,17 +12,9 @@ const SmallSignUp = () => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
 
- 
   const signUpService = async () => {
-    console.log("checked",checked);
-    if(!checked){
-     return Swal.fire({
-        icon: "error",
-        position: "center",
-        showConfirmButton: false,
-        timer: 2500,
-        title: "Select Term And Condition",
-      });
+    console.log("checked", checked);
+    if (!checked) {
     }
     // console.log("phone number ", phoneNumber.slice(3, 13));
     const mobile = phoneNumber.slice(3, 13);
@@ -36,13 +28,6 @@ const SmallSignUp = () => {
       const dataObject = resp.data;
 
       if (dataObject.statusCode === 200) {
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: true,
-          timer: 2500,
-          title: dataObject.message,
-        });
         navigate("/otp-verify", {
           state: {
             mobile,
@@ -53,13 +38,6 @@ const SmallSignUp = () => {
       console.error("error", error);
 
       if (error.response) {
-        Swal.fire({
-          icon: "error",
-          position: "center",
-          showConfirmButton: false,
-          timer: 2500,
-          title: error.response.data.error._message,
-        });
       } else if (error.request) {
         // Client made a request but response is not received
         console.log("<<<<<<<Response Not Received>>>>>>>>");
@@ -97,30 +75,30 @@ const SmallSignUp = () => {
           </div>
 
           <div className="mt-20">
-          <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
-                <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
-                  <Input
-                    type="checkbox"
-                    classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
-                    value={checked}
-                    checked={checked}
-                    handleChange={() => setChecked((prevState) => !prevState)}
-                  />
-                  By creating an account, I agree to our{" "}
-                  <span className="underline cursor-pointer">Terms of use</span>{" "}
-                  and{" "}
-                  <span className="underline cursor-pointer">
-                    Privacy Policy{" "}
-                  </span>
-                </p>
-              </div>
+            <div className="flex flex-row items-start justify-start py-2 pr-2 pl-0 gap-[8px]">
+              <p className="text-[14px] text-[#666666] font-semibold mt-24 mb-5">
+                <Input
+                  type="checkbox"
+                  classname="w-[18px] h-[18px] bg-[#5AB344] mr-2 translate-y-1 cursor-pointer"
+                  value={checked}
+                  checked={checked}
+                  handleChange={() => setChecked((prevState) => !prevState)}
+                />
+                By creating an account, I agree to our{" "}
+                <span className="underline cursor-pointer">Terms of use</span>{" "}
+                and{" "}
+                <span className="underline cursor-pointer">
+                  Privacy Policy{" "}
+                </span>
+              </p>
+            </div>
             <Button
               label="Continue"
               classname="h-[40px]  font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none  hover:opacity-80"
               handleClick={signUpService}
             />
             <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">
-            Already have an account?{" "}
+              Already have an account?{" "}
               <span
                 onClick={() => navigate("/sign-in")}
                 className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer"

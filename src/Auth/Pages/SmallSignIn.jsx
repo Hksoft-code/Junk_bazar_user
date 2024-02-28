@@ -36,7 +36,6 @@ const SmallSignIn = () => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showErrorMessage(errorMessage, "error");
     }
   };
 
@@ -104,14 +103,14 @@ const SmallSignIn = () => {
               handleClick={SignInService}
             />
             <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">
-                  Don't have an account?{" "}
-                  <span
-                    onClick={() => navigate("/sign-up")}
-                    className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer"
-                  >
-                    Sign Up
-                  </span>
-                </p>
+              Don't have an account?{" "}
+              <span
+                onClick={() => navigate("/sign-up")}
+                className="text-[#81D742] hover:font-semibold hover:underline cursor-pointer"
+              >
+                Sign Up
+              </span>
+            </p>
           </footer>
         </form>
       </div>

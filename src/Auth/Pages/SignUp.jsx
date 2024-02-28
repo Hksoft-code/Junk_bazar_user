@@ -40,13 +40,6 @@ const SignUp = () => {
         const dataObject = resp.data;
 
         if (dataObject.statusCode === 200) {
-          Swal.fire({
-            icon: "success",
-            position: "center",
-            showConfirmButton: true,
-            timer: 2500,
-            title: dataObject.message,
-          });
           navigate("/otp-verify", {
             state: {
               mobile,
@@ -57,13 +50,6 @@ const SignUp = () => {
         console.error("error", error);
 
         if (error.response) {
-          Swal.fire({
-            icon: "error",
-            position: "center",
-            showConfirmButton: false,
-            timer: 2500,
-            title: error.response.data.error._message,
-          });
         } else if (error.request) {
           // Client made a request but response is not received
           console.log("<<<<<<<Response Not Received>>>>>>>>");
@@ -75,13 +61,6 @@ const SignUp = () => {
         // Error handling here
       }
     } else {
-      Swal.fire({
-        icon: "error",
-        position: "center",
-        showConfirmButton: false,
-        timer: 2500,
-        title: "Select Term And Condition",
-      });
     }
   };
 

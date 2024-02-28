@@ -84,7 +84,7 @@ const loginUser = async (dialCode, phoneNumber) => {
     // console.log("response from api", dataObject);
     const userResp = JSON.parse(dataObject.data);
     // console.log("userResp", userResp);
-    showSuccessMessage(dataObject.message, "success");
+    
     return userResp;
   } catch (error) {
     console.error("Error While Otp Verify", error);
@@ -93,10 +93,10 @@ const loginUser = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showSuccessMessage(errorMessage, "error");
+      
     } else {
       // Handle other types of errors
-      showSuccessMessage("An error occurred", "error");
+      
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
@@ -124,10 +124,10 @@ const signUpUser = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showSuccessMessage(errorMessage, "error");
+     
     } else {
       // Handle other types of errors
-      showSuccessMessage("An error occurred", "error");
+     
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
@@ -152,10 +152,10 @@ const resendOtpService = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showSuccessMessage(errorMessage, "error");
+      
     } else {
       // Handle other types of errors
-      showSuccessMessage("An error occurred", "error");
+      
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }

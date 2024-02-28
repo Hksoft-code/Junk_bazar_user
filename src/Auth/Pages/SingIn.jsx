@@ -8,26 +8,16 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import SmallSignIn from "./SmallSignIn.jsx";
 import { loginUser } from "../../Services/user.js";
-import showErrorMessage from "../../utils/ErrorAlert.jsx";
 import "../style.css/auth.css";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  // const [checked, setChecked] = React.useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-
   const SignInService = async () => {
-    // console.log("checked", checked);
     try {
-      // if (!checked) {
-      //   showErrorMessage("Select Term And Condition", "error");
-      //   return;
-      // }
-      // console.log("phone number ", phoneNumber.slice(3, 13));
       const mobile = phoneNumber.slice(3, 13);
       const dialCode = phoneNumber.slice(0, 3);
       const userResp = await loginUser(dialCode, mobile);
-      // console.log("user login from Service File", userResp);
       navigate("/otp-verify", {
         state: {
           mobile,
@@ -39,7 +29,6 @@ const SignIn = () => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showErrorMessage(errorMessage, "error");
     }
   };
 

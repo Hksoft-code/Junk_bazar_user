@@ -99,13 +99,6 @@ const AddressVerify = () => {
       const tokenParse = JSON.parse(dataObject.data);
 
       if (dataObject.statusCode === 200) {
-        Swal.fire({
-          icon: "success",
-          position: "center",
-          showConfirmButton: false,
-          timer: 2500,
-          title: dataObject.message,
-        });
         // console.log("token store ", localStorage.getItem("token"));
 
         navigate("/pricing", {
@@ -117,14 +110,6 @@ const AddressVerify = () => {
 
       if (error.response) {
         // status code out of the range of 2xx
-        Swal.fire({
-          icon: "error",
-          position: "center",
-          showConfirmButton: false,
-          timer: 2500,
-          title: error.response.data.error._message,
-        });
-
         // console.log("Status :" + error.response.status);
       } else if (error.request) {
         // The request was made but no response was received
@@ -233,7 +218,7 @@ const AddressVerify = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <div>
                     <label className="block py-3 text-black">
-                       Address<span className="text-red-500">*</span>
+                      Address<span className="text-red-500">*</span>
                     </label>
                     <div className="flex items-center p-2 border rounded-md bg-[#80d7421c]">
                       <input

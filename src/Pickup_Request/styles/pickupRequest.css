@@ -2,18 +2,15 @@
     width: 1.5em;
     height: 1.5em;
     background-color: white;
-    border-radius: 50%;
     vertical-align: middle;
-    border: 5px solid #3CB043;
-    appearance: none;
-    
+    border: 5px solid #0a0a0a;
+    appearance: none; 
     -webkit-appearance: none;
-    outline: none;
-    
+    outline: none; 
     cursor: pointer;
 }
 
 .checkbox-round:checked {
-    background-color: #032005;
+    background-color: #0a7711;
    
 }

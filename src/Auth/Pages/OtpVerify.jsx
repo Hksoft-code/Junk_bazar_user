@@ -12,33 +12,31 @@ import showErrorMessage from "../../utils/ErrorAlert.jsx";
 import "../style.css/auth.css";
 
 const OtpVerify = () => {
-  // const [checked, setChecked] = React.useState(false);
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log("phoneNumberObj", location.state);
 
   const otpVerify = async () => {
     try {
-      // if (!checked) {
-      //   showErrorMessage("Select Term And Condition", "error");
-      //   return;
-      // }
       const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
       const userResp = JSON.parse(otpVerifyResp.data);
-      // console.log("userResp", otpVerifyResp);
-      // console.log("otpVerifyResp from Service File", userResp);
-      // console.log("token", userResp.token);
+
       localStorage.setItem("token", userResp.token);
-      showSuccessMessage(otpVerifyResp.message, "success");
+
       navigate("/pricing", {});
     } catch (error) {
       console.error("Error", error);
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
+    }
+  };
 
-      showErrorMessage(errorMessage, "error");
+  const handleChange = (otpValue) => {
+    const regex = /^[0-9]+$/;
+
+    if (regex.test(otpValue)) {
+      setOtp(otpValue);
     }
   };
 
@@ -48,15 +46,13 @@ const OtpVerify = () => {
         location.state.dialCode,
         location.state.mobile
       );
-      showSuccessMessage(otpVerifyResp.message, "success");
+
       setOtp("");
     } catch (error) {
       console.error("Error", error);
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-
-      showErrorMessage(errorMessage, "error");
     }
   };
 
@@ -91,7 +87,7 @@ const OtpVerify = () => {
               <header class="">
                 <div className="flex flex-col gap-3  items-start">
                   <div className="text-3xl font-['Gilroy-ExtraBold'] text-[#333333]">
-                     Sign In now
+                    Sign In now
                   </div>
                   {/* <div className="text-2xl text-[#707070]">
                   Please Enter OTP 
@@ -103,6 +99,23 @@ const OtpVerify = () => {
                   Enter OTP
                 </p>
                 <div className=" p-2 max-w-sm">
+                  {/* <OTPInput
+                    inputStyle={{
+                      width: "3.5rem",
+                      background: "rgba(90,179,68,0.24)",
+                      height: "2.5rem",
+                      margin: "5px 5px",
+                      fontSize: "1rem",
+                      borderRadius: 4,
+                      border: "2px solid #5AB344",
+                    }}
+                    focusedBorderColor="#5ab344"
+                    value={otp}
+                    onChange={handleChange}
+                    numInputs={6} // or whatever your OTP length is
+                    renderSeparator={<span>-</span>}
+                    renderInput={(props) => <input {...props} />} // if you're using separator
+                  /> */}
                   <OTPInput
                     inputStyle={{
                       width: "3.5rem",
@@ -113,10 +126,9 @@ const OtpVerify = () => {
                       borderRadius: 4,
                       border: "2px solid #5AB344",
                     }}
-                    inputType="number"
                     focusedBorderColor="#5ab344"
                     value={otp}
-                    onChange={setOtp}
+                    onChange={handleChange}
                     numInputs={6}
                     renderSeparator={<span>-</span>}
                     renderInput={(props) => <input {...props} />}

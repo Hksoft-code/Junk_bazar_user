@@ -28,15 +28,13 @@ const SmallOtpVerify = () => {
       // console.log("otpVerifyResp from Service File", userResp);
       // console.log("token", userResp.token);
       localStorage.setItem("token", userResp.token);
-      showSuccessMessage(otpVerifyResp.message, "success");
+
       navigate("/pricing", {});
     } catch (error) {
       console.error("Error", error);
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-
-      showErrorMessage(errorMessage, "error");
     }
   };
 
@@ -46,15 +44,13 @@ const SmallOtpVerify = () => {
         location.state.dialCode,
         location.state.mobile
       );
-      showSuccessMessage(otpVerifyResp.message, "success");
+
       setOtp("");
     } catch (error) {
       console.error("Error", error);
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-
-      showErrorMessage(errorMessage, "error");
     }
   };
 

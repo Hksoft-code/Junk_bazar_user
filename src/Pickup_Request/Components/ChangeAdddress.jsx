@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import { getAllAddress } from "../../Services/pickupRequest";
 import AddAddressForm from "./AddAddressForm";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ChangeAddress = () => {
   const [addres, setAddress] = useState();
   const [selectAddress, setSelectAddress] = useState();
   const [Address, settedAddres] = useState();
-  const [newOnchangeItem ,setNewOnchangeItem] = useState()
+  const [newOnchangeItem, setNewOnchangeItem] = useState();
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
 
   const location = useLocation();
   const passData = location.state ? location.state.payload : null;
-  console.log("passdata is",passData)
+  console.log("passdata is", passData);
 
   useEffect(() => {
     getAddress();
@@ -34,15 +36,20 @@ const ChangeAddress = () => {
       // showErrorMessage(errorMessage, "error");
     }
   };
-  
+
   const onChange = (item) => {
-    setNewOnchangeItem(item)
+    setNewOnchangeItem(item);
     setSelected((prev) => (item === prev ? null : item));
     settedAddres(selectAddress);
     setSelectAddress(item);
   };
-  
+
   const handlePickup = async () => {
+    // if (!selected) {
+    //   toast.success("Please Select Address", {
+    //     autoClose: 2000, // Adjust the duration in milliseconds
+    //   });
+    // }
     console.log("pickup payload", newOnchangeItem);
     const scraplist = passData?.scraplist;
     const payload = {
@@ -59,7 +66,7 @@ const ChangeAddress = () => {
       addToCartId: passData?.addToCartId,
       scraplist: scraplist,
     };
-    console.log("payload",payload)
+    console.log("payload", payload);
     navigate("/summaryOrder", {
       state: {
         payload,

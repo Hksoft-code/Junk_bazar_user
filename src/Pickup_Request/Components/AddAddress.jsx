@@ -75,16 +75,16 @@ const AddAddress = () => {
   };
   const AdAddress = async () => {
     const payload = {
-      fullName: selectAddress?.fullName?selectAddress?.fullName:"",
+      fullName: selectAddress?.fullName ? selectAddress?.fullName : "",
       scrapId: passData.scrapId,
-      stateCode: selectAddress?.stateCode?selectAddress.stateCode:"",
-      countryCode: selectAddress?.countryCode?selectAddress?.countryCode:"",
-      addressId: selectAddress?.addressId?selectAddress?.addressId:"", // addressId
-      pincode: selectAddress?.pincode?selectAddress?.pincode:"",
-      dialCode: selectAddress?.dialCode?selectAddress?.dialCode:"",
-      phoneNumber: selectAddress?.phoneNumber?selectAddress?.phoneNumber:"",
-      address: selectAddress?.address?selectAddress?.address:"",
-      city: selectAddress?.city?selectAddress?.city:"",
+      stateCode: selectAddress?.stateCode ? selectAddress.stateCode : "",
+      countryCode: selectAddress?.countryCode ? selectAddress?.countryCode : "",
+      addressId: selectAddress?.addressId ? selectAddress?.addressId : "", // addressId
+      pincode: selectAddress?.pincode ? selectAddress?.pincode : "",
+      dialCode: selectAddress?.dialCode ? selectAddress?.dialCode : "",
+      phoneNumber: selectAddress?.phoneNumber ? selectAddress?.phoneNumber : "",
+      address: selectAddress?.address ? selectAddress?.address : "",
+      city: selectAddress?.city ? selectAddress?.city : "",
       addToCartId: passData.addToCartId,
       scraplist: passData.scrapList,
     };
@@ -145,13 +145,14 @@ const AddAddress = () => {
             >
               Add New Address
             </div>
-
-            <div
-              onClick={handlePickup}
-              className="cursor-pointer shadow-md   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
-            >
-              Pickup From this address
-            </div>
+            {selectAddress && (
+              <div
+                onClick={handlePickup}
+                className="cursor-pointer shadow-md   text-center inline-block px-12 py-3 text-sm font-medium text-white bg-[#3CB043] focus:outline-none focus:ring rounded-3xl"
+              >
+                Pickup From this address
+              </div>
+            )}
 
             <div
               onClick={onOpenModal}
