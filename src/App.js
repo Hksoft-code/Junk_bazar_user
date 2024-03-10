@@ -65,27 +65,42 @@ function App() {
     <div>
       <Loader show={loading} />
       <Routes>
-        <Route path="/" element={< Protected Component={Homepage} />} />
-        <Route path="/about" element={<Protected Component={AboutUs} />} />
-        <Route path="/contact-us" element={<Protected Component={ContactScreen} />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactScreen />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/terms-condition" element={<TermsCondition/>} />
-        <Route path="/request_pickup" element={<Protected Component={RequestPickup} />} />
+        <Route path="/terms-condition" element={<TermsCondition />} />
+        <Route
+          path="/request_pickup"
+          element={<Protected Component={RequestPickup} />}
+        />
         <Route path="/cart" element={<Protected Component={CardPage} />} />
-        <Route path="/pricing" element={<Protected Component={Pricing} />} />
+        <Route path="/pricing" element={<Pricing />} />
         <Route path="/upload-scrap" element={<UploadScrap />} />
         <Route path="/otp-verify" element={<OtpVerify />} />
-        <Route path="/Success-page" element={<Protected Component={OrderSuccessful} />} />
+        <Route
+          path="/Success-page"
+          element={<Protected Component={OrderSuccessful} />}
+        />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/addressVerify" element={<AddressVerify />} />
-        <Route path="/trackOrder" element={<Protected Component={TrackOrder} />} />
+        <Route
+          path="/trackOrder"
+          element={<Protected Component={TrackOrder} />}
+        />
         <Route path="/profile" element={<Protected Component={Profile} />} />
-        <Route path="/trackOrderDetails" element={<Protected Component={TrackOrderDetails} />} />
-        <Route path="/checkoutAddress" element={<Protected Component={CheckoutAdddress} />} />
+        <Route
+          path="/trackOrderDetails"
+          element={<Protected Component={TrackOrderDetails} />}
+        />
+        <Route
+          path="/checkoutAddress"
+          element={<Protected Component={CheckoutAdddress} />}
+        />
         <Route path="/unauthorized" element={<UnauthorizedAccessPage />} />
         <Route path="/addAddress" element={<ChangeAdddressPage />} />
-        <Route path="/summaryOrder" element={<Summary />}/>
+        <Route path="/summaryOrder" element={<Summary />} />
       </Routes>
     </div>
   );

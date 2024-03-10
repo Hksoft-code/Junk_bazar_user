@@ -91,15 +91,8 @@ const PriceCardComponent = () => {
       };
 
       const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        platform: "web",
-      };
 
-      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad, {
-        headers,
-      });
+      const response = await axiosInstance.post("/addToCart", AddScrapPayLoad);
 
       const { statusCode } = response.data;
 
@@ -136,7 +129,7 @@ const PriceCardComponent = () => {
   };
   useEffect(() => {
     fetchData(currentPage, "");
-    fetchDataForCartList(0);
+    // fetchDataForCartList(0);
   }, []);
   // console.log("cartItems", cartItems);
 
