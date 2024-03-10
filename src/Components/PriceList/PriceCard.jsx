@@ -129,7 +129,7 @@ const PriceCardComponent = () => {
   };
   useEffect(() => {
     fetchData(currentPage, "");
-    // fetchDataForCartList(0);
+    fetchDataForCartList(0);
   }, []);
   // console.log("cartItems", cartItems);
 
