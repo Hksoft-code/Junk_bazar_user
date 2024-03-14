@@ -103,7 +103,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row pb-1 justify-around items-center mt-3">
           <p className=" text-xl mt-4 text-white pb-5">
-            &copy;2023 JunkBazar. All rights reserved. Powered by Kjxsoftech
+            &copy;2023 JunkBazar. All rights reserved. Powered by Kjxsofttech
           </p>
           <div className="flex justify-between items-center">
             <Link to="https://play.google.com/store/apps/details?id=com.junkbazar.com" target="_blank" rel="noopener noreferrer">
