@@ -10,6 +10,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import SmallSignUp from "./SmallSignUp.jsx";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { signUpUser } from "../../Services/user.js";
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -34,11 +35,11 @@ const SignUp = () => {
         dialCode: "+91",
         phoneNumber: mobile,
       };
-
       try {
-        const resp = await axiosInstance.post("/register", payload);
-        const dataObject = resp.data;
-
+        // const resp = await axiosInstance.post("/register", payload);
+        const response = await signUpUser(payload);
+        console.log("resonse is>>>>>>>>>", response);
+        const dataObject = response.data;
         if (dataObject.statusCode === 200) {
           navigate("/otp-verify", {
             state: {
@@ -96,7 +97,6 @@ const SignUp = () => {
               <p className="mt-6  leading-8 text-gray-600 font-bold text-xl">
                 Sign up now
               </p>
-
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 Enter Phone number
               </p>
@@ -126,7 +126,6 @@ const SignUp = () => {
                             handleChange={handlePhoneNumberChange}
                         /> */}
               {/* </div> */}
-
               {/* {!isValidPhoneNumber && (
                             <p className="text-red-500 text-sm mt-1">Please enter a valid 10-digit phone number.</p>
                         )} */}
@@ -149,7 +148,9 @@ const SignUp = () => {
               </div>
               <Button
                 label="Continue"
-                classname="font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80"
+                classname={`${
+                  checked ? "cursor-pointer" : "cursor-not-allowed"
+                } font-semibold text-[19px] p-[2] text-center bg-[#5AB344] w-full text-white rounded-[27px] outline-none border-none h-[55px] hover:opacity-80`}
                 handleClick={signUpService}
               />
               <p className="text-[14px] text-[#4A4A4A] mt-2 text-center font-[400] cursor-pointer">

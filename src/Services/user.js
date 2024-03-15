@@ -1,4 +1,5 @@
 import axiosInstance from "../api-config/axiosInstance";
+import showErrorMessage from "../utils/ErrorAlert";
 import showSuccessMessage from "../utils/SweetAlert";
 
 const getCountriesDetails = async () => {
@@ -53,10 +54,10 @@ const otpVerifyService = async (phoneNumber, otp) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      showSuccessMessage(errorMessage, "error");
+      showErrorMessage(errorMessage, "error");
     } else {
       // Handle other types of errors
-      showSuccessMessage("An error occurred", "error");
+      showErrorMessage("An error occurred", "error");
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
@@ -84,7 +85,7 @@ const loginUser = async (dialCode, phoneNumber) => {
     // console.log("response from api", dataObject);
     const userResp = JSON.parse(dataObject.data);
     // console.log("userResp", userResp);
-    
+
     return userResp;
   } catch (error) {
     console.error("Error While Otp Verify", error);
@@ -93,21 +94,15 @@ const loginUser = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      
+      showErrorMessage(errorMessage, "error");
     } else {
       // Handle other types of errors
-      
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
 };
 
-const signUpUser = async (dialCode, phoneNumber) => {
-  const payload = {
-    dialCode,
-    phoneNumber,
-  };
-
+const signUpUser = async (payload) => {
   try {
     // console.log("payload", payload);
     const resp = await axiosInstance.post("/register", payload);
@@ -124,10 +119,9 @@ const signUpUser = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-     
+      showErrorMessage(errorMessage, "error");
     } else {
       // Handle other types of errors
-     
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
@@ -152,10 +146,9 @@ const resendOtpService = async (dialCode, phoneNumber) => {
       const errorMessage = !error.response.data.error.message
         ? error.response.data.error?._message
         : error.response.data.error.message;
-      
+      showErrorMessage(errorMessage, "error");
     } else {
       // Handle other types of errors
-      
     }
     throw error; // Rethrow the error to propagate it to the calling code
   }
