@@ -16,10 +16,10 @@ const SmallSignIn = () => {
   const SignInService = async () => {
     // console.log("checked", checked);
     try {
-      // if (!checked) {
-      //   showErrorMessage("Select Term And Condition", "error");
-      //   return;
-      // }
+      if (!checked) {
+        showErrorMessage("Select Terms And Condition", "error");
+        return;
+      }
       // console.log("phone number ", phoneNumber.slice(3, 13));
       const mobile = phoneNumber.slice(3, 13);
       const dialCode = phoneNumber.slice(0, 3);

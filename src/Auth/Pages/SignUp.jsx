@@ -38,9 +38,7 @@ const SignUp = () => {
       try {
         // const resp = await axiosInstance.post("/register", payload);
         const response = await signUpUser(payload);
-        console.log("resonse is>>>>>>>>>", response);
-        const dataObject = response.data;
-        if (dataObject.statusCode === 200) {
+        if (response) {
           navigate("/otp-verify", {
             state: {
               mobile,

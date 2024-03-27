@@ -129,7 +129,10 @@ const PriceCardComponent = () => {
   };
   useEffect(() => {
     fetchData(currentPage, "");
-    fetchDataForCartList(0);
+    const token = localStorage.getItem("token");
+    if(token){
+      fetchDataForCartList(0);
+    }
   }, []);
   // console.log("cartItems", cartItems);
 
