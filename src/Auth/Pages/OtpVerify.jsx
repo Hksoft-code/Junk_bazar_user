@@ -17,6 +17,10 @@ const OtpVerify = () => {
   const location = useLocation();
 
   const otpVerify = async () => {
+    if(otp?.length < 6) {
+      showErrorMessage("Please provide the 6 digits otp", "error");
+      return;
+    }
     try {
       const otpVerifyResp = await otpVerifyService(location.state.mobile, otp);
       const userResp = JSON.parse(otpVerifyResp.data);

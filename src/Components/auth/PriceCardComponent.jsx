@@ -15,6 +15,7 @@ import {
     addToCart, removeFromCart 
 } from "../../redux/user/userSlice";
 import {
+    useNavigate,
     useParams 
 } from "react-router-dom";
 
@@ -22,6 +23,7 @@ const PriceCardComponent = () => {
     const {
         id 
     } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const itemsInCart = useSelector((state) => state.cart);
     const singleItem = itemsInCart.filter((el) => el._id === id);
@@ -47,6 +49,11 @@ const PriceCardComponent = () => {
     }, []);
 
     const handleAddToCart = (item) => {
+        let token = localStorage.getItem("token");
+        if(!token){
+            navigate('/signin');
+            return;
+        }
         dispatch(addToCart(item));
         console.log(`Added to cart: ${item.name}`);
         console.log(`Added to cart: ${item}`);
